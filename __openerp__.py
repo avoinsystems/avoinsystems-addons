@@ -35,6 +35,9 @@ Make invoice reports look like Finnish standard invoices.
 """,
     "summary": "Sales, Reports",
     "data": [
+        'data/common.xml',
+        'report/report_layout.xml',
+        'report/report_layout_header.xml',
         'report/report_invoice.xml'
     ],
     "active": False,

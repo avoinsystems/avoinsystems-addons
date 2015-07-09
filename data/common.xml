@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Insert custom css -->
+        <template id="assets_backend" name="finnish-invoice assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/finnish-invoice/static/src/css/finnish-invoice.css"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>

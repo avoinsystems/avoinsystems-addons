@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <template id="report_layout_finnish">
+            <t t-name="finnish-invoice.external_layout_finnish">
+                <!-- Multicompany -->
+                <t t-if="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id"/>
+                </t>
+                <t t-if="not o or not 'company_id' in o">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+
+                <t t-call="finnish-invoice.report_layout_header_finnish"/>
+                <t t-raw="0"/>
+                <t t-call="report.external_layout_footer"/>
+            </t>
+        </template>
+    </data>
+</openerp>
