@@ -49,15 +49,23 @@
                         .small-row > div {
                           height: 2em;
                         }
+
+                        .invoice-info tr td:last-child {
+                            padding-left: 3em;
+                        }
+
+                        address span[itemprop=name] {
+                          font-weight: bold;
+                        }
                     </style>
                     <div class="padding-correction">
                         <div class="row">
-                            <div class="col-xs-7" style="margin-top: 2em;">
+                            <div class="col-xs-6 col-xs-offset-1" style="margin-top: 5em; margin-bottom: 4em; font-size:1.1em;">
                                 <address t-field="o.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
                                 <span t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></span>
                             </div>
                             <div class="col-xs-5">
-                                <table>
+                                <table class="invoice-info">
                                     <tr><td><span>Invoice number</span></td><td><t t-esc="o.id"></t></td></tr>
                                     <tr><td><span>Invoice reference</span></td><td><t t-esc="o.ref_number"></t></td></tr>
                                     <tr><td><span>Date due</span></td><td><span t-field="o.date_due"/></td></tr>
@@ -164,6 +172,14 @@
                         </div>
                     </div>
                     <hr />
+                    <script type="text/javascript" src="/web/static/lib/jquery/jquery.js" />
+                    <script>
+                        jQuery(document).ready(function(){
+                            var elem1_h = jQuery("#company-info").height();
+                            var elem2_h = 200 - elem1_h;
+                            jQuery("#payer-info").css("height", elem2_h);
+                        });
+                    </script>
                     <div class="bank-transfer-wrap last-page" style="page-break-inside: avoid;">
                        <div class="row row-eq-height border-bottom" style="border-top: 1px dashed gray">
                            <div class="col-xs-7 border-right">
@@ -191,7 +207,7 @@
                                            Moottagare
                                        </div>
                                    </div>
-                                   <div class="col-xs-10 border-left" style="height: 5em;">
+                                   <div class="col-xs-10 border-left" id="company-info" style="height: 6em">
                                        <div t-field="o.company_id.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
                                    </div>
                                </div>
@@ -204,7 +220,7 @@
                                            Betalare
                                        </div>
                                    </div>
-                                   <div class="col-xs-10" style="height: 10em;">
+                                   <div class="col-xs-10" id="payer-info" style="height: 9em;">
                                        <div t-field="o.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
                                    </div>
                                </div>
@@ -266,7 +282,7 @@
                                        <span t-field="o.date_due"></span>
                                    </div>
                                    <div class="col-xs-6 border-left">
-                                       <span class="bank-transfer-label">Euro</span><span t-field="o.amount_total"></span>
+                                       <span class="bank-transfer-label">Euro</span><span t-field="o.amount_total" style="float: right;"></span>
                                    </div>
                                </div>
                            </div>
