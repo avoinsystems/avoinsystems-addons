@@ -163,117 +163,117 @@
                         </div>
                     </div>
                     <hr />
-                    <div class="bank-transfer-wrap">
-                        <div class="row row-eq-height border-bottom" style="border-top: 1px dashed gray">
-                            <div class="col-xs-7 border-right">
-                                <div class="row row-eq-height border-bottom medium-row">
-                                    <div class="col-xs-2 bank-transfer-label">
-                                        <div>
-                                            Saajan
-                                            tilinumero
-                                        </div>
-                                        <div>
-                                            Moottagarens
-                                            kontonummer
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-10 border-left">
-                                        TODO: IBAN
-                                    </div>
-                                </div>
-                                <div class="row row-eq-height border-bottom">
-                                    <div class="col-xs-2 bank-transfer-label">
-                                        <div>
-                                            Saaja
-                                        </div>
-                                        <div>
-                                            Moottagare
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-10 border-left" style="height: 5em;">
-                                        <div t-field="o.company_id.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
-                                    </div>
-                                </div>
-                                <div class="row row-eq-height">
-                                    <div class="col-xs-2 bank-transfer-label">
-                                        <div>
-                                            Maksaja
-                                        </div>
-                                        <div>
-                                            Betalare
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-10" style="height: 10em;">
-                                        <div t-field="o.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
-                                    </div>
-                                </div>
-                                <div class="row row-eq-height border-bottom small-row">
-                                    <div class="col-xs-2 bank-transfer-label" style="font-size: 9px; text-align: right; line-height: 10px; min-height: 0;">
-                                        <div>
-                                            Allekirjoitus
-                                        </div>
-                                        <div>
-                                            Underskrift
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-10" style="min-height: 0;">
-                                        <div style="border-bottom: 1px solid black; margin-top: 15px;"></div>
-                                    </div>
-                                </div>
-                                <div class="row row-eq-height small-row">
-                                    <div class="col-xs-2 bank-transfer-label">
-                                        <div>
-                                            Tililtä nro
-                                        </div>
-                                        <div>
-                                            Från konto nr
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-10" style="border-left: 1px solid black;">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-5">
-                                <div class="row border-bottom medium-row">
-                                    <div class="col-xs-2 bank-transfer-label">BIC</div>
-                                    <div class="col-xs-10"></div>
-                                </div>
-                                <div class="row border-bottom">
-                                    <div class="col-xs-12" style="height: 15em;">
-                                        Laskun numero
-                                    </div>
-                                </div>
-                                <div class="row row-eq-height border-bottom small-row">
-                                    <div class="col-xs-2 bank-transfer-label">
-                                        <div>
-                                            Viitenro
-                                        </div>
-                                        <div>
-                                            Ref.nr
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-10 border-left">
-                                        TODO: Viitenumero
-                                    </div>
-                                </div>
-                                <div class="row row-eq-height small-row">
-                                    <div class="col-xs-2 bank-transfer-label">
-                                        <div>Eräpäivä</div>
-                                        <div>Förf.dag</div>
-                                    </div>
-                                    <div class="col-xs-4 border-left">
-                                        <span t-field="o.date_due"></span>
-                                    </div>
-                                    <div class="col-xs-6 border-left">
-                                        <span class="bank-transfer-label">Euro</span><span t-field="o.amount_total"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <!--TODO: BARCODE?-->
-                        </div>
-                    </div>
+                    <div class="bank-transfer-wrap last-page" style="page-break-inside: avoid;">
+                       <div class="row row-eq-height border-bottom" style="border-top: 1px dashed gray">
+                           <div class="col-xs-7 border-right">
+                               <div class="row row-eq-height border-bottom medium-row">
+                                   <div class="col-xs-2 bank-transfer-label">
+                                       <div>
+                                           Saajan
+                                           tilinumero
+                                       </div>
+                                       <div>
+                                           Moottagarens
+                                           kontonummer
+                                       </div>
+                                   </div>
+                                   <div class="col-xs-10 border-left">
+                                       TODO: IBAN
+                                   </div>
+                               </div>
+                               <div class="row row-eq-height border-bottom">
+                                   <div class="col-xs-2 bank-transfer-label">
+                                       <div>
+                                           Saaja
+                                       </div>
+                                       <div>
+                                           Moottagare
+                                       </div>
+                                   </div>
+                                   <div class="col-xs-10 border-left" style="height: 5em;">
+                                       <div t-field="o.company_id.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                                   </div>
+                               </div>
+                               <div class="row row-eq-height">
+                                   <div class="col-xs-2 bank-transfer-label">
+                                       <div>
+                                           Maksaja
+                                       </div>
+                                       <div>
+                                           Betalare
+                                       </div>
+                                   </div>
+                                   <div class="col-xs-10" style="height: 10em;">
+                                       <div t-field="o.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                                   </div>
+                               </div>
+                               <div class="row row-eq-height border-bottom small-row">
+                                   <div class="col-xs-2 bank-transfer-label" style="font-size: 9px; text-align: right; line-height: 10px; min-height: 0;">
+                                       <div>
+                                           Allekirjoitus
+                                       </div>
+                                       <div>
+                                           Underskrift
+                                       </div>
+                                   </div>
+                                   <div class="col-xs-10" style="min-height: 0;">
+                                       <div style="border-bottom: 1px solid black; margin-top: 15px;"></div>
+                                   </div>
+                               </div>
+                               <div class="row row-eq-height small-row">
+                                   <div class="col-xs-2 bank-transfer-label">
+                                       <div>
+                                           Tililtä nro
+                                       </div>
+                                       <div>
+                                           Från konto nr
+                                       </div>
+                                   </div>
+                                   <div class="col-xs-10" style="border-left: 1px solid black;">
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-xs-5">
+                               <div class="row border-bottom medium-row">
+                                   <div class="col-xs-2 bank-transfer-label">BIC</div>
+                                   <div class="col-xs-10"></div>
+                               </div>
+                               <div class="row border-bottom">
+                                   <div class="col-xs-12" style="height: 15em;">
+                                       Laskun numero
+                                   </div>
+                               </div>
+                               <div class="row row-eq-height border-bottom small-row">
+                                   <div class="col-xs-2 bank-transfer-label">
+                                       <div>
+                                           Viitenro
+                                       </div>
+                                       <div>
+                                           Ref.nr
+                                       </div>
+                                   </div>
+                                   <div class="col-xs-10 border-left">
+                                       TODO: Viitenumero
+                                   </div>
+                               </div>
+                               <div class="row row-eq-height small-row">
+                                   <div class="col-xs-2 bank-transfer-label">
+                                       <div>Eräpäivä</div>
+                                       <div>Förf.dag</div>
+                                   </div>
+                                   <div class="col-xs-4 border-left">
+                                       <span t-field="o.date_due"></span>
+                                   </div>
+                                   <div class="col-xs-6 border-left">
+                                       <span class="bank-transfer-label">Euro</span><span t-field="o.amount_total"></span>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="row">
+                           <!--TODO: BARCODE?-->
+                       </div>
+                   </div>
                 </div>
             </t>
         </t>
@@ -302,6 +302,12 @@
         <field name="default" eval="False"/>
         <field name="format">A4</field>
         <field name="orientation">Portrait</field>
+        <!--Fix overly large header-->
+        <field name="margin_top">20</field>
+        <field name="header_spacing">15</field>
+        <!--Remove template footer-->
+        <field name="margin_bottom">0</field>
+        <!--Remove side margins-->
         <field name="margin_left">0</field>
         <field name="margin_right">0</field>
         <field name="dpi">100</field>

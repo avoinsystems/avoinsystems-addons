@@ -13,7 +13,7 @@
 
                 <t t-call="finnish-invoice.report_layout_header_finnish"/>
                 <t t-raw="0"/>
-                <t t-call="report.external_layout_footer"/>
+                <t t-call="finnish-invoice.report_layout_footer_finnish"/>
             </t>
         </template>
     </data>

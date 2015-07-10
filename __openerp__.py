@@ -26,7 +26,9 @@
     "website": "http://avoin.systems",
     "images": ["static/description/icon.png"],
     "depends": [
-        'base'
+        'base',
+        'account',
+        'sale'
     ],
     "description": """
 Finnish Invoice
@@ -38,6 +40,7 @@ Make invoice reports look like Finnish standard invoices.
         'data/common.xml',
         'report/report_layout.xml',
         'report/report_layout_header.xml',
+        'report/report_layout_footer.xml',
         'report/report_invoice.xml'
     ],
     "active": False,

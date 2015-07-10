@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <template id="report_layout_footer_finnish">
+            <t t-name="finnish-invoice.external_layout_footer_finnish">
+               <div class="footer">
+                   <div class="text-center" style="border-top: 1px solid black;">
+                       <ul t-if="not company.custom_footer" class="list-inline">
+                           <li t-if="company.phone">Phone: <span t-field="company.phone"/></li>
+
+                           <li t-if="company.fax and company.phone">&amp;bull;</li>
+                           <li t-if="company.fax">Fax: <span t-field="company.fax"/></li>
+
+                           <li t-if="company.email">&amp;bull;</li>
+                           <li t-if="company.email">Email: <span t-field="company.email"/></li>
+
+                           <li t-if="company.website">&amp;bull;</li>
+                           <li t-if="company.website">Website: <span t-field="company.website"/></li>
+                       </ul>
+
+                       <t t-if="company.custom_footer">
+                           <span t-raw="company.rml_footer"/>
+                       </t>
+
+                       <ul class="list-inline">
+                           <li>Page:</li>
+                           <li><span class="page"/></li>
+                           <li>/</li>
+                           <li><span class="topage"/></li>
+                       </ul>
+                    </div>
+               </div>
+            </t>
+        </template>
+    </data>
+</openerp>
