@@ -4,15 +4,23 @@
         <template id="report_layout_header_finnish">
             <t t-name="finnish-invoice.external_layout_header_finnish">
                 <div class="header">
-                    <div class="row">
-                        <div class="col-xs-3">
-                            <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 45px;"/>
-                        </div>
-                        <div class="col-xs-4">
-                            <div t-field="company.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
-                        </div>
-                        <div class="col-xs-5 text-left" style="margin-top:20px; font-weight: bold; font-size: large;">
-                            <span>Invoice </span><span  t-field="o.number"></span>
+                    <style type="text/css">
+                        .padding-correction {
+                            padding-right: 15px;
+                            padding-left: 15px;
+                        }
+                    </style>
+                    <div class="padding-correction">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 45px;"/>
+                            </div>
+                            <div class="col-xs-4">
+                                <div t-field="company.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                            </div>
+                            <div class="col-xs-5 text-left" style="margin-top:20px; font-weight: bold; font-size: large;">
+                                <span>Invoice </span><span  t-field="o.number"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
