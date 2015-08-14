@@ -332,7 +332,7 @@
         string="Finnish Invoice"
         id="report_invoice_finnish"
         model="account.invoice"
-        report_type="qweb-html"
+        report_type="qweb-pdf"
         name="finnish-invoice.report_invoice_finnish_translate"
         file="finnish-invoice.report_invoice_finnish_translate"
         />
