@@ -90,11 +90,11 @@
                             </div>
                             <div class="col-xs-5">
                                 <table class="invoice-info" style="line-height: 1.5em;">
-                                    <tr><td><span>Invoice number</span></td><td><t t-esc="o.id"></t></td></tr>
+                                    <tr><td><span>Invoice number</span></td><td><t t-esc="o.invoice_number"></t></td></tr>
                                     <tr><td><span>Invoice reference</span></td><td><t t-esc="o.ref_number"></t></td></tr>
                                     <tr><td>Invoice Date</td><td><span t-field="o.date_invoice"/></td></tr>
                                     <tr><td><span>Date due</span></td><td><span t-field="o.date_due"/></td></tr>            
-                                    <tr t-if="o.sale_ids"><td>Date fulfilled</td><td><t>TODO</t></td></tr>
+                                    <tr><td>Date fulfilled</td><td><span t-field="o.date_delivered"></span></td></tr>
                                     <tr><td>Payment term</td><td><span t-field="o.payment_term"></span></td></tr>
                                     <tr><td>Our reference</td><td><span t-field="o.origin"></span></td></tr>
                                     <tr><td>Your reference</td><td><span t-field="o.reference"></span></td></tr>
