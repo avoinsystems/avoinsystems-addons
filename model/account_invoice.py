@@ -47,3 +47,8 @@ class AccountInvoice(models.Model):
         store=True,
         help=_('Invoice reference number in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf')
     )
+
+    date_delivered = fields.Date(
+        'Date delivered',
+        help=_('The date when the invoiced product or service was considered delivered, for taxation purposes.')
+    )
