@@ -30,6 +30,10 @@
                             padding: 3px;
                         }
 
+                        .text-left {
+                          text-align: left;
+                        }
+
                         .border-right {
                             border-right: 2px solid black;
                         }
@@ -43,11 +47,11 @@
                         }
 
                         .medium-row > div {
-                            height: 4em;
+                            height: 5em;
                         }
 
                         .small-row > div {
-                          height: 2em;
+                          height: 2.5em;
                         }
 
                         .invoice-info tr td:last-child {
@@ -57,19 +61,39 @@
                         address span[itemprop=name] {
                           font-weight: bold;
                         }
+
+                        .table-condensed > thead > tr > th {
+                            border-bottom: none;
+                        }
+
+                        .table > tbody > tr > td {
+                            border-top: none;
+                        }
+
+                        table.products-table {
+                            border-bottom: 1px solid #eee;
+                        }
+
+                        table.products-table-totals td {
+                          text-align: right;
+                        }
+
+                        .totals-col {
+                          width: 8em;
+                        }
                     </style>
                     <div class="padding-correction">
                         <div class="row">
-                            <div class="col-xs-6 col-xs-offset-1" style="margin-top: 5em; margin-bottom: 4em; font-size:1.1em;">
+                            <div class="col-xs-6 col-xs-offset-1" style="margin-top: 4.5em; margin-bottom: 4em; font-size:1.1em;">
                                 <address t-field="o.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
                                 <span t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></span>
                             </div>
                             <div class="col-xs-5">
-                                <table class="invoice-info">
-                                    <tr><td><span>Invoice number</span></td><td><t t-esc="o.invoice_number"></t></td></tr>
+                                <table class="invoice-info" style="line-height: 1.5em;">
+                                    <tr><td><span>Invoice number</span></td><td><t t-esc="o.id"></t></td></tr>
                                     <tr><td><span>Invoice reference</span></td><td><t t-esc="o.ref_number"></t></td></tr>
-                                    <tr><td><span>Date due</span></td><td><span t-field="o.date_due"/></td></tr>
                                     <tr><td>Invoice Date</td><td><span t-field="o.date_invoice"/></td></tr>
+                                    <tr><td><span>Date due</span></td><td><span t-field="o.date_due"/></td></tr>            
                                     <tr t-if="o.sale_ids"><td>Date fulfilled</td><td><t>TODO</t></td></tr>
                                     <tr><td>Payment term</td><td><span t-field="o.payment_term"></span></td></tr>
                                     <tr><td>Our reference</td><td><span t-field="o.origin"></span></td></tr>
@@ -77,19 +101,11 @@
                                 </table>
                             </div>
                         </div>
-                        <hr />
-                        <h2>
-                            <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">Invoice</span>
-                            <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
-                            <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
-                            <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
-                            <span t-if="o.type == 'out_refund'">Refund</span>
-                            <span t-if="o.type == 'in_refund'">Supplier Refund</span>
-                            <span t-if="o.type == 'in_invoice'">Supplier Invoice</span>
-                            <span t-field="o.number"/>
-                        </h2>
-
-                        <table class="table table-condensed">
+                      </div>
+                      <hr />
+                      <div class="padding-correction">
+                          <div style="margin-bottom: 1em;"><span t-field="o.comment"/></div>
+                        <table class="table table-condensed products-table">
                             <thead>
                                 <tr>
                                     <th>Description</th>
@@ -97,7 +113,7 @@
                                     <th class="text-right">Unit Price</th>
                                     <th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)</th>
                                     <th class="text-right">Taxes</th>
-                                    <th class="text-right">Amount</th>
+                                    <th class="text-right totals-col">Amount</th>
                                 </tr>
                             </thead>
                             <tbody class="invoice_tbody">
@@ -123,10 +139,10 @@
 
                         <div class="row">
                             <div class="col-xs-4 pull-right">
-                                <table class="table table-condensed">
-                                    <tr class="border-black">
+                                <table class="table table-condensed products-table-totals">
+                                    <tr>
                                         <td><strong>Total Without Taxes</strong></td>
-                                        <td class="text-right">
+                                        <td class="text-right totals-col">
                                             <span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
                                         </td>
                                     </tr>
@@ -136,7 +152,7 @@
                                             <span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
                                         </td>
                                     </tr>
-                                    <tr class="border-black">
+                                    <tr>
                                         <td><strong>Total</strong></td>
                                         <td class="text-right">
                                             <span t-field="o.amount_total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
@@ -170,17 +186,23 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
-                    <hr />
-                    <script type="text/javascript" src="/web/static/lib/jquery/jquery.js" />
-                    <script>
-                        jQuery(document).ready(function(){
-                            var elem1_h = jQuery("#company-info").height();
-                            var elem2_h = 200 - elem1_h;
-                            jQuery("#payer-info").css("height", elem2_h);
-                        });
-                    </script>
+                  </div>
                     <div class="bank-transfer-wrap last-page" style="page-break-inside: avoid;">
+                      <hr />
+                      <div class="row padding-correction" style="margin-bottom: 1em;">
+                        <div class="col-xs-4">
+                          <div t-field="o.company_id.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                        </div>
+                          <div class="col-xs-4">
+                            <div><span t-field="o.company_id.phone"/></div>
+                            <div><span t-field="o.company_id.email"/></div>
+                            <div><span t-field="o.company_id.website"/></div>
+                          </div>
+                          <div class="col-xs-4">
+                            <div>Kotipaikka: TODO?</div>
+                            <div>Y-tunnus: <span t-field="o.company_id.company_registry"/></div>
+                          </div>
+                        </div>
                        <div class="row row-eq-height border-bottom" style="border-top: 1px dashed gray">
                            <div class="col-xs-7 border-right">
                                <div class="row row-eq-height border-bottom medium-row">
@@ -261,7 +283,7 @@
                                    </div>
                                </div>
                                <div class="row row-eq-height border-bottom small-row">
-                                   <div class="col-xs-2 bank-transfer-label">
+                                   <div class="col-xs-2 bank-transfer-label text-left">
                                        <div>
                                            Viitenro
                                        </div>
@@ -274,14 +296,14 @@
                                    </div>
                                </div>
                                <div class="row row-eq-height small-row">
-                                   <div class="col-xs-2 bank-transfer-label">
+                                   <div class="col-xs-2 bank-transfer-label text-left">
                                        <div>Eräpäivä</div>
                                        <div>Förf.dag</div>
                                    </div>
                                    <div class="col-xs-4 border-left">
                                        <span t-field="o.date_due"></span>
                                    </div>
-                                   <div class="col-xs-6 border-left">
+                                   <div class="col-xs-6 border-left" style="padding-left: 0;">
                                        <span class="bank-transfer-label">Euro</span><span t-field="o.amount_total" style="float: right;"></span>
                                    </div>
                                </div>

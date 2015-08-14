@@ -4,7 +4,7 @@
         <template id="report_layout_footer_finnish">
             <t t-name="finnish-invoice.external_layout_footer_finnish">
                <div class="footer">
-                   <div class="text-center" style="border-top: 1px solid black;">
+                   <div class="text-center">
                        <ul t-if="not company.custom_footer" class="list-inline">
                            <li t-if="company.phone">Phone: <span t-field="company.phone"/></li>
 
