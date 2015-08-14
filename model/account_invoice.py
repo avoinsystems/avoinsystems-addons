@@ -1,6 +1,6 @@
+# coding=utf-8
+
 __author__ = 'aisopuro'
-# Based on account_invoice_sale_link:
-# https://github.com/akretion/odoo-usability/blob/8.0/account_invoice_sale_link/account_invoice.py
 from openerp import models, fields, api
 from openerp.tools.translate import _
 from itertools import cycle
@@ -24,16 +24,6 @@ class AccountInvoice(models.Model):
         else:
             self.invoice_number = False
             self.ref_number = False
-
-    @api.one
-    def _decide_date_delivered(self, sales):
-        log.warning('_decide_date')
-        # Takes a recordset of sale.orders and determines a
-        # default date_delivered value based on them
-        picking_delivered_dates = sorted(sales.mapped('picking_ids.date_done'))
-        log.warning(picking_delivered_dates)
-        # Select the last date_done
-        return picking_delivered_dates[-1] if picking_delivered_dates else False
 
     invoice_number = fields.Char(
         'Invoice number',
