@@ -5,7 +5,9 @@
         <t t-name="account.report_invoice_document">
             <t t-call="finnish-invoice.report_layout_finnish">
                 <div class="page">
-                    <!--TODO: Separate these into a proper CSS file-->
+                    <!-- Custom CSS for reports is not trivial, see here:
+                    https://github.com/odoo/odoo/issues/4359
+                    Easier to just insert inline, since we aren't changing multiple reports -->
                     <style type="text/css">
                         .padding-correction {
                             padding-right: 15px;
