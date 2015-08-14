@@ -1,0 +1,323 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* finnish-invoice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150501\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-14 13:03+0000\n"
+"PO-Revision-Date: 2015-08-14 16:21+0200\n"
+"Last-Translator: \n"
+"Language-Team: Avoin.Systems\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: fi_FI\n"
+
+# Technical, don't translate
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_layout_footer_finnish
+msgid "&bull;"
+msgstr ""
+
+# Already in Finnish
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Allekirjoitus"
+msgstr ""
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Amount"
+msgstr "Summa"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "BIC"
+msgstr "BIC"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Base"
+msgstr "Verotettava"
+
+# Swedish, do not translate
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Betalare"
+msgstr ""
+
+#. module: finnish-invoice
+#: field:account.invoice,date_delivered:0
+msgid "Date delivered"
+msgstr "Toimituspäivämäärä"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Date due"
+msgstr "Eräpäivä"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Date fulfilled"
+msgstr "Toimituspvm"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Description"
+msgstr "Kuvaus"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Discount (%)"
+msgstr "Alennus (%)"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_layout_footer_finnish
+msgid "Email:"
+msgstr "Sähköposti:"
+
+# Already in Finnish
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Eräpäivä"
+msgstr ""
+
+# No need to translate
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Euro"
+msgstr ""
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_layout_footer_finnish
+msgid "Fax:"
+msgstr "Faksi:"
+
+#. module: finnish-invoice
+#: model:ir.actions.report.xml,name:finnish-invoice.report_invoice_finnish
+msgid "Finnish Invoice"
+msgstr "Suomalainen laskupohja"
+
+# Swedish, do not translate
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Från konto nr"
+msgstr ""
+
+# Swedish, do not translate
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Förf.dag"
+msgstr ""
+
+# No need to translate
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "IBAN"
+msgstr ""
+
+#. module: finnish-invoice
+#: help:account.invoice,invoice_number:0
+#: code:addons/finnish-invoice/model/account_invoice.py:32
+#, python-format
+msgid ""
+"Identifier number used to refer to this invoice in accordance with https://"
+"www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
+"kotimaisen_viitteen_rakenneohje.pdf"
+msgstr ""
+"Laksun tunnistenumero jolla voidaan viitata yksiselitteisesti tähän laskuun. "
+"Katso https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
+"kotimaisen_viitteen_rakenneohje.pdf."
+
+#. module: finnish-invoice
+#: model:ir.model,name:finnish-invoice.model_account_invoice
+#: view:website:finnish-invoice.report_layout_header_finnish
+msgid "Invoice"
+msgstr "Lasku"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Invoice Date"
+msgstr "Laskun pvm"
+
+#. module: finnish-invoice
+#: field:account.invoice,invoice_number:0
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Invoice number"
+msgstr "Laskun numero"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Invoice reference"
+msgstr "Viitenumero"
+
+#. module: finnish-invoice
+#: help:account.invoice,ref_number:0
+#: code:addons/finnish-invoice/model/account_invoice.py:39
+#, python-format
+msgid ""
+"Invoice reference number in accordance with https://www.fkl.fi/teemasivut/"
+"sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
+msgstr ""
+"Viitenumero. Katso Invoice reference number in accordance with https://www."
+"fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
+"kotimaisen_viitteen_rakenneohje.pdf"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Kotipaikka: TODO?"
+msgstr ""
+
+# Already Finnish
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Laskun numero"
+msgstr ""
+
+# Already Finnish
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Maksaja"
+msgstr ""
+
+# Swedish, do not translate
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Moottagare"
+msgstr ""
+
+# Swedish, do not translate
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid ""
+"Moottagarens\n"
+"                                           kontonummer"
+msgstr ""
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Our reference"
+msgstr "Viitteemme"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_layout_footer_finnish
+msgid "Page:"
+msgstr "Sivu:"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Payment term"
+msgstr "Maksuehto"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_layout_footer_finnish
+msgid "Phone:"
+msgstr "Puh:"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Quantity"
+msgstr "Määrä"
+
+# Swedish, do not translate
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Ref.nr"
+msgstr ""
+
+#. module: finnish-invoice
+#: field:account.invoice,ref_number:0
+msgid "Reference Number"
+msgstr "Viitenumero"
+
+# Already Finnish
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Saaja"
+msgstr ""
+
+# Already Finnish
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid ""
+"Saajan\n"
+"                                           tilinumero"
+msgstr ""
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Tax"
+msgstr "Vero"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Taxes"
+msgstr "Verot"
+
+#. module: finnish-invoice
+#: help:account.invoice,date_delivered:0
+#: code:addons/finnish-invoice/model/account_invoice.py:44
+#, python-format
+msgid ""
+"The date when the invoiced product or service was considered delivered, for "
+"taxation purposes."
+msgstr ""
+"Se päivä jolloin tuotteet tai palvelut katsotaan toimitetuiksi verotuksen "
+"kannalta."
+
+# Already Finnish
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Tililtä nro"
+msgstr ""
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Total"
+msgstr "Summa"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Total Without Taxes"
+msgstr "Veroton summa"
+
+# Swedish, do not translate
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Underskrift"
+msgstr ""
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Unit Price"
+msgstr "Yksikköhinta"
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "VAT:"
+msgstr "ALV:"
+
+# Already Finnish
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Viitenro"
+msgstr ""
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_layout_footer_finnish
+msgid "Website:"
+msgstr "Verkkosivu:"
+
+# Already Finnish
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Y-tunnus:"
+msgstr ""
+
+#. module: finnish-invoice
+#: view:website:finnish-invoice.report_invoice_finnish_document
+msgid "Your reference"
+msgstr "Viitteenne"
