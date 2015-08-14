@@ -27,8 +27,7 @@
     "images": ["static/description/icon.png"],
     "depends": [
         'base',
-        'account',
-        'sale'
+        'account'
     ],
     "description": """
 Finnish Invoice

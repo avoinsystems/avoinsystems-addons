@@ -7,14 +7,11 @@ from itertools import cycle
 import re
 import logging
 
+log = logging.getLogger(__name__)
+
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
-
-    @api.one
-    @api.depends('origin')
-    def _compute_sale_ids(self):
-        self.sale_ids = self.env['sale.order'].search([('name', '=', self.origin)]) or False
 
     @api.one
     @api.depends('number', 'state')
@@ -28,11 +25,15 @@ class AccountInvoice(models.Model):
             self.invoice_number = False
             self.ref_number = False
 
-    sale_ids = fields.Many2many(
-        'sale.order',
-        compute='_compute_sale_ids',
-        store=True
-    )
+    @api.one
+    def _decide_date_delivered(self, sales):
+        log.warning('_decide_date')
+        # Takes a recordset of sale.orders and determines a
+        # default date_delivered value based on them
+        picking_delivered_dates = sorted(sales.mapped('picking_ids.date_done'))
+        log.warning(picking_delivered_dates)
+        # Select the last date_done
+        return picking_delivered_dates[-1] if picking_delivered_dates else False
 
     invoice_number = fields.Char(
         'Invoice number',
