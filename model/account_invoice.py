@@ -25,6 +25,19 @@ class AccountInvoice(models.Model):
             self.invoice_number = False
             self.ref_number = False
 
+    @api.one
+    def _compute_barcode_string(self):
+        if (self.amount_total and self.partner_bank_id.acc_number and self.ref_number and self.date_due):
+            amount_total_string = str(self.amount_total)
+            if amount_total_string[-2:-1] == '.':
+                amount_total_string = amount_total_string + '0';
+            amount_total_string = amount_total_string.zfill(9)
+            receiver_bank_account = re.sub("[^0-9]", "", str(self.partner_bank_id.acc_number))
+            ref_number_filled = self.ref_number.zfill(20)
+            self.barcode_string = '4' + receiver_bank_account + amount_total_string[:-3] + amount_total_string[-2:] + "000" + ref_number_filled + self.date_due[2:4] + self.date_due[5:-3] + self.date_due[-2:] 
+        else:
+            self.barcode_string = False
+
     invoice_number = fields.Char(
         'Invoice number',
         compute='_compute_ref_number',
@@ -42,4 +55,10 @@ class AccountInvoice(models.Model):
     date_delivered = fields.Date(
         'Date delivered',
         help=_('The date when the invoiced product or service was considered delivered, for taxation purposes.')
+    )
+
+    barcode_string = fields.Char(
+        'Barcode String',
+        compute='_compute_barcode_string',
+        help=_('https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/Pankkiviivakoodi-opas.pdf')
     )
