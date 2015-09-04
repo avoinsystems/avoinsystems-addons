@@ -3,7 +3,7 @@
 <data>
     <template id="report_invoice_finnish_document">
         <t t-name="account.report_invoice_document">
-            <t t-call="finnish-invoice.report_layout_finnish">
+            <t t-call="l10n_fi_invoice.report_layout_finnish">
                 <div class="header" style="height: 2.12cm; position: relative;">
                   <style type="text/css">
                         .padding-correction {
@@ -374,7 +374,7 @@
     <template id="report_invoice_finnish_translate" t-name="Finnish Invoice">
         <t t-call="report.html_container">
             <t t-foreach="doc_ids" t-as="doc_id">
-                <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'finnish-invoice.report_invoice_finnish_document')"/>
+                <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'l10n_fi_invoice.report_invoice_finnish_document')"/>
             </t>
         </t>
     </template>
@@ -383,9 +383,9 @@
         string="Finnish Invoice"
         id="report_invoice_finnish"
         model="account.invoice"
-        report_type="qweb-html"
-        name="finnish-invoice.report_invoice_finnish_translate"
-        file="finnish-invoice.report_invoice_finnish_translate"
+        report_type="qweb-pdf"
+        name="l10n_fi_invoice.report_invoice_finnish_translate"
+        file="l10n_fi_invoice.report_invoice_finnish_translate"
         />
 
     <!--Make custom paper format to eliminate margins-->
@@ -406,8 +406,8 @@
     </record>
 
     <!--Make report use custom paper format-->
-    <record id="finnish-invoice.report_invoice_finnish" model="ir.actions.report.xml">
-        <field name="paperformat_id" ref="finnish-invoice.paperformat_finnish" />
+    <record id="report_invoice_finnish" model="ir.actions.report.xml">
+        <field name="paperformat_id" ref="paperformat_finnish" />
     </record>
 
 </data>
