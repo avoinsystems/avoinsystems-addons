@@ -276,7 +276,7 @@
                                        </div>
                                    </div>
                                    <div class="col-xs-10 border-left" id="company-info" style="height: 4.5em">
-                                       <div t-field="o.company_id.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}" style="font-size: .8em;" />
+                                       <div t-field="o.company_id.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;], &quot;no_marker&quot;: true}" style="font-size: .8em;" />
                                    </div>
                                </div>
                                <div class="row row-eq-height">
