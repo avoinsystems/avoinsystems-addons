@@ -62,3 +62,15 @@ class AccountInvoice(models.Model):
         compute='_compute_barcode_string',
         help=_('https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/Pankkiviivakoodi-opas.pdf')
     )
+
+    @api.multi
+    def invoice_print(self):
+        """ Print the invoice and mark it as sent, so that we can see more
+            easily the next step of the workflow
+        """
+        assert len(self) == 1, \
+            'This option should only be used for a single id at a time.'
+        self.sent = True
+        return self.env['report']\
+            .get_action(self,
+                        'l10n_fi_invoice.report_invoice_finnish_translate')
