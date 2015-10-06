@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+##############################################################################
 #
 #    Author: Avoin.Systems
 #    Copyright 2015 Avoin.Systems
@@ -16,6 +17,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+##############################################################################
 
 # noinspection PyStatementEffect
 {
@@ -27,12 +29,11 @@
     "images": ["static/description/icon.png"],
     "depends": [
         'base',
-        'account',
-        'l10n_fi'
+        'account'
     ],
     "description": """
 Finnish Invoice
-==================
+===============
 Make invoice reports look like Finnish standard invoices.
 """,
     "summary": "Sales, Reports",

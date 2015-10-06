@@ -1,9 +1,26 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    Author: Avoin.Systems
+#    Copyright 2015 Avoin.Systems
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
 
-__author__ = 'aisopuro'
 from openerp import models, fields, api
 from openerp.tools.translate import _
-from itertools import cycle
 import re
 import logging
 
@@ -18,7 +35,8 @@ class AccountInvoice(models.Model):
     def _compute_ref_number(self):
         if self.number:
             invoice_number = re.sub(r'\D', '', self.number)
-            checksum = sum((7, 3, 1)[idx % 3] * int(val) for idx, val in enumerate(invoice_number[::-1]))
+            checksum = sum((7, 3, 1)[idx % 3] * int(val)
+                           for idx, val in enumerate(invoice_number[::-1]))
             self.ref_number = invoice_number + str((10 - (checksum % 10)) % 10)
             self.invoice_number = invoice_number
         else:
@@ -27,14 +45,23 @@ class AccountInvoice(models.Model):
 
     @api.one
     def _compute_barcode_string(self):
-        if (self.amount_total and self.partner_bank_id.acc_number and self.ref_number and self.date_due):
+        if (self.amount_total and self.partner_bank_id.acc_number
+                and self.ref_number and self.date_due):
             amount_total_string = str(self.amount_total)
             if amount_total_string[-2:-1] == '.':
-                amount_total_string = amount_total_string + '0';
+                amount_total_string += '0'
             amount_total_string = amount_total_string.zfill(9)
-            receiver_bank_account = re.sub("[^0-9]", "", str(self.partner_bank_id.acc_number))
+            receiver_bank_account = re\
+                .sub("[^0-9]", "", str(self.partner_bank_id.acc_number))
             ref_number_filled = self.ref_number.zfill(20)
-            self.barcode_string = '4' + receiver_bank_account + amount_total_string[:-3] + amount_total_string[-2:] + "000" + ref_number_filled + self.date_due[2:4] + self.date_due[5:-3] + self.date_due[-2:] 
+            self.barcode_string = '4' \
+                                  + receiver_bank_account \
+                                  + amount_total_string[:-3] \
+                                  + amount_total_string[-2:] \
+                                  + "000" + ref_number_filled \
+                                  + self.date_due[2:4] \
+                                  + self.date_due[5:-3] \
+                                  + self.date_due[-2:]
         else:
             self.barcode_string = False
 
@@ -70,6 +97,7 @@ class AccountInvoice(models.Model):
         """
         assert len(self) == 1, \
             'This option should only be used for a single id at a time.'
+        # noinspection PyAttributeOutsideInit
         self.sent = True
         return self.env['report']\
             .get_action(self,
