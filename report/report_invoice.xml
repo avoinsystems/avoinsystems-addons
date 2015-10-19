@@ -134,7 +134,7 @@
                             margin-bottom: 0;
                             }
                         </style>
-                        <div class="padding-correction" style="min-height: 11.50cm">
+                        <div class="padding-correction" style="min-height: 11.3cm">
                             <div class="row">
                                 <div class="col-xs-6 col-xs-offset-1"
                                      style="margin-top: 10em; margin-bottom: 4em; font-size:1.1em;">
@@ -206,7 +206,7 @@
                             </div>
                         </div>
                         <hr/>
-                        <div class="padding-correction" style="min-height: 13.90cm;">
+                        <div class="padding-correction" style="min-height: 13.70cm;">
                             <div style="margin-bottom: 1em;">
                                 <span t-field="o.comment"/>
                             </div>
