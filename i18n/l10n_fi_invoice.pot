@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0-20150601\n"
+"Project-Id-Version: Odoo Server 8.0-20150911\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-04 11:01+0000\n"
-"PO-Revision-Date: 2015-09-04 11:01+0000\n"
+"POT-Creation-Date: 2015-10-19 11:58+0000\n"
+"PO-Revision-Date: 2015-10-19 11:58+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -32,11 +32,6 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: view:website:l10n_fi_invoice.report_invoice_finnish_document
-msgid "BIC"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Base"
 msgstr ""
 
@@ -47,7 +42,8 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: view:website:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Betalningen fömedlas till mottagaren enligt villkoren för betalningsförmedling och endast till det kontonummer som betalaren angivit."
+msgid "Betalningen fömedlas till mottagaren enligt villkoren för betalningsförmedling\n"
+"                                        och endast till det kontonummer som betalaren angivit."
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -117,7 +113,7 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: help:account.invoice,invoice_number:0
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:45
+#: code:addons/l10n_fi_invoice/model/account_invoice.py:75
 #, python-format
 msgid "Identifier number used to refer to this invoice in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
 msgstr ""
@@ -146,7 +142,7 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: help:account.invoice,ref_number:0
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:52
+#: code:addons/l10n_fi_invoice/model/account_invoice.py:85
 #, python-format
 msgid "Invoice reference number in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
 msgstr ""
@@ -168,7 +164,8 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: view:website:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Maksu välitetään saajalle maksujenvälityksen ehtojen mukaisesti ja vain maksajan tilinumeron perusteella."
+msgid "Maksu välitetään saajalle maksujenvälityksen ehtojen mukaisesti ja vain maksajan\n"
+"                                        tilinumeron perusteella."
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -179,7 +176,7 @@ msgstr ""
 #. module: l10n_fi_invoice
 #: view:website:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Mottagarens\n"
-"                                           kontonummer"
+"                                                kontonummer"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -190,6 +187,11 @@ msgstr ""
 #. module: l10n_fi_invoice
 #: view:website:l10n_fi_invoice.report_layout_footer_finnish
 msgid "Page:"
+msgstr ""
+
+#. module: l10n_fi_invoice
+#: model:ir.model,name:l10n_fi_invoice.model_res_partner
+msgid "Partner"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -225,7 +227,7 @@ msgstr ""
 #. module: l10n_fi_invoice
 #: view:website:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Saajan\n"
-"                                           tilinumero"
+"                                                tilinumero"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -240,7 +242,7 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: help:account.invoice,date_delivered:0
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:57
+#: code:addons/l10n_fi_invoice/model/account_invoice.py:92
 #, python-format
 msgid "The date when the invoiced product or service was considered delivered, for taxation purposes."
 msgstr ""
@@ -296,8 +298,13 @@ msgid "Your reference"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:63
+#: code:addons/l10n_fi_invoice/model/account_invoice.py:99
 #, python-format
 msgid "https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/Pankkiviivakoodi-opas.pdf"
+msgstr ""
+
+#. module: l10n_fi_invoice
+#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+msgid "– BIC"
 msgstr ""
 

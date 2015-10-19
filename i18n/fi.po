@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0-20150501\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-04 11:01+0000\n"
-"PO-Revision-Date: 2015-09-04 14:02+0200\n"
-"Last-Translator: Miku Laitinen <miku@avoin.systems>\n"
+"POT-Creation-Date: 2015-10-19 11:58+0000\n"
+"PO-Revision-Date: 2015-10-19 15:00+0200\n"
+"Last-Translator: Miku Laitinen <miku.laitinen@avoin.systems>\n"
 "Language-Team: Avoin.Systems\n"
 "Language: fi_FI\n"
 "MIME-Version: 1.0\n"
@@ -35,11 +35,6 @@ msgstr "Summa"
 
 #. module: l10n_fi_invoice
 #: view:website:l10n_fi_invoice.report_invoice_finnish_document
-msgid "BIC"
-msgstr "BIC"
-
-#. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Base"
 msgstr "Verotettava"
 
@@ -49,11 +44,14 @@ msgstr "Verotettava"
 msgid "Betalare"
 msgstr ""
 
+# Swedish, do not translate
 #. module: l10n_fi_invoice
 #: view:website:l10n_fi_invoice.report_invoice_finnish_document
 msgid ""
 "Betalningen fömedlas till mottagaren enligt villkoren för "
-"betalningsförmedling och endast till det kontonummer som betalaren angivit."
+"betalningsförmedling\n"
+"                                        och endast till det kontonummer som "
+"betalaren angivit."
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -128,7 +126,7 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: help:account.invoice,invoice_number:0
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:45
+#: code:addons/l10n_fi_invoice/model/account_invoice.py:75
 #, python-format
 msgid ""
 "Identifier number used to refer to this invoice in accordance with https://"
@@ -163,7 +161,7 @@ msgstr "Viitenumero"
 
 #. module: l10n_fi_invoice
 #: help:account.invoice,ref_number:0
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:52
+#: code:addons/l10n_fi_invoice/model/account_invoice.py:85
 #, python-format
 msgid ""
 "Invoice reference number in accordance with https://www.fkl.fi/teemasivut/"
@@ -173,6 +171,7 @@ msgstr ""
 "fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
 "kotimaisen_viitteen_rakenneohje.pdf"
 
+# Already Finnish
 #. module: l10n_fi_invoice
 #: view:website:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Kotipaikka:"
@@ -190,23 +189,27 @@ msgstr ""
 msgid "Maksaja"
 msgstr ""
 
+# Already Finnish
 #. module: l10n_fi_invoice
 #: view:website:l10n_fi_invoice.report_invoice_finnish_document
 msgid ""
 "Maksu välitetään saajalle maksujenvälityksen ehtojen mukaisesti ja vain "
-"maksajan tilinumeron perusteella."
+"maksajan\n"
+"                                        tilinumeron perusteella."
 msgstr ""
 
+# Swedish, do not translate
 #. module: l10n_fi_invoice
 #: view:website:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Mottagare"
 msgstr ""
 
+# Swedish, do not translate
 #. module: l10n_fi_invoice
 #: view:website:l10n_fi_invoice.report_invoice_finnish_document
 msgid ""
 "Mottagarens\n"
-"                                           kontonummer"
+"                                                kontonummer"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -218,6 +221,11 @@ msgstr "Viitteemme"
 #: view:website:l10n_fi_invoice.report_layout_footer_finnish
 msgid "Page:"
 msgstr "Sivu:"
+
+#. module: l10n_fi_invoice
+#: model:ir.model,name:l10n_fi_invoice.model_res_partner
+msgid "Partner"
+msgstr "Kumppani"
 
 #. module: l10n_fi_invoice
 #: view:website:l10n_fi_invoice.report_invoice_finnish_document
@@ -256,7 +264,7 @@ msgstr ""
 #: view:website:l10n_fi_invoice.report_invoice_finnish_document
 msgid ""
 "Saajan\n"
-"                                           tilinumero"
+"                                                tilinumero"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -271,7 +279,7 @@ msgstr "Verot"
 
 #. module: l10n_fi_invoice
 #: help:account.invoice,date_delivered:0
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:57
+#: code:addons/l10n_fi_invoice/model/account_invoice.py:92
 #, python-format
 msgid ""
 "The date when the invoiced product or service was considered delivered, for "
@@ -335,7 +343,7 @@ msgid "Your reference"
 msgstr "Viitteenne"
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:63
+#: code:addons/l10n_fi_invoice/model/account_invoice.py:99
 #, python-format
 msgid ""
 "https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
@@ -343,3 +351,12 @@ msgid ""
 msgstr ""
 "https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
 "kotimaisen_viitteen_rakenneohje.pdf"
+
+# No need to translate
+#. module: l10n_fi_invoice
+#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+msgid "– BIC"
+msgstr ""
+
+#~ msgid "BIC"
+#~ msgstr "BIC"

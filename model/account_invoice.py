@@ -20,6 +20,7 @@
 ##############################################################################
 
 from openerp import models, fields, api
+# noinspection PyProtectedMember
 from openerp.tools.translate import _
 import re
 import logging
@@ -45,14 +46,16 @@ class AccountInvoice(models.Model):
 
     @api.one
     def _compute_barcode_string(self):
-        if (self.amount_total and self.partner_bank_id.acc_number
+        primary_bank_account = self.partner_bank_id or \
+            self.company_id.bank_ids and self.company_id.bank_ids[0]
+        if (self.amount_total and primary_bank_account.acc_number
                 and self.ref_number and self.date_due):
             amount_total_string = str(self.amount_total)
             if amount_total_string[-2:-1] == '.':
                 amount_total_string += '0'
             amount_total_string = amount_total_string.zfill(9)
             receiver_bank_account = re\
-                .sub("[^0-9]", "", str(self.partner_bank_id.acc_number))
+                .sub("[^0-9]", "", str(primary_bank_account.acc_number))
             ref_number_filled = self.ref_number.zfill(20)
             self.barcode_string = '4' \
                                   + receiver_bank_account \
@@ -69,25 +72,32 @@ class AccountInvoice(models.Model):
         'Invoice number',
         compute='_compute_ref_number',
         store=True,
-        help=_('Identifier number used to refer to this invoice in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf')
+        help=_('Identifier number used to refer to this invoice in '
+               'accordance with https://www.fkl.fi/teemasivut/sepa/'
+               'tekninen_dokumentaatio/Dokumentit/kotimaisen_viitte'
+               'en_rakenneohje.pdf')
     )
 
     ref_number = fields.Char(
         'Reference Number',
         compute='_compute_ref_number',
         store=True,
-        help=_('Invoice reference number in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf')
+        help=_('Invoice reference number in accordance with https://'
+               'www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Do'
+               'kumentit/kotimaisen_viitteen_rakenneohje.pdf')
     )
 
     date_delivered = fields.Date(
         'Date delivered',
-        help=_('The date when the invoiced product or service was considered delivered, for taxation purposes.')
+        help=_('The date when the invoiced product or service was considered '
+               'delivered, for taxation purposes.')
     )
 
     barcode_string = fields.Char(
         'Barcode String',
         compute='_compute_barcode_string',
-        help=_('https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/Pankkiviivakoodi-opas.pdf')
+        help=_('https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dok'
+               'umentit/Pankkiviivakoodi-opas.pdf')
     )
 
     @api.multi
