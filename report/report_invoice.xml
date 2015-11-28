@@ -497,8 +497,8 @@
 
         <template id="report_invoice_finnish_translate" t-name="Finnish Invoice">
             <t t-call="report.html_container">
-                <t t-foreach="doc_ids" t-as="doc_id">
-                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'l10n_fi_invoice.report_invoice_finnish_document')"/>
+                <t t-foreach="docs" t-as="doc">
+                    <t t-lang="doc.partner_id.lang" t-call="l10n_fi_invoice.report_invoice_finnish_document"/>
                 </t>
             </t>
         </template>
