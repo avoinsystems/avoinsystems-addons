@@ -186,7 +186,7 @@
                                         <tr>
                                             <td>Payment term</td>
                                             <td>
-                                                <span t-field="doc.payment_term"/>
+                                                <span t-field="doc.payment_term_id"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -225,14 +225,14 @@
                                     </tr>
                                 </thead>
                                 <tbody class="invoice_tbody">
-                                    <tr t-foreach="doc.invoice_line" t-as="l">
+                                    <tr t-foreach="doc.invoice_line_ids" t-as="l">
                                         <td>
                                             <span class="line_number" t-esc="str(l_index+1) + '.'"/>
                                             <span class="col-xs-offset-2" t-field="l.name"/>
                                         </td>
                                         <td>
                                             <span t-field="l.quantity"/>
-                                            <span t-field="l.uos_id" groups="product.group_uom"/>
+                                            <span t-field="l.uom_id" groups="product.group_uom"/>
                                         </td>
                                         <td class="text-right">
                                             <span t-field="l.price_unit"/>
@@ -241,7 +241,7 @@
                                             <span t-field="l.discount"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-esc="', '.join(map(lambda x: x.name, l.invoice_line_tax_id))"/>
+                                            <span t-esc="', '.join(map(lambda x: x.name, l.invoice_line_tax_ids))"/>
                                         </td>
                                         <td class="text-right">
                                             <span t-field="l.price_subtotal"
@@ -279,7 +279,7 @@
                                 </div>
                             </div>
 
-                            <div class="row" t-if="doc.tax_line">
+                            <div class="row" t-if="doc.tax_line_ids">
                                 <div class="col-xs-6 col-xs-offset-6">
                                     <table class="table table-condensed">
                                         <thead>
@@ -290,12 +290,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr t-foreach="doc.tax_line" t-as="t">
+                                            <tr t-foreach="doc.tax_line_ids" t-as="t">
                                                 <td>
                                                     <span t-field="t.name"/>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span t-field="t.base"
+                                                    <span t-field="t.tax_id.amount"
                                                           t-field-options='{"widget": "monetary", "display_currency": "doc.currency_id"}'/>
                                                 </td>
                                                 <td class="text-right">
@@ -354,7 +354,7 @@
                                                 <t t-esc="doc.partner_bank_id.acc_number"/>
                                             </t>
                                             <t t-if="not doc.partner_bank_id.acc_number">
-                                                <t t-foreach="doc.company_id.bank_ids" t-as="t">
+                                                <t t-foreach="doc.company_id.partner_id.bank_ids" t-as="t">
                                                     <div t-if="t_index &lt; 3">
                                                         IBAN
                                                         <span t-field="t.acc_number"/>
