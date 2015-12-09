@@ -473,7 +473,7 @@
                             <div class="row">
                                 <div class="col-xs-9" style="text-align: center;">
                                     <t t-if="doc.barcode_string">
-                                        <img style="margin-left: 2cm; margin-right: 2cm; margin-top: .2cm;"
+                                        <img style="margin-left: 0cm; margin-right: 2cm; margin-top: .2cm;"
                                              t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;height=%s&amp;width=%s' %('Code128', doc.barcode_string, 60, 600)"/>
                                         <div class="barcode-values">
                                             <t t-esc="doc.barcode_string"/>
