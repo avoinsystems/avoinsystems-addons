@@ -3,7 +3,33 @@
     <data>
         <template id="report_layout_header_finnish">
             <t t-name="l10n_fi_invoice.external_layout_header_finnish">
-
+                <div class="header" style="height: 2.62cm; position: relative;">
+                        <style type="text/css">
+                            .padding-correction {
+                                padding-right: 15px;
+                                padding-left: 15px;
+                            }
+                        </style>
+                        <div class="padding-correction" style="position: absolute; width: 100%; bottom: 0;">
+                            <div class="row">
+                                <div class="col-xs-2 col-xs-offset-1"
+                                     style="float: none; display: inline-block; vertical-align: middle;">
+                                    <img t-if="doc.company_id.logo"
+                                         t-att-src="'data:image/png;base64,%s' % doc.company_id.logo"
+                                         style="max-height: 2.1cm; max-width: 4cm;"/>
+                                </div>
+                                <div class="col-xs-4"
+                                     style="font-size: .85em; float: none; display: inline-block; vertical-align: middle;">
+                                    <div t-field="doc.company_id.partner_id"
+                                         t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                                </div>
+                                <div class="col-xs-5 text-left"
+                                     style="font-weight: bold; font-size: large; float: none; display: inline-block; vertical-align: bottom; width: auto; padding-left: 5px;">
+                                    <span>Invoice</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </t>
         </template>
     </data>
