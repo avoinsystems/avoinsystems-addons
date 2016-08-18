@@ -26,7 +26,13 @@
                                 </div>
                                 <div class="col-xs-5 text-left"
                                      style="font-weight: bold; font-size: large; float: none; display: inline-block; vertical-align: bottom; width: auto; padding-left: 5px;">
-                                    <span>Invoice</span>
+                                    <span t-if="doc.type == 'out_invoice' and (doc.state == 'open' or doc.state == 'paid')">Invoice</span>
+                                    <span t-if="doc.type == 'out_invoice' and doc.state == 'proforma2'">PRO-FORMA</span>
+                                    <span t-if="doc.type == 'out_invoice' and doc.state == 'draft'">Draft Invoice</span>
+                                    <span t-if="doc.type == 'out_invoice' and doc.state == 'cancel'">Cancelled Invoice</span>
+                                    <span t-if="doc.type == 'out_refund'">Refund</span>
+                                    <span t-if="doc.type == 'in_refund'">Vendor Refund</span>
+                                    <span t-if="doc.type == 'in_invoice'">Vendor Bill</span>
                                 </div>
                             </div>
                         </div>
