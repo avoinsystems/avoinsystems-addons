@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0-20150501\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-19 11:58+0000\n"
-"PO-Revision-Date: 2015-10-19 15:00+0200\n"
-"Last-Translator: Miku Laitinen <miku.laitinen@avoin.systems>\n"
+"POT-Creation-Date: 2016-08-15 14:22+0000\n"
+"PO-Revision-Date: 2016-08-15 17:26+0200\n"
+"Last-Translator: \n"
 "Language-Team: Avoin.Systems\n"
 "Language: fi_FI\n"
 "MIME-Version: 1.0\n"
@@ -16,37 +16,66 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 
-# Technical, don't translate
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_layout_footer_finnish
-msgid "&bull;"
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_footer_finnish
+msgid "&amp;bull;"
 msgstr ""
+
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "<span class=\"bank-transfer-label\">Euro</span>"
+msgstr ""
+
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "<span class=\"col-xs-offset-2\">Description</span>"
+msgstr "<span class=\"col-xs-offset-2\">Kuvaus</span>"
+
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "<span>Date due</span>"
+msgstr "<span>Eräpäivä</span>"
+
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "<span>Invoice number</span>"
+msgstr "<span>Laskun numero</span>"
+
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "<span>Invoice reference</span>"
+msgstr "<span>Viitenumero</span>"
 
 # Already in Finnish
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Allekirjoitus"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Amount"
 msgstr "Summa"
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.model.fields,field_description:l10n_fi_invoice.field_account_invoice_barcode_string
+msgid "Barcode String"
+msgstr "Viivakoodi"
+
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Base"
 msgstr "Verotettava"
 
 # Swedish, do not translate
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Betalare"
 msgstr ""
 
 # Swedish, do not translate
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid ""
 "Betalningen fömedlas till mottagaren enligt villkoren för "
 "betalningsförmedling\n"
@@ -55,49 +84,43 @@ msgid ""
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: field:account.invoice,date_delivered:0
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "Cancelled Invoice"
+msgstr "Peruttu Lasku"
+
+#. module: l10n_fi_invoice
+#: model:ir.model.fields,field_description:l10n_fi_invoice.field_account_invoice_date_delivered
 msgid "Date delivered"
 msgstr "Toimituspäivämäärä"
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Date due"
-msgstr "Eräpäivä"
-
-#. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Date fulfilled"
 msgstr "Toimituspvm"
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Description"
-msgstr "Kuvaus"
-
-#. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Discount (%)"
 msgstr "Alennus (%)"
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_layout_footer_finnish
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "Draft Invoice"
+msgstr "Laskuluonnos"
+
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_footer_finnish
 msgid "Email:"
 msgstr "Sähköposti:"
 
 # Already in Finnish
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Eräpäivä"
 msgstr ""
 
-# No need to translate
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Euro"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_layout_footer_finnish
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_footer_finnish
 msgid "Fax:"
 msgstr "Faksi:"
 
@@ -108,25 +131,25 @@ msgstr "Suomalainen laskupohja"
 
 # Swedish, do not translate
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Från konto nr"
 msgstr ""
 
 # Swedish, do not translate
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Förf.dag"
 msgstr ""
 
 # No need to translate
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "IBAN"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: help:account.invoice,invoice_number:0
 #: code:addons/l10n_fi_invoice/model/account_invoice.py:75
+#: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_invoice_number
 #, python-format
 msgid ""
 "Identifier number used to refer to this invoice in accordance with https://"
@@ -139,29 +162,23 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model:ir.model,name:l10n_fi_invoice.model_account_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Invoice"
 msgstr "Lasku"
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Invoice Date"
 msgstr "Laskun pvm"
 
 #. module: l10n_fi_invoice
-#: field:account.invoice,invoice_number:0
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.model.fields,field_description:l10n_fi_invoice.field_account_invoice_invoice_number
 msgid "Invoice number"
 msgstr "Laskun numero"
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Invoice reference"
-msgstr "Viitenumero"
-
-#. module: l10n_fi_invoice
-#: help:account.invoice,ref_number:0
 #: code:addons/l10n_fi_invoice/model/account_invoice.py:85
+#: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_ref_number
 #, python-format
 msgid ""
 "Invoice reference number in accordance with https://www.fkl.fi/teemasivut/"
@@ -173,25 +190,25 @@ msgstr ""
 
 # Already Finnish
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Kotipaikka:"
 msgstr ""
 
 # Already Finnish
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Laskun numero"
 msgstr ""
 
 # Already Finnish
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Maksaja"
 msgstr ""
 
 # Already Finnish
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid ""
 "Maksu välitetään saajalle maksujenvälityksen ehtojen mukaisesti ja vain "
 "maksajan\n"
@@ -200,25 +217,30 @@ msgstr ""
 
 # Swedish, do not translate
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Mottagare"
 msgstr ""
 
 # Swedish, do not translate
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid ""
 "Mottagarens\n"
 "                                                kontonummer"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Our reference"
 msgstr "Viitteemme"
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_layout_footer_finnish
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "PRO-FORMA"
+msgstr ""
+
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_footer_finnish
 msgid "Page:"
 msgstr "Sivu:"
 
@@ -228,58 +250,63 @@ msgid "Partner"
 msgstr "Kumppani"
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Payment term"
 msgstr "Maksuehto"
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_layout_footer_finnish
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_footer_finnish
 msgid "Phone:"
 msgstr "Puh:"
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Quantity"
 msgstr "Määrä"
 
 # Swedish, do not translate
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Ref.nr"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: field:account.invoice,ref_number:0
+#: model:ir.model.fields,field_description:l10n_fi_invoice.field_account_invoice_ref_number
 msgid "Reference Number"
 msgstr "Viitenumero"
 
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "Refund"
+msgstr "Hyvitys"
+
 # Already Finnish
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Saaja"
 msgstr ""
 
 # Already Finnish
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid ""
 "Saajan\n"
 "                                                tilinumero"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Tax"
 msgstr "Vero"
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Taxes"
 msgstr "Verot"
 
 #. module: l10n_fi_invoice
-#: help:account.invoice,date_delivered:0
 #: code:addons/l10n_fi_invoice/model/account_invoice.py:92
+#: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_date_delivered
 #, python-format
 msgid ""
 "The date when the invoiced product or service was considered delivered, for "
@@ -290,60 +317,71 @@ msgstr ""
 
 # Already Finnish
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Tililtä nro"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Total"
 msgstr "Summa"
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Total Without Taxes"
 msgstr "Veroton summa"
 
 # Swedish, do not translate
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Underskrift"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Unit Price"
 msgstr "Yksikköhinta"
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "VAT:"
 msgstr "ALV:"
 
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "Vendor Bill"
+msgstr "Ostolasku"
+
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "Vendor Refund"
+msgstr "Oston Hyvitys"
+
 # Already Finnish
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Viitenro"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_layout_footer_finnish
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_footer_finnish
 msgid "Website:"
 msgstr "Verkkosivu:"
 
 # Already Finnish
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Y-tunnus:"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Your reference"
 msgstr "Viitteenne"
 
 #. module: l10n_fi_invoice
 #: code:addons/l10n_fi_invoice/model/account_invoice.py:99
+#: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_barcode_string
 #, python-format
 msgid ""
 "https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
@@ -354,9 +392,15 @@ msgstr ""
 
 # No need to translate
 #. module: l10n_fi_invoice
-#: view:website:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "– BIC"
 msgstr ""
+
+#~ msgid "Date due"
+#~ msgstr "Eräpäivä"
+
+#~ msgid "Description"
+#~ msgstr "Kuvaus"
 
 #~ msgid "BIC"
 #~ msgstr "BIC"
