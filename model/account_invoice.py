@@ -31,64 +31,58 @@ log = logging.getLogger(__name__)
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    @api.one
-    @api.depends('number', 'state')
-    def _compute_ref_number(self):
-        if self.number:
-            invoice_number = re.sub(r'\D', '', self.number)
-            checksum = sum((7, 3, 1)[idx % 3] * int(val)
-                           for idx, val in enumerate(invoice_number[::-1]))
-            self.ref_number = invoice_number + str((10 - (checksum % 10)) % 10)
-            self.invoice_number = invoice_number
-        else:
-            self.invoice_number = False
-            self.ref_number = False
-
-    @api.one
+    @api.multi
     def _compute_barcode_string(self):
-        primary_bank_account = self.partner_bank_id or \
-            self.company_id.partner_id.bank_ids and self.company_id.partner_id.bank_ids[0]
-        if (self.amount_total and primary_bank_account.acc_number
-                and self.ref_number and self.date_due):
-            amount_total_string = str(self.amount_total)
-            if amount_total_string[-2:-1] == '.':
-                amount_total_string += '0'
+        for invoice in self:
+            primary_bank_account = invoice.partner_bank_id or \
+                invoice.company_id.partner_id.bank_ids and \
+                invoice.company_id.partner_id.bank_ids[0]
+            if not (invoice.amount_total and
+                    primary_bank_account and
+                    primary_bank_account.acc_number and
+                    invoice.payment_reference_type and
+                    invoice.payment_reference and
+                    invoice.date_due):
+                invoice.barcode_string = False
+                return
+            if invoice.payment_reference_type == 'fi':
+                version = '4'
+                reserved = '000'
+                pay_ref = invoice.payment_reference.zfill(20)
+            elif invoice.payment_reference_type == 'rf':
+                version = '5'
+                reserved = ''
+                pay_ref = invoice.payment_reference[2:]  # Cut off RF
+                length = 23 - len(pay_ref)
+                pay_ref = pay_ref[:2] + '0'*length + pay_ref[2:]
+            else:
+                invoice.barcode_string = False
+                return
+            # Bank account sans letters
+            bank_account = re.sub("[^0-9]", "", str(primary_bank_account.acc_number))
+            amount_total_string = '%.2f' % invoice.amount_total
             amount_total_string = amount_total_string.zfill(9)
-            receiver_bank_account = re\
-                .sub("[^0-9]", "", str(primary_bank_account.acc_number))
-            ref_number_filled = self.ref_number.zfill(20)
-            self.barcode_string = '4' \
-                                  + receiver_bank_account \
-                                  + amount_total_string[:-3] \
-                                  + amount_total_string[-2:] \
-                                  + "000" + ref_number_filled \
-                                  + self.date_due[2:4] \
-                                  + self.date_due[5:-3] \
-                                  + self.date_due[-2:]
-        else:
-            self.barcode_string = False
+            amount_euros = amount_total_string[:-3]
+            amount_cents = amount_total_string[-2:]
+            invoice.barcode_string = ''.join([
+                version,
+                bank_account,
+                amount_euros,
+                amount_cents,
+                reserved,
+                pay_ref,
+                invoice.date_due[2:4],  # Year
+                invoice.date_due[5:7],  # Month
+                invoice.date_due[8:],  # Date
+            ])
 
-    invoice_number = fields.Char(
-        'Invoice number',
-        compute='_compute_ref_number',
-        store=True,
-        help=_('Identifier number used to refer to this invoice in '
-               'accordance with https://www.fkl.fi/teemasivut/sepa/'
-               'tekninen_dokumentaatio/Dokumentit/kotimaisen_viitte'
-               'en_rakenneohje.pdf')
-    )
 
-    ref_number = fields.Char(
-        'Reference Number',
-        compute='_compute_ref_number',
-        store=True,
-        help=_('Invoice reference number in accordance with https://'
-               'www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Do'
-               'kumentit/kotimaisen_viitteen_rakenneohje.pdf')
-    )
+    def _compute_default_delivered(self):
+        return fields.Date.today()
 
     date_delivered = fields.Date(
         'Date delivered',
+        default=_compute_default_delivered,
         help=_('The date when the invoiced product or service was considered '
                'delivered, for taxation purposes.')
     )
@@ -96,6 +90,5 @@ class AccountInvoice(models.Model):
     barcode_string = fields.Char(
         'Barcode String',
         compute='_compute_barcode_string',
-        help=_('https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dok'
-               'umentit/Pankkiviivakoodi-opas.pdf')
+        help=_('Barcode generated in accordance with http://www.finanssiala.fi/maksujenvalitys/dokumentit/Pankkiviivakoodi-opas.pdf')
     )
