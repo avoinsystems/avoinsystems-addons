@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0-20150501\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-15 14:22+0000\n"
-"PO-Revision-Date: 2016-08-15 17:26+0200\n"
+"POT-Creation-Date: 2016-08-23 13:16+0000\n"
+"PO-Revision-Date: 2016-08-23 16:20+0200\n"
 "Last-Translator: \n"
 "Language-Team: Avoin.Systems\n"
 "Language: fi_FI\n"
@@ -23,7 +23,10 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "<span class=\"bank-transfer-label\">Euro</span>"
+msgid ""
+"<span class=\"bank-transfer-label\">\n"
+"                                                        Euro\n"
+"                                                    </span>"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -63,6 +66,17 @@ msgid "Barcode String"
 msgstr "Viivakoodi"
 
 #. module: l10n_fi_invoice
+#: code:addons/l10n_fi_invoice/model/account_invoice.py:94
+#: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_barcode_string
+#, python-format
+msgid ""
+"Barcode generated in accordance with http://www.finanssiala.fi/"
+"maksujenvalitys/dokumentit/Pankkiviivakoodi-opas.pdf"
+msgstr ""
+"Viivakoodi finanssialan sääntöjen mukaisesti: http://www.finanssiala.fi/"
+"maksujenvalitys/dokumentit/Pankkiviivakoodi-opas.pdf"
+
+#. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Base"
 msgstr "Verotettava"
@@ -77,14 +91,16 @@ msgstr ""
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid ""
-"Betalningen fömedlas till mottagaren enligt villkoren för "
-"betalningsförmedling\n"
-"                                        och endast till det kontonummer som "
-"betalaren angivit."
+"Betalningen fömedlas till mottagaren\n"
+"                                                enligt villkoren för\n"
+"                                                betalningsförmedling\n"
+"                                                och endast till det "
+"kontonummer som\n"
+"                                                betalaren angivit."
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_header_finnish
 msgid "Cancelled Invoice"
 msgstr "Peruttu Lasku"
 
@@ -104,7 +120,7 @@ msgid "Discount (%)"
 msgstr "Alennus (%)"
 
 #. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_header_finnish
 msgid "Draft Invoice"
 msgstr "Laskuluonnos"
 
@@ -123,11 +139,6 @@ msgstr ""
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_footer_finnish
 msgid "Fax:"
 msgstr "Faksi:"
-
-#. module: l10n_fi_invoice
-#: model:ir.actions.report.xml,name:l10n_fi_invoice.report_invoice_finnish
-msgid "Finnish Invoice"
-msgstr "Suomalainen laskupohja"
 
 # Swedish, do not translate
 #. module: l10n_fi_invoice
@@ -148,21 +159,8 @@ msgid "IBAN"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:75
-#: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_invoice_number
-#, python-format
-msgid ""
-"Identifier number used to refer to this invoice in accordance with https://"
-"www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
-"kotimaisen_viitteen_rakenneohje.pdf"
-msgstr ""
-"Laksun tunnistenumero jolla voidaan viitata yksiselitteisesti tähän laskuun. "
-"Katso https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
-"kotimaisen_viitteen_rakenneohje.pdf."
-
-#. module: l10n_fi_invoice
 #: model:ir.model,name:l10n_fi_invoice.model_account_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_header_finnish
 msgid "Invoice"
 msgstr "Lasku"
 
@@ -170,23 +168,6 @@ msgstr "Lasku"
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Invoice Date"
 msgstr "Laskun pvm"
-
-#. module: l10n_fi_invoice
-#: model:ir.model.fields,field_description:l10n_fi_invoice.field_account_invoice_invoice_number
-msgid "Invoice number"
-msgstr "Laskun numero"
-
-#. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:85
-#: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_ref_number
-#, python-format
-msgid ""
-"Invoice reference number in accordance with https://www.fkl.fi/teemasivut/"
-"sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
-msgstr ""
-"Viitenumero. Katso Invoice reference number in accordance with https://www."
-"fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
-"kotimaisen_viitteen_rakenneohje.pdf"
 
 # Already Finnish
 #. module: l10n_fi_invoice
@@ -206,13 +187,13 @@ msgstr ""
 msgid "Maksaja"
 msgstr ""
 
-# Already Finnish
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid ""
-"Maksu välitetään saajalle maksujenvälityksen ehtojen mukaisesti ja vain "
-"maksajan\n"
-"                                        tilinumeron perusteella."
+"Maksu välitetään saajalle\n"
+"                                                maksujenvälityksen ehtojen\n"
+"                                                mukaisesti ja vain maksajan\n"
+"                                                tilinumeron perusteella."
 msgstr ""
 
 # Swedish, do not translate
@@ -226,7 +207,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid ""
 "Mottagarens\n"
-"                                                kontonummer"
+"                                                        kontonummer"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -235,7 +216,7 @@ msgid "Our reference"
 msgstr "Viitteemme"
 
 #. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_header_finnish
 msgid "PRO-FORMA"
 msgstr ""
 
@@ -271,12 +252,7 @@ msgid "Ref.nr"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: model:ir.model.fields,field_description:l10n_fi_invoice.field_account_invoice_ref_number
-msgid "Reference Number"
-msgstr "Viitenumero"
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_header_finnish
 msgid "Refund"
 msgstr "Hyvitys"
 
@@ -286,12 +262,11 @@ msgstr "Hyvitys"
 msgid "Saaja"
 msgstr ""
 
-# Already Finnish
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid ""
 "Saajan\n"
-"                                                tilinumero"
+"                                                        tilinumero"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -305,7 +280,7 @@ msgid "Taxes"
 msgstr "Verot"
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:92
+#: code:addons/l10n_fi_invoice/model/account_invoice.py:87
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_date_delivered
 #, python-format
 msgid ""
@@ -323,8 +298,8 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Total"
-msgstr "Summa"
+msgid "To Pay"
+msgstr "Maksettava summa"
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
@@ -348,12 +323,12 @@ msgid "VAT:"
 msgstr "ALV:"
 
 #. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_header_finnish
 msgid "Vendor Bill"
 msgstr "Ostolasku"
 
 #. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_header_finnish
 msgid "Vendor Refund"
 msgstr "Oston Hyvitys"
 
@@ -379,22 +354,47 @@ msgstr ""
 msgid "Your reference"
 msgstr "Viitteenne"
 
-#. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:99
-#: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_barcode_string
-#, python-format
-msgid ""
-"https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
-"Pankkiviivakoodi-opas.pdf"
-msgstr ""
-"https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
-"kotimaisen_viitteen_rakenneohje.pdf"
-
 # No need to translate
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "– BIC"
 msgstr ""
+
+#~ msgid "Finnish Invoice"
+#~ msgstr "Suomalainen laskupohja"
+
+#~ msgid ""
+#~ "Identifier number used to refer to this invoice in accordance with "
+#~ "https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
+#~ "kotimaisen_viitteen_rakenneohje.pdf"
+#~ msgstr ""
+#~ "Laksun tunnistenumero jolla voidaan viitata yksiselitteisesti tähän "
+#~ "laskuun. Katso https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/"
+#~ "Dokumentit/kotimaisen_viitteen_rakenneohje.pdf."
+
+#~ msgid "Invoice number"
+#~ msgstr "Laskun numero"
+
+#~ msgid ""
+#~ "Invoice reference number in accordance with https://www.fkl.fi/teemasivut/"
+#~ "sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
+#~ msgstr ""
+#~ "Viitenumero. Katso Invoice reference number in accordance with https://"
+#~ "www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
+#~ "kotimaisen_viitteen_rakenneohje.pdf"
+
+#~ msgid "Reference Number"
+#~ msgstr "Viitenumero"
+
+#~ msgid "Total"
+#~ msgstr "Summa"
+
+#~ msgid ""
+#~ "https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
+#~ "Pankkiviivakoodi-opas.pdf"
+#~ msgstr ""
+#~ "https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
+#~ "kotimaisen_viitteen_rakenneohje.pdf"
 
 #~ msgid "Date due"
 #~ msgstr "Eräpäivä"

@@ -10,12 +10,6 @@
                 <field name="date_invoice" position="after">
                     <field name="date_delivered"/>
                 </field>
-
-                <xpath expr="//notebook/page[2]//group/field[@name='name']" position="after">
-                    <field name="invoice_number"/>
-                    <field name="ref_number"/>
-                </xpath>
-
             </field>
         </record>
     </data>

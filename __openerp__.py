@@ -28,8 +28,7 @@
     "website": "http://avoin.systems",
     "images": ["static/description/icon.png"],
     "depends": [
-        'base',
-        'account'
+        'l10n_fi'
     ],
     "description": """
 Finnish Invoice
