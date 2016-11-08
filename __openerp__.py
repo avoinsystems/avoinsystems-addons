@@ -23,6 +23,7 @@
 {
     "name": "Finnish Invoice",
     "version": "0.2.0",
+    "license": "AGPL-3",
     "author": "Avoin.Systems",
     "category": "Localization",
     "website": "http://avoin.systems",
