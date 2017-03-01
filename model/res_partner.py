@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from openerp import models
+from odoo import models
 
 
 # NOTE: This class _should be_ in a more general l10n_fi module. Since there is
