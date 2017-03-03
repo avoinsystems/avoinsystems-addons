@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
         <template id="report_invoice_finnish_document">
             <t t-name="account.report_invoice_document">
                 <t t-call="l10n_fi_invoice.report_layout_finnish">
+                    <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
                     <div class="header" style="height: 2.62cm; position: relative;">
                         <style type="text/css">
                             .padding-correction {
@@ -186,7 +187,7 @@
                                         <tr>
                                             <td>Payment term</td>
                                             <td>
-                                                <span t-field="o.payment_term"/>
+                                                <span t-field="o.payment_term_id"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -225,14 +226,14 @@
                                     </tr>
                                 </thead>
                                 <tbody class="invoice_tbody">
-                                    <tr t-foreach="o.invoice_line" t-as="l">
+                                    <tr t-foreach="o.invoice_line_ids" t-as="l">
                                         <td>
                                             <span class="line_number" t-esc="str(l_index+1) + '.'"/>
                                             <span class="col-xs-offset-2" t-field="l.name"/>
                                         </td>
                                         <td>
                                             <span t-field="l.quantity"/>
-                                            <span t-field="l.uos_id" groups="product.group_uom"/>
+                                            <span t-field="l.uom_id" groups="product.group_uom"/>
                                         </td>
                                         <td class="text-right">
                                             <span t-field="l.price_unit"/>
@@ -241,7 +242,7 @@
                                             <span t-field="l.discount"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-esc="', '.join(map(lambda x: x.name, l.invoice_line_tax_id))"/>
+                                            <span t-esc="', '.join(map(lambda x: x.name, l.invoice_line_tax_ids))"/>
                                         </td>
                                         <td class="text-right">
                                             <span t-field="l.price_subtotal"
@@ -279,7 +280,7 @@
                                 </div>
                             </div>
 
-                            <div class="row" t-if="o.tax_line">
+                            <div class="row" t-if="o.tax_line_ids">
                                 <div class="col-xs-6 col-xs-offset-6">
                                     <table class="table table-condensed">
                                         <thead>
@@ -290,7 +291,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr t-foreach="o.tax_line" t-as="t">
+                                            <tr t-foreach="o.tax_line_ids" t-as="t">
                                                 <td>
                                                     <span t-field="t.name"/>
                                                 </td>
@@ -497,8 +498,8 @@
 
         <template id="report_invoice_finnish_translate" t-name="Finnish Invoice">
             <t t-call="report.html_container">
-                <t t-foreach="doc_ids" t-as="doc_id">
-                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'l10n_fi_invoice.report_invoice_finnish_document')"/>
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="l10n_fi_invoice.report_invoice_finnish_document"/>
                 </t>
             </t>
         </template>
@@ -535,4 +536,4 @@
         </record>
 
     </data>
-</openerp>
+</odoo>
