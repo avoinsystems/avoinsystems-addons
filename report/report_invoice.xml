@@ -304,11 +304,25 @@
                                                           t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
                                                 </td>
                                             </tr>
+                                            <tr t-if="o.fiscal_position_id.reverse_tax">
+                                                <td>
+                                                    <span>Finnish reverse tax. Business id:</span>
+                                                    <span t-field="o.partner_id.business_id"/>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+                        <!--
+                        <div class="row" t-if="o.fiscal_position_id.reverse_tax">
+                            <div class="col-xs-6 col-xs-offset-6">
+                                <span>Finnish reverse tax. Business id:</span>
+                                <span t-field="o.partner_id.business_id"/>
+                            </div>
+                        </div>
+                        -->
                         <hr/>
                         <div class="bank-transfer-wrap last-page" style="page-break-inside: avoid;">
                             <div class="row padding-correction" style="margin-bottom: 1em; font-size: .8em;">

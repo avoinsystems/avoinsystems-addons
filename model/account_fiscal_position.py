@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Author: Avoin.Systems
-#    Copyright 2015-2017 Avoin.Systems
+#    Copyright 2017 Avoin.Systems
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,5 +18,10 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import account_invoice
-from . import account_fiscal_position
+from odoo import models, fields
+
+
+class FiscalPosition(models.Model):
+    _inherit = 'account.fiscal.position'
+
+    reverse_tax = fields.Boolean(string='Reverse Tax', help='This is a Finnish reverse tax')

@@ -29,7 +29,8 @@
     "images": ["static/description/icon.png"],
     "depends": [
         'base',
-        'account'
+        'account',
+        'l10n_fi'
     ],
     "description": """
 Finnish Invoice
@@ -42,6 +43,7 @@ Make invoice reports look like Finnish standard invoices.
         'report/report_layout_header.xml',
         'report/report_layout_footer.xml',
         'report/report_invoice.xml',
+        'view/account_fiscal_position.xml',
         'view/account_invoice.xml'
     ],
     "summary": "Suomalainen laskupohja",
