@@ -144,6 +144,9 @@
                                     <span t-if="o.partner_id.vat">VAT:
                                         <span t-field="o.partner_id.vat"/>
                                     </span>
+                                    <span t-if="o.partner_id.business_id">Y-tunnus:
+                                        <span t-field="o.partner_id.business_id"/>
+                                    </span>
                                 </div>
                                 <div class="col-xs-5">
                                     <table class="invoice-info"
@@ -304,10 +307,9 @@
                                                           t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
                                                 </td>
                                             </tr>
-                                            <tr t-if="o.fiscal_position_id.reverse_tax">
+                                            <tr t-if="o.fiscal_position_id.note">
                                                 <td>
-                                                    <span>Finnish reverse tax. Business id:</span>
-                                                    <span t-field="o.partner_id.business_id"/>
+                                                    <span t-field="o.fiscal_position_id.note"/>
                                                 </td>
                                             </tr>
                                         </tbody>
