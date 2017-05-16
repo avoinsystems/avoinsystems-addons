@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e-20170215\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-02 08:01+0000\n"
-"PO-Revision-Date: 2017-05-12 08:01+0000\n"
+"PO-Revision-Date: 2017-03-02 08:01+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -34,11 +34,6 @@ msgstr "<span class=\"col-xs-offset-2\">Kuvaus</span>"
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "<span>Date due</span>"
 msgstr "<span>Eräpäivä</span>"
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "<span>Finnish reverse tax. Business id:</span>"
-msgstr "<span>Käännetty verovelvollisuus, ostaja verovelvollinen AVL 8 c § Y-tunnus:</span>"
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
@@ -236,11 +231,6 @@ msgid "Reference Number"
 msgstr "Viite"
 
 #. module: l10n_fi_invoice
-#: model:ir.model.fields,field_description:l10n_fi_invoice.field_account_fiscal_position_reverse_tax
-msgid "Reverse Tax"
-msgstr "Käänteinen verovelvollisuus"
-
-#. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Saaja"
 msgstr "Saaja"
@@ -268,11 +258,6 @@ msgstr "Verot"
 #, python-format
 msgid "The date when the invoiced product or service was considered delivered, for taxation purposes."
 msgstr "Se päivä jolloin tuotteet tai palvelut katsotaan toimitetuiksi verotuksen kannalta."
-
-#. module: l10n_fi_invoice
-#: model:ir.model.fields,help:l10n_fi_invoice.field_account_fiscal_position_reverse_tax
-msgid "This is a Finnish reverse tax"
-msgstr "Ostaja verovelvollinen AVL 8 c §"
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
