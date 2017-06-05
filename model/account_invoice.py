@@ -46,8 +46,10 @@ class AccountInvoice(models.Model):
 
     @api.one
     def _compute_barcode_string(self):
+        displayed_bank_accounts = self.company_id.partner_id.bank_ids\
+          .filtered(lambda bank_id: bank_id.journal_id.display_on_footer)
         primary_bank_account = self.partner_bank_id or \
-            self.company_id.bank_ids and self.company_id.bank_ids[0]
+            displayed_bank_accounts and displayed_bank_accounts[0]
         if (self.amount_total and primary_bank_account.acc_number
                 and self.ref_number and self.date_due):
             amount_total_string = str(self.amount_total)

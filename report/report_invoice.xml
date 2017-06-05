@@ -364,13 +364,15 @@
                                             </t>
                                             <t t-if="not o.partner_bank_id.acc_number">
                                                 <t t-foreach="o.company_id.partner_id.bank_ids" t-as="t">
-                                                    <div t-if="t_index &lt; 3">
-                                                        IBAN
-                                                        <span t-field="t.acc_number"/>
-                                                        <t t-if="t.bank_bic">
-                                                            – BIC <span t-field="t.bank_bic"/>
-                                                        </t>
-                                                    </div>
+                                                    <t t-if="t.journal_id.display_on_footer">
+                                                        <div t-if="t_index &lt; 3">
+                                                            IBAN
+                                                            <span t-field="t.acc_number"/>
+                                                            <t t-if="t.bank_bic">
+                                                                – BIC <span t-field="t.bank_bic"/>
+                                                            </t>
+                                                        </div>
+                                                    </t>
                                                 </t>
                                             </t>
                                         </div>
