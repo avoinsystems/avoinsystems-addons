@@ -5,33 +5,6 @@
             <t t-name="account.report_invoice_document">
                 <t t-call="l10n_fi_invoice.report_layout_finnish">
                     <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
-                    <div class="header" style="height: 2.62cm; position: relative;">
-                        <style type="text/css">
-                            .padding-correction {
-                            padding-right: 15px;
-                            padding-left: 15px;
-                            }
-                        </style>
-                        <div class="padding-correction" style="position: absolute; width: 100%; bottom: 0;">
-                            <div class="row">
-                                <div class="col-xs-2 col-xs-offset-1"
-                                     style="float: none; display: inline-block; vertical-align: middle;">
-                                    <img t-if="o.company_id.logo"
-                                         t-att-src="'data:image/png;base64,%s' % o.company_id.logo"
-                                         style="max-height: 2.1cm; max-width: 4cm;"/>
-                                </div>
-                                <div class="col-xs-4"
-                                     style="font-size: .85em; float: none; display: inline-block; vertical-align: middle;">
-                                    <div t-field="o.company_id.partner_id"
-                                         t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
-                                </div>
-                                <div class="col-xs-5 text-left"
-                                     style="font-weight: bold; font-size: large; float: none; display: inline-block; vertical-align: bottom; width: auto; padding-left: 5px;">
-                                    <span>Invoice</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="page">
                         <!-- Custom CSS for reports is not trivial, see here:
                             https://github.com/odoo/odoo/issues/4359
@@ -135,10 +108,31 @@
                             margin-bottom: 0;
                             }
                         </style>
-                        <div class="padding-correction" style="min-height: 11.3cm">
+                        <div style="height: 2.62cm; position: relative;">
+                            <div class="padding-correction" style="position: absolute; width: 100%; bottom: 0;">
+                                <div class="row">
+                                    <div class="col-xs-2 col-xs-offset-1"
+                                         style="float: none; display: inline-block; vertical-align: middle;">
+                                        <img t-if="o.company_id.logo"
+                                             t-att-src="'data:image/png;base64,%s' % o.company_id.logo"
+                                             style="max-height: 2.1cm; max-width: 4cm;"/>
+                                    </div>
+                                    <div class="col-xs-4"
+                                         style="font-size: .85em; float: none; display: inline-block; vertical-align: middle;">
+                                        <div t-field="o.company_id.partner_id"
+                                             t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                                    </div>
+                                    <div class="col-xs-5 text-left"
+                                         style="font-weight: bold; font-size: large; float: none; display: inline-block; vertical-align: bottom; width: auto; padding-left: 5px;">
+                                        <span>Invoice</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="padding-correction" style="min-height: 8.68cm">
                             <div class="row">
                                 <div class="col-xs-6 col-xs-offset-1"
-                                     style="margin-top: 10em; margin-bottom: 4em; font-size:1.1em;">
+                                     style="margin-top: 3em; margin-bottom: 4em; font-size:1.1em;">
                                     <address t-field="o.partner_id"
                                              t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
                                     <span t-if="o.partner_id.vat">VAT:
@@ -150,7 +144,7 @@
                                 </div>
                                 <div class="col-xs-5">
                                     <table class="invoice-info"
-                                           style="line-height: 1.5em; position:relative; top: 7.5em;">
+                                           style="line-height: 1.5em; position:relative; top: 0.5em;">
                                         <tr>
                                             <td>
                                                 <span>Invoice number</span>
