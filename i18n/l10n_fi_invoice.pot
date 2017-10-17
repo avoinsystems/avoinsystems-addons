@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0+e-20170215\n"
+"Project-Id-Version: Odoo Server 10.0-20170618\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-02 08:02+0000\n"
-"PO-Revision-Date: 2017-03-02 08:02+0000\n"
+"POT-Creation-Date: 2017-10-17 11:15+0000\n"
+"PO-Revision-Date: 2017-10-17 11:15+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -52,11 +52,6 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Allekirjoitus"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Amount"
 msgstr ""
 
@@ -72,13 +67,7 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Betalare"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Betalningen fömedlas till mottagaren enligt villkoren för betalningsförmedling\n"
-"                                        och endast till det kontonummer som betalaren angivit."
+msgid "Business ID:"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -88,7 +77,17 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "Date due"
+msgstr ""
+
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Date fulfilled"
+msgstr ""
+
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "Debtor"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -97,13 +96,13 @@ msgid "Discount (%)"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_footer_finnish
-msgid "Email:"
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "Domicile:"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Eräpäivä"
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_footer_finnish
+msgid "Email:"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -118,12 +117,7 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Från konto nr"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Förf.dag"
+msgid "From account No."
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -132,7 +126,7 @@ msgid "IBAN"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:75
+#: code:addons/l10n_fi_invoice/model/account_invoice.py:77
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_invoice_number
 #, python-format
 msgid "Identifier number used to refer to this invoice in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
@@ -150,46 +144,15 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model:ir.model.fields,field_description:l10n_fi_invoice.field_account_invoice_invoice_number
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Invoice number"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:85
+#: code:addons/l10n_fi_invoice/model/account_invoice.py:87
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_ref_number
 #, python-format
 msgid "Invoice reference number in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Kotipaikka:"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Laskun numero"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Maksaja"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Maksu välitetään saajalle maksujenvälityksen ehtojen mukaisesti ja vain maksajan\n"
-"                                        tilinumeron perusteella."
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Mottagare"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Mottagarens\n"
-"                                                kontonummer"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -219,7 +182,18 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Ref.nr"
+msgid "Recipient"
+msgstr ""
+
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "Recipient's\n"
+"                                                account number"
+msgstr ""
+
+#. module: l10n_fi_invoice
+#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "Reference No."
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -229,13 +203,7 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Saaja"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Saajan\n"
-"                                                tilinumero"
+msgid "Signature"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -249,7 +217,7 @@ msgid "Taxes"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:92
+#: code:addons/l10n_fi_invoice/model/account_invoice.py:94
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_date_delivered
 #, python-format
 msgid "The date when the invoiced product or service was considered delivered, for taxation purposes."
@@ -257,7 +225,7 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Tililtä nro"
+msgid "The payment will be issued to the recipient under the terms of payment service and only to the account number specified by the debtor."
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -272,11 +240,6 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Underskrift"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Unit Price"
 msgstr ""
 
@@ -286,18 +249,8 @@ msgid "VAT:"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Viitenro"
-msgstr ""
-
-#. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_footer_finnish
 msgid "Website:"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Y-tunnus:"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -306,7 +259,7 @@ msgid "Your reference"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:99
+#: code:addons/l10n_fi_invoice/model/account_invoice.py:101
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_barcode_string
 #, python-format
 msgid "https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/Pankkiviivakoodi-opas.pdf"
@@ -316,3 +269,4 @@ msgstr ""
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "– BIC"
 msgstr ""
+
