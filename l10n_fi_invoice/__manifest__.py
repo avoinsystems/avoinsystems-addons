@@ -25,7 +25,8 @@
     "version": "10.0.1.2.0",
     "author": "Avoin.Systems",
     "category": "Localization",
-    "website": "http://avoin.systems",
+    "website": "https://avoin.systems",
+    "license": "AGPL-3",
     "images": ["static/description/icon.png"],
     "depends": [
         "account",
