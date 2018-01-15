@@ -31,11 +31,6 @@
     "depends": [
         "account",
     ],
-    "description": """
-Finnish Invoice
-===============
-Make invoice reports look like Finnish standard invoices.
-""",
     "data": [
         "views/report_templates.xml",
         "views/account_invoice_templates.xml",
