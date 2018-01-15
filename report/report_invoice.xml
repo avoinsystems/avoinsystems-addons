@@ -138,9 +138,7 @@
                                     <span t-if="o.partner_id.vat">VAT:
                                         <span t-field="o.partner_id.vat"/>
                                     </span>
-                                    <span t-if="o.partner_id.business_id">Business ID:
-                                        <span t-field="o.partner_id.business_id"/>
-                                    </span>
+                                    <span id="partner_business_id"/>
                                 </div>
                                 <div class="col-xs-5">
                                     <table class="invoice-info"

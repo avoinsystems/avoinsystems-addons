@@ -22,15 +22,13 @@
 # noinspection PyStatementEffect
 {
     "name": "Finnish Invoice",
-    "version": "10.0.1.0.0",
+    "version": "10.0.1.1.0",
     "author": "Avoin.Systems",
     "category": "Localization",
     "website": "http://avoin.systems",
     "images": ["static/description/icon.png"],
     "depends": [
-        'base',
-        'account',
-        'l10n_fi'
+        "account",
     ],
     "description": """
 Finnish Invoice
@@ -38,12 +36,12 @@ Finnish Invoice
 Make invoice reports look like Finnish standard invoices.
 """,
     "data": [
-        'data/common.xml',
-        'report/report_layout.xml',
-        'report/report_layout_header.xml',
-        'report/report_layout_footer.xml',
-        'report/report_invoice.xml',
-        'view/account_invoice.xml'
+        "data/common.xml",
+        "report/report_layout.xml",
+        "report/report_layout_header.xml",
+        "report/report_layout_footer.xml",
+        "report/report_invoice.xml",
+        "view/account_invoice.xml"
     ],
     "summary": "Suomalainen laskupohja",
     "active": False,
