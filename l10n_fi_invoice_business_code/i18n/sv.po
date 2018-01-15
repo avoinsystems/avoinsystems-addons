@@ -1,0 +1,174 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_fi_invoice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0-20170618\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-15 16:57+0000\n"
+"PO-Revision-Date: 2018-01-15 18:59+0200\n"
+"Last-Translator: Miku Laitinen <miku@avoin.systems>\n"
+"Language-Team: \n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.0.4\n"
+
+#. module: l10n_fi_invoice_business_code
+#: model:ir.ui.view,arch_db:l10n_fi_invoice_business_code.report_invoice_finnish_document_business_id
+msgid "Business ID:"
+msgstr "FO-nummer:"
+
+#~ msgid "&amp;bull;"
+#~ msgstr "&amp;bull;"
+
+#~ msgid "<span class=\"bank-transfer-label\">Euro</span>"
+#~ msgstr "<span class=“bank-transfer-label”>Euro</span>"
+
+#~ msgid "<span class=\"col-xs-offset-2\">Description</span>"
+#~ msgstr "<span class=“col-xs-offset-2”>Beskrivning</span>"
+
+#~ msgid "<span>Date due</span>"
+#~ msgstr "<span>Förf.dag</span>"
+
+#~ msgid "<span>Invoice number</span>"
+#~ msgstr "<span>Fakturanummer</span>"
+
+#~ msgid "<span>Invoice reference</span>"
+#~ msgstr "<span>Faktura referens</span>"
+
+#~ msgid "<span>Invoice</span>"
+#~ msgstr "<span>Faktura</span>"
+
+#~ msgid "Amount"
+#~ msgstr "Belopp"
+
+#~ msgid "Barcode String"
+#~ msgstr "Streckkod"
+
+#~ msgid "Base"
+#~ msgstr "Bas"
+
+#~ msgid "Date delivered"
+#~ msgstr "Datum levererad"
+
+#~ msgid "Date due"
+#~ msgstr "Förf.dag"
+
+#~ msgid "Date fulfilled"
+#~ msgstr "Datum uppfyllt"
+
+#~ msgid "Debtor"
+#~ msgstr "Betalare"
+
+#~ msgid "Discount (%)"
+#~ msgstr "Rabatt (%)"
+
+#~ msgid "Domicile:"
+#~ msgstr "Hemvist:"
+
+#~ msgid "Email:"
+#~ msgstr "E-post:"
+
+#~ msgid "Fax:"
+#~ msgstr "Fax:"
+
+#~ msgid "Finnish Invoice"
+#~ msgstr "Finska faktura"
+
+#~ msgid "From account No."
+#~ msgstr "Från konto nr"
+
+#~ msgid "IBAN"
+#~ msgstr "IBAN"
+
+#~ msgid "Identifier number used to refer to this invoice in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
+#~ msgstr "Identifieringsnummer som hänvisas till denna faktura i enlighet med https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
+
+#~ msgid "Invoice"
+#~ msgstr "Faktura"
+
+#~ msgid "Invoice Date"
+#~ msgstr "Fakturadatum"
+
+#~ msgid "Invoice number"
+#~ msgstr "Fakturanummer"
+
+#~ msgid "Invoice reference number in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
+#~ msgstr "Faktura referens nummer i enlighet med https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
+
+#~ msgid "Our reference"
+#~ msgstr "Våran referens"
+
+#~ msgid "Page:"
+#~ msgstr "Sida:"
+
+#~ msgid "Payment term"
+#~ msgstr "Betalningsvillkor"
+
+#~ msgid "Phone:"
+#~ msgstr "Telefon:"
+
+#~ msgid "Quantity"
+#~ msgstr "Antal"
+
+#~ msgid "Recipient"
+#~ msgstr "Mottagare"
+
+#~ msgid ""
+#~ "Recipient's\n"
+#~ "                                                account number"
+#~ msgstr ""
+#~ "Mottagarens\n"
+#~ "                                                kontonummer"
+
+#~ msgid "Reference No."
+#~ msgstr "Ref.nr"
+
+#~ msgid "Reference Number"
+#~ msgstr "Referensnummer"
+
+#~ msgid "Signature"
+#~ msgstr "Underskrift"
+
+#~ msgid "Tax"
+#~ msgstr "Skatt"
+
+#~ msgid "Taxes"
+#~ msgstr "Skatter"
+
+#~ msgid "The date when the invoiced product or service was considered delivered, for taxation purposes."
+#~ msgstr "Det datum då den beställda produkten eller tjänsten ansågs levererad, för beskattningsändamål."
+
+#~ msgid "The payment will be issued to the recipient under the terms of payment service and only to the account number specified by the debtor."
+#~ msgstr "Betalningen förmedlas till mottagaren enligt villkoren för betalningsförmedling och endast till det kontonummer som betalaren angivit."
+
+#~ msgid "Total"
+#~ msgstr "Totalt"
+
+#~ msgid "Total Without Taxes"
+#~ msgstr "Totalt Utan Skatt"
+
+#~ msgid "Unit Price"
+#~ msgstr "Enhetspris"
+
+#~ msgid "VAT:"
+#~ msgstr "MOMS:"
+
+#~ msgid "Website:"
+#~ msgstr "Hemsida:"
+
+#~ msgid "Y-tunnus:"
+#~ msgstr "FO-nummer:"
+
+#~ msgid "Your reference"
+#~ msgstr "Er referens"
+
+#~ msgid "https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/Pankkiviivakoodi-opas.pdf"
+#~ msgstr "https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/Pankkiviivakoodi-opas.pdf"
+
+#~ msgid "– BIC"
+#~ msgstr "– BIC"

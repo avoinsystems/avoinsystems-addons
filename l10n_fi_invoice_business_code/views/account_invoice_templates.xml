@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_finnish_document_business_id"
+              inherit_id="l10n_fi_invoice.report_invoice_finnish_document">
+
+        <xpath expr="//span[@id='partner_business_id']" position="replace">
+            <span t-if="o.partner_id.business_id">Business ID:
+                <span t-field="o.partner_id.business_id"/>
+            </span>
+        </xpath>
+
+    </template>
+
+</odoo>
