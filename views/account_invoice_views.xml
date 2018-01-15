@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Invoice form modifications -->
+    <record id="view_account_invoice_form_finnish" model="ir.ui.view">
+        <field name="name">account.invoice.form.finnish</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_invoice']" position="after">
+                <field name="date_delivered"/>
+            </xpath>
+
+            <xpath expr="//page[@name='other_info']//group/field[@name='name']" position="after">
+                <field name="invoice_number"/>
+                <field name="ref_number"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

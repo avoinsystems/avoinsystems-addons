@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0+e-20170215\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-17 11:15+0000\n"
-"PO-Revision-Date: 2017-10-17 14:16+0300\n"
-"Last-Translator: santeri valjakka <santeri.valjakka@avoin.systems>\n"
+"POT-Creation-Date: 2018-01-15 17:25+0000\n"
+"PO-Revision-Date: 2018-01-15 19:25+0200\n"
+"Last-Translator: Miku Laitinen <miku@avoin.systems>\n"
 "Language-Team: \n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
@@ -128,7 +128,7 @@ msgid "IBAN"
 msgstr "IBAN"
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:77
+#: code:addons/l10n_fi_invoice/models/account_invoice.py:77
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_invoice_number
 #, python-format
 msgid ""
@@ -157,7 +157,7 @@ msgid "Invoice number"
 msgstr "Laskun numero"
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:87
+#: code:addons/l10n_fi_invoice/models/account_invoice.py:87
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_ref_number
 #, python-format
 msgid ""
@@ -231,7 +231,7 @@ msgid "Taxes"
 msgstr "Verot"
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:94
+#: code:addons/l10n_fi_invoice/models/account_invoice.py:94
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_date_delivered
 #, python-format
 msgid ""
@@ -281,7 +281,7 @@ msgid "Your reference"
 msgstr "Viitteenne"
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:101
+#: code:addons/l10n_fi_invoice/models/account_invoice.py:101
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_barcode_string
 #, python-format
 msgid ""

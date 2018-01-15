@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0-20170618\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-05 07:57+0000\n"
-"PO-Revision-Date: 2017-10-24 09:39+0300\n"
+"POT-Creation-Date: 2018-01-15 17:25+0000\n"
+"PO-Revision-Date: 2018-01-15 19:25+0200\n"
+"Last-Translator: Miku Laitinen <miku@avoin.systems>\n"
 "Language-Team: \n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.0.4\n"
-"Last-Translator: santeri valjakka <santeri.valjakka@avoin.systems>\n"
-"Language: sv\n"
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_footer_finnish
@@ -128,7 +128,7 @@ msgid "IBAN"
 msgstr "IBAN"
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:77
+#: code:addons/l10n_fi_invoice/models/account_invoice.py:77
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_invoice_number
 #, python-format
 msgid ""
@@ -157,7 +157,7 @@ msgid "Invoice number"
 msgstr "Fakturanummer"
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:87
+#: code:addons/l10n_fi_invoice/models/account_invoice.py:87
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_ref_number
 #, python-format
 msgid ""
@@ -232,7 +232,7 @@ msgid "Taxes"
 msgstr "Skatter"
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:94
+#: code:addons/l10n_fi_invoice/models/account_invoice.py:94
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_date_delivered
 #, python-format
 msgid ""
@@ -278,16 +278,11 @@ msgstr "Hemsida:"
 
 #. module: l10n_fi_invoice
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Y-tunnus:"
-msgstr "FO-nummer:"
-
-#. module: l10n_fi_invoice
-#: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Your reference"
 msgstr "Er referens"
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:101
+#: code:addons/l10n_fi_invoice/models/account_invoice.py:101
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_barcode_string
 #, python-format
 msgid ""
@@ -301,3 +296,6 @@ msgstr ""
 #: model:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "– BIC"
 msgstr "– BIC"
+
+#~ msgid "Y-tunnus:"
+#~ msgstr "FO-nummer:"

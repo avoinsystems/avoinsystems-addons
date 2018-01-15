@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0-20170618\n"
+"Project-Id-Version: Odoo Server 10.0-20171201\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-17 11:15+0000\n"
-"PO-Revision-Date: 2017-10-17 11:15+0000\n"
+"POT-Creation-Date: 2018-01-15 17:25+0000\n"
+"PO-Revision-Date: 2018-01-15 17:25+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -126,7 +126,7 @@ msgid "IBAN"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:77
+#: code:addons/l10n_fi_invoice/models/account_invoice.py:77
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_invoice_number
 #, python-format
 msgid "Identifier number used to refer to this invoice in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
@@ -149,7 +149,7 @@ msgid "Invoice number"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:87
+#: code:addons/l10n_fi_invoice/models/account_invoice.py:87
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_ref_number
 #, python-format
 msgid "Invoice reference number in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
@@ -217,7 +217,7 @@ msgid "Taxes"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:94
+#: code:addons/l10n_fi_invoice/models/account_invoice.py:94
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_date_delivered
 #, python-format
 msgid "The date when the invoiced product or service was considered delivered, for taxation purposes."
@@ -259,7 +259,7 @@ msgid "Your reference"
 msgstr ""
 
 #. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/model/account_invoice.py:101
+#: code:addons/l10n_fi_invoice/models/account_invoice.py:101
 #: model:ir.model.fields,help:l10n_fi_invoice.field_account_invoice_barcode_string
 #, python-format
 msgid "https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/Pankkiviivakoodi-opas.pdf"

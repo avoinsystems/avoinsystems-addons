@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Author: Avoin.Systems
-#    Copyright 2015-2017 Avoin.Systems
+#    Copyright 2015-2018 Avoin.Systems
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,7 +22,7 @@
 # noinspection PyStatementEffect
 {
     "name": "Finnish Invoice",
-    "version": "10.0.1.1.0",
+    "version": "10.0.1.2.0",
     "author": "Avoin.Systems",
     "category": "Localization",
     "website": "http://avoin.systems",
@@ -36,12 +36,10 @@ Finnish Invoice
 Make invoice reports look like Finnish standard invoices.
 """,
     "data": [
-        "data/common.xml",
-        "report/report_layout.xml",
-        "report/report_layout_header.xml",
-        "report/report_layout_footer.xml",
-        "report/report_invoice.xml",
-        "view/account_invoice.xml"
+        "views/report_templates.xml",
+        "views/account_invoice_templates.xml",
+        "views/account_invoice_views.xml",
+        "data/report_paperformat_data.xml",  # Only after the template
     ],
     "summary": "Suomalainen laskupohja",
     "active": False,

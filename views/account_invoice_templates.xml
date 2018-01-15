@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_layout_finnish">
+        <t t-name="l10n_fi_invoice.external_layout_finnish">
+            <!-- Multicompany -->
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"/>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+
+            <t t-call="l10n_fi_invoice.report_layout_header_finnish"/>
+            <t t-raw="0"/>
+            <t t-call="l10n_fi_invoice.report_layout_footer_finnish"/>
+        </t>
+    </template>
+
+    <template id="report_layout_header_finnish">
+        <t t-name="l10n_fi_invoice.external_layout_header_finnish">
+
+        </t>
+    </template>
+
+    <template id="report_layout_footer_finnish">
+        <t t-name="l10n_fi_invoice.external_layout_footer_finnish">
+            <div class="footer">
+                <div class="text-center">
+                    <ul t-if="not company.custom_footer" class="list-inline">
+                        <li t-if="company.phone">Phone:
+                            <span t-field="company.phone"/>
+                        </li>
+
+                        <li t-if="company.fax and company.phone">&amp;bull;</li>
+                        <li t-if="company.fax">Fax:
+                            <span t-field="company.fax"/>
+                        </li>
+
+                        <li t-if="company.email">&amp;bull;</li>
+                        <li t-if="company.email">Email:
+                            <span t-field="company.email"/>
+                        </li>
+
+                        <li t-if="company.website">&amp;bull;</li>
+                        <li t-if="company.website">Website:
+                            <span t-field="company.website"/>
+                        </li>
+                    </ul>
+
+                    <t t-if="company.custom_footer">
+                        <span t-raw="company.rml_footer"/>
+                    </t>
+
+                    <ul class="list-inline">
+                        <li>Page:</li>
+                        <li>
+                            <span class="page"/>
+                        </li>
+                        <li>/</li>
+                        <li>
+                            <span class="topage"/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_invoice_finnish_document">
+        <t t-name="account.report_invoice_document">
+            <t t-call="l10n_fi_invoice.report_layout_finnish">
+                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+                <div class="page">
+                    <!-- Custom CSS for reports is not trivial, see here:
+                        https://github.com/odoo/odoo/issues/4359
+                        Easier to just insert inline, since we aren't changing multiple reports -->
+                    <style type="text/css">
+                        .padding-correction {
+                        padding-right: 15px;
+                        padding-left: 15px;
+                        }
+
+                        hr {
+                        border-top: 2px solid #eee;
+                        margin-left: -15px;
+                        margin-right: -15px;
+                        margin-top: 10px;
+                        margin-bottom: 10px;
+                        }
+
+                        .bank-transfer-wrap .row .row > div {
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                        }
+
+                        .bank-transfer-label {
+                        font-size: 9px;
+                        text-align: right;
+                        line-height: 10px;
+                        padding: 3px;
+                        }
+
+                        .bank-transfer-value {
+                        line-height: 1.7em;
+                        }
+
+                        .text-left {
+                        text-align: left;
+                        }
+
+                        .border-right {
+                        border-right: 2px solid black;
+                        }
+
+                        .border-left {
+                        border-left: 2px solid black;
+                        }
+
+                        .border-bottom {
+                        border-bottom: 2px solid black;
+                        }
+
+                        .medium-row > div {
+                        height: 4.9em;
+                        }
+
+                        .small-row > div {
+                        height: 2.5em;
+                        }
+
+                        .invoice-info tr td:last-child {
+                        padding-left: 3em;
+                        }
+
+                        address span[itemprop=name] {
+                        font-weight: bold;
+                        }
+
+                        .table-condensed > thead > tr > th {
+                        border-bottom: none;
+                        }
+
+                        .table > tbody > tr > td {
+                        border-top: none;
+                        }
+
+                        table.products-table {
+                        border-bottom: 1px solid #eee;
+                        }
+
+                        table.products-table-totals td {
+                        text-align: right;
+                        line-height: .9em !important;
+                        }
+
+                        .totals-col {
+                        width: 8em;
+                        font-weight: bold;
+                        }
+
+                        .line_number {
+                        color: gray;
+                        position: absolute;
+                        }
+
+                        .payment-terms {
+                        font-size: .7em;
+                        margin-top: .5em;
+                        line-height: 1em;
+                        }
+
+                        .payment-terms p {
+                        margin-bottom: 0;
+                        }
+                    </style>
+                    <div style="height: 2.62cm; position: relative;">
+                        <div class="padding-correction" style="position: absolute; width: 100%; bottom: 0;">
+                            <div class="row">
+                                <div class="col-xs-2 col-xs-offset-1"
+                                     style="float: none; display: inline-block; vertical-align: middle;">
+                                    <img t-if="o.company_id.logo"
+                                         t-att-src="'data:image/png;base64,%s' % o.company_id.logo"
+                                         style="max-height: 2.1cm; max-width: 4cm;"/>
+                                </div>
+                                <div class="col-xs-4"
+                                     style="font-size: .85em; float: none; display: inline-block; vertical-align: middle;">
+                                    <div t-field="o.company_id.partner_id"
+                                         t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                                </div>
+                                <div class="col-xs-5 text-left"
+                                     style="font-weight: bold; font-size: large; float: none; display: inline-block; vertical-align: bottom; width: auto; padding-left: 5px;">
+                                    <span>Invoice</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="padding-correction" style="min-height: 8.68cm">
+                        <div class="row">
+                            <div class="col-xs-6 col-xs-offset-1"
+                                 style="margin-top: 3em; margin-bottom: 4em; font-size:1.1em;">
+                                <address t-field="o.partner_id"
+                                         t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                                <span t-if="o.partner_id.vat">VAT:
+                                    <span t-field="o.partner_id.vat"/>
+                                </span>
+                                <span id="partner_business_id"/>
+                            </div>
+                            <div class="col-xs-5">
+                                <table class="invoice-info"
+                                       style="line-height: 1.5em; position:relative; top: 0.5em;">
+                                    <tr>
+                                        <td>
+                                            <span>Invoice number</span>
+                                        </td>
+                                        <td>
+                                            <t t-esc="o.number"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Invoice reference</span>
+                                        </td>
+                                        <td>
+                                            <t t-esc="o.ref_number"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Invoice Date</td>
+                                        <td>
+                                            <span t-field="o.date_invoice"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span>Date due</span>
+                                        </td>
+                                        <td>
+                                            <span t-field="o.date_due"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date fulfilled</td>
+                                        <td>
+                                            <span t-field="o.date_delivered"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Payment term</td>
+                                        <td>
+                                            <span t-field="o.payment_term_id"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Our reference</td>
+                                        <td>
+                                            <span t-field="o.origin"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Your reference</td>
+                                        <td>
+                                            <span t-field="o.name"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="padding-correction" style="min-height: 13.70cm;">
+                        <div style="margin-bottom: 1em;">
+                            <span t-field="o.comment"/>
+                        </div>
+                        <table class="table table-condensed products-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span class="col-xs-offset-2">Description</span>
+                                    </th>
+                                    <th>Quantity</th>
+                                    <th class="text-right">Unit Price</th>
+                                    <th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)
+                                    </th>
+                                    <th class="text-right">Taxes</th>
+                                    <th class="text-right totals-col">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.invoice_line_ids" t-as="l">
+                                    <td>
+                                        <span class="line_number" t-esc="str(l_index+1) + '.'"/>
+                                        <span class="col-xs-offset-2" t-field="l.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="l.quantity"/>
+                                        <span t-field="l.uom_id" groups="product.group_uom"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="l.price_unit"/>
+                                    </td>
+                                    <td class="text-right" groups="sale.group_discount_per_so_line">
+                                        <span t-field="l.discount"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="', '.join(map(lambda x: x.name, l.invoice_line_tax_ids))"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="l.price_subtotal"
+                                              t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row">
+                            <div class="col-xs-4 pull-right">
+                                <table class="table table-condensed products-table-totals">
+                                    <tr>
+                                        <td>Total Without Taxes</td>
+                                        <td class="text-right totals-col">
+                                            <span t-field="o.amount_untaxed"
+                                                  t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Taxes</td>
+                                        <td class="text-right totals-col">
+                                            <span t-field="o.amount_tax"
+                                                  t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td class="text-right totals-col">
+                                            <span t-field="o.amount_total"
+                                                  t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row" t-if="o.tax_line_ids">
+                            <div class="col-xs-6 col-xs-offset-6">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Tax</th>
+                                            <th class="text-right">Base</th>
+                                            <th class="text-right">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="o.tax_line_ids" t-as="t">
+                                            <td>
+                                                <span t-field="t.name"/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="t.base"
+                                                      t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="t.amount"
+                                                      t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                                            </td>
+                                        </tr>
+                                        <tr t-if="o.fiscal_position_id.note">
+                                            <td>
+                                                <span t-field="o.fiscal_position_id.note"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="bank-transfer-wrap last-page" style="page-break-inside: avoid;">
+                        <div class="row padding-correction" style="margin-bottom: 1em; font-size: .8em;">
+                            <div class="col-xs-4">
+                                <div t-field="o.company_id.partner_id"
+                                     t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                            </div>
+                            <div class="col-xs-4">
+                                <div>
+                                    <span t-field="o.company_id.phone"/>
+                                </div>
+                                <div>
+                                    <span t-field="o.company_id.email"/>
+                                </div>
+                                <div>
+                                    <span t-field="o.company_id.website"/>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div t-if="o.company_id.city">Domicile:
+                                    <span t-field="o.company_id.city"/>
+                                </div>
+                                <div>Business ID:
+                                    <span t-field="o.company_id.company_registry"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-eq-height border-bottom" style="border-top: 1px dashed gray">
+                            <div class="col-xs-7 border-right">
+                                <div class="row row-eq-height border-bottom medium-row">
+                                    <div class="col-xs-2 bank-transfer-label">
+                                        <div>
+                                            Recipient's
+                                            account number
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-10 border-left">
+                                        <t t-if="o.partner_bank_id.acc_number">
+                                            IBAN
+                                            <t t-esc="o.partner_bank_id.acc_number"/>
+                                        </t>
+                                        <t t-if="not o.partner_bank_id.acc_number">
+                                            <t t-foreach="o.company_id.partner_id.bank_ids" t-as="t">
+                                                <t t-if="t.journal_id.display_on_footer">
+                                                    <div t-if="t_index &lt; 3">
+                                                        IBAN
+                                                        <span t-field="t.acc_number"/>
+                                                        <t t-if="t.bank_bic">
+                                                            – BIC
+                                                            <span t-field="t.bank_bic"/>
+                                                        </t>
+                                                    </div>
+                                                </t>
+                                            </t>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="row row-eq-height border-bottom">
+                                    <div class="col-xs-2 bank-transfer-label">
+                                        <div>
+                                            Recipient
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-10 border-left" id="company-info" style="height: 4.5em">
+                                        <div t-field="o.company_id.partner_id"
+                                             t-field-options='{"widget": "contact", "fields": ["name"], "no_marker": true}'
+                                             style="font-size: .8em;"/>
+                                    </div>
+                                </div>
+                                <div class="row row-eq-height">
+                                    <div class="col-xs-2 bank-transfer-label">
+                                        <div>
+                                            Debtor
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-10" id="payer-info" style="height: 6em;">
+                                        <div t-field="o.partner_id"
+                                             t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                                             style="font-size: .8em;"/>
+                                    </div>
+                                </div>
+                                <div class="row row-eq-height border-bottom small-row">
+                                    <div class="col-xs-2 bank-transfer-label"
+                                         style="font-size: 9px; text-align: right; line-height: 10px; min-height: 0;">
+                                        <div>
+                                            Signature
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-10" style="min-height: 0;">
+                                        <div style="border-bottom: 1px solid black; margin-top: 15px;"/>
+                                    </div>
+                                </div>
+                                <div class="row row-eq-height small-row">
+                                    <div class="col-xs-2 bank-transfer-label">
+                                        <div>
+                                            From account No.
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-10" style="border-left: 1px solid black;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="row border-bottom medium-row">
+                                    <div class="col-xs-2 bank-transfer-label"></div>
+                                    <div class="col-xs-10">
+                                        <!-- BIC used to be here. Now there's space for a QR code. -->
+                                    </div>
+                                </div>
+                                <div class="row border-bottom">
+                                    <div class="col-xs-12" style="height: 10.5em;">
+                                        Invoice number
+                                        <t t-esc="o.number"/>
+                                    </div>
+                                </div>
+                                <div class="row row-eq-height border-bottom small-row">
+                                    <div class="col-xs-2 bank-transfer-label text-left">
+                                        <div>
+                                            Reference No.
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-10 border-left">
+                                        <strong>
+                                            <span t-field="o.ref_number" class="bank-transfer-value"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row row-eq-height small-row">
+                                    <div class="col-xs-2 bank-transfer-label text-left">
+                                        <div>Date due</div>
+                                    </div>
+                                    <div class="col-xs-4 border-left">
+                                        <strong>
+                                            <span t-field="o.date_due" class="bank-transfer-value"/>
+                                        </strong>
+                                    </div>
+                                    <div class="col-xs-6 border-left" style="padding-left: 0;">
+                                        <span class="bank-transfer-label">Euro</span>
+                                        <strong>
+                                            <span t-field="o.amount_total" class="bank-transfer-value"
+                                                  style="float: right;"/>
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-9" style="text-align: center;">
+                                <t t-if="o.barcode_string">
+                                    <img style="margin-left: 2cm; margin-right: 2cm; margin-top: .2cm;"
+                                         t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;height=%s&amp;width=%s' %('Code128', o.barcode_string, 60, 600)"/>
+                                    <div class="barcode-values">
+                                        <t t-esc="o.barcode_string"/>
+                                    </div>
+                                </t>
+                            </div>
+                            <div class="col-xs-3 payment-terms">
+                                <p>The payment will be issued to the recipient under the terms of payment service and
+                                    only to the account number specified by the debtor.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_invoice_finnish_translate" t-name="Finnish Invoice">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="l10n_fi_invoice.report_invoice_finnish_document" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <report
+            string="Finnish Invoice"
+            id="report_invoice_finnish"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            name="l10n_fi_invoice.report_invoice_finnish_translate"
+            file="l10n_fi_invoice.report_invoice_finnish_translate"
+    />
+
+
+</odoo>
