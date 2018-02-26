@@ -37,7 +37,7 @@
     ],
     "summary": "Y-tunnus suomalaiseen laskupohjaan",
     "active": False,
-    "installable": True,
+    "installable": False,
     "auto_install": True,
     "application": False
 }

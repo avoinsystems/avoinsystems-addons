@@ -19,7 +19,7 @@
     </record>
 
     <!--Make report use custom paper format-->
-    <record id="report_invoice_finnish" model="ir.actions.report.xml">
+    <record id="report_invoice_finnish" model="ir.actions.report">
         <field name="paperformat_id" ref="paperformat_finnish"/>
     </record>
 
