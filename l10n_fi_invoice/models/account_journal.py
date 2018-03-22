@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Author: Avoin.Systems
-#    Copyright 2015-2018 Avoin.Systems
+#    Copyright 2018 Avoin.Systems
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,29 +18,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from odoo import models, fields
 
-# noinspection PyStatementEffect
-{
-    "name": "Finnish Invoice",
-    "version": "11.0.1.0.0",
-    "author": "Avoin.Systems",
-    "category": "Localization",
-    "website": "https://avoin.systems",
-    "license": "AGPL-3",
-    "images": ["static/description/icon.png"],
-    "depends": [
-        "account",
-    ],
-    "data": [
-        "views/report_templates.xml",
-        "views/account_invoice_templates.xml",
-        "views/account_invoice_views.xml",
-        "views/account_journal_views.xml",
-        "data/report_paperformat_data.xml",  # Only after the template
-    ],
-    "summary": "Suomalainen laskupohja",
-    "active": False,
-    "installable": True,
-    "auto_install": False,
-    "application": False
-}
+
+class AccountJournal(models.Model):
+    _inherit = 'account.journal'
+
+    include_on_invoice = fields.Boolean(
+        "Include on Invoice",
+        help="Include this bank account in invoices generated for the associated company",
+        default=True
+    )

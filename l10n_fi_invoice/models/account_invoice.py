@@ -47,7 +47,7 @@ class AccountInvoice(models.Model):
     @api.one
     def _compute_barcode_string(self):
         displayed_bank_accounts = self.company_id.partner_id.bank_ids\
-          .filtered(lambda bank_id: bank_id.journal_id.display_on_footer)
+            .filtered(lambda bank_id: bank_id.journal_id.include_on_invoice)
         primary_bank_account = self.partner_bank_id or \
             displayed_bank_accounts and displayed_bank_accounts[0]
         if (self.amount_total and primary_bank_account.acc_number
@@ -111,6 +111,4 @@ class AccountInvoice(models.Model):
             'This option should only be used for a single id at a time.'
         # noinspection PyAttributeOutsideInit
         self.sent = True
-        return self.env['report']\
-            .get_action(self,
-                        'l10n_fi_invoice.report_invoice_finnish_translate')
+        return self.env.ref('l10n_fi_invoice.report_invoice_finnish').report_action(self)
