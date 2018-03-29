@@ -26,6 +26,6 @@ class AccountJournal(models.Model):
 
     include_on_invoice = fields.Boolean(
         "Include on Invoice",
-        help="Include this bank account in invoices generated for the associated company",
+        help="Include this bank account in Finnish invoices generated for the associated company",
         default=True
     )

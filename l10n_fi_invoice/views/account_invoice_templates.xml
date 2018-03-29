@@ -189,7 +189,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="padding-correction" style="min-height: 8.68cm">
+                    <div class="padding-correction" style="min-height: 6.68cm">
+                        <!-- Min height reduced to make invoice fit on one page. Original height was 8.68cm" -->
                         <div class="row">
                             <div class="col-xs-6 col-xs-offset-1"
                                  style="margin-top: 3em; margin-bottom: 4em; font-size:1.1em;">
