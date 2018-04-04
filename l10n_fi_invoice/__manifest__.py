@@ -35,6 +35,7 @@
         "views/report_templates.xml",
         "views/account_invoice_templates.xml",
         "views/account_invoice_views.xml",
+        "views/account_journal_views.xml",
         "data/report_paperformat_data.xml",  # Only after the template
     ],
     "summary": "Suomalainen laskupohja",

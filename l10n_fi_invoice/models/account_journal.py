@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Author: Avoin.Systems
-#    Copyright 2015-2018 Avoin.Systems
+#    Copyright 2018 Avoin.Systems
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,5 +18,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import account_invoice
-from . import account_journal
+from odoo import models, fields
+
+
+class AccountJournal(models.Model):
+    _inherit = 'account.journal'
+
+    include_on_invoice = fields.Boolean(
+        "Include on Invoice",
+        help="Include this bank account in Finnish invoices generated for the associated company",
+        default=True
+    )
