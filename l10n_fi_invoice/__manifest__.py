@@ -40,7 +40,7 @@
     ],
     "summary": "Suomalainen laskupohja",
     "active": False,
-    "installable": False,
+    "installable": True,
     "auto_install": False,
     "application": False
 }
