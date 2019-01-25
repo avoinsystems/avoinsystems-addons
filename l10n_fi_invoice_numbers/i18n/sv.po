@@ -1,0 +1,75 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_fi_invoice
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0-20170618\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-29 15:53+0000\n"
+"PO-Revision-Date: 2019-01-29 17:58+0200\n"
+"Last-Translator: santeri valjakka <santeri.valjakka@avoin.systems>\n"
+"Language-Team: \n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.2.1\n"
+
+#. module: l10n_fi_invoice_numbers
+#: code:addons/l10n_fi_invoice_numbers/models/account_invoice.py:51
+#, python-format
+msgid ""
+"Identifier number used to refer to this invoice in accordance with https://"
+"www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
+"kotimaisen_viitteen_rakenneohje.pdf"
+msgstr ""
+"Identifieringsnummer som hänvisas till denna faktura i enlighet med https://"
+"www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
+"kotimaisen_viitteen_rakenneohje.pdf"
+
+#. module: l10n_fi_invoice_numbers
+#: model:ir.model,name:l10n_fi_invoice_numbers.model_account_invoice
+msgid "Invoice"
+msgstr "Faktura"
+
+#. module: l10n_fi_invoice_numbers
+#: model:ir.model.fields,field_description:l10n_fi_invoice_numbers.field_account_invoice__invoice_number
+msgid "Invoice number"
+msgstr "Fakturanummer"
+
+#. module: l10n_fi_invoice_numbers
+#: code:addons/l10n_fi_invoice_numbers/models/account_invoice.py:61
+#, python-format
+msgid ""
+"Invoice reference number in accordance with https://www.fkl.fi/teemasivut/"
+"sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
+msgstr ""
+"Faktura referens nummer i enlighet med https://www.fkl.fi/teemasivut/sepa/"
+"tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
+
+#. module: l10n_fi_invoice_numbers
+#: model:ir.model.fields,help:l10n_fi_invoice_numbers.field_account_invoice__invoice_number
+msgid ""
+"Laksun tunnistenumero jolla voidaan viitata yksiselitteisesti tähän laskuun. "
+"Katso https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
+"kotimaisen_viitteen_rakenneohje.pdf."
+msgstr ""
+"Faktura referens nummer i enlighet med https://www.fkl.fi/teemasivut/sepa/"
+"tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf."
+
+#. module: l10n_fi_invoice_numbers
+#: model:ir.model.fields,field_description:l10n_fi_invoice_numbers.field_account_invoice__ref_number
+msgid "Reference Number"
+msgstr "Referensnummer"
+
+#. module: l10n_fi_invoice_numbers
+#: model:ir.model.fields,help:l10n_fi_invoice_numbers.field_account_invoice__ref_number
+msgid ""
+"Viitenumero. Katso Invoice reference number in accordance with https://www."
+"fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
+"kotimaisen_viitteen_rakenneohje.pdf"
+msgstr ""
+"Faktura referens nummer i enlighet med https://www.fkl.fi/teemasivut/sepa/"
+"tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
