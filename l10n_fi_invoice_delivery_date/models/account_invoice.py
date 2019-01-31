@@ -18,25 +18,16 @@
 #
 ##############################################################################
 
-# noinspection PyStatementEffect
-{
-    "name": "Business ID for Finnish Invoice",
-    "version": "12.0.1.0.0",
-    "author": "Avoin.Systems",
-    "category": "Localization",
-    "website": "https://avoin.systems",
-    "license": "AGPL-3",
-    "images": ["static/description/icon.png"],
-    "depends": [
-        "l10n_fi_invoice",
-        "l10n_fi_business_code",
-    ],
-    "data": [
-        "views/account_invoice_templates.xml",
-    ],
-    "summary": "Y-tunnus suomalaiseen laskupohjaan",
-    "active": False,
-    "installable": False,
-    "auto_install": True,
-    "application": False
-}
+from odoo import models, fields
+# noinspection PyProtectedMember
+from odoo.tools.translate import _
+
+
+class AccountInvoice(models.Model):
+    _inherit = 'account.invoice'
+
+    date_delivered = fields.Date(
+        'Date delivered',
+        help=_('The date when the invoiced product or service was considered '
+               'delivered, for taxation purposes.')
+    )

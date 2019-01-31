@@ -20,7 +20,7 @@
 
 # noinspection PyStatementEffect
 {
-    "name": "Business ID for Finnish Invoice",
+    "name": "Finnish Invoice Delivery Date",
     "version": "12.0.1.0.0",
     "author": "Avoin.Systems",
     "category": "Localization",
@@ -28,15 +28,14 @@
     "license": "AGPL-3",
     "images": ["static/description/icon.png"],
     "depends": [
-        "l10n_fi_invoice",
-        "l10n_fi_business_code",
+        "account",
     ],
     "data": [
-        "views/account_invoice_templates.xml",
+        "views/account_invoice_views.xml",
     ],
-    "summary": "Y-tunnus suomalaiseen laskupohjaan",
+    "summary": "Toimituspäivä laskulle",
     "active": False,
-    "installable": False,
-    "auto_install": True,
+    "installable": True,
+    "auto_install": False,
     "application": False
 }

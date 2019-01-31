@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Author: Avoin.Systems
@@ -22,25 +21,25 @@
 # noinspection PyStatementEffect
 {
     "name": "Finnish Invoice",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "author": "Avoin.Systems",
     "category": "Localization",
     "website": "https://avoin.systems",
     "license": "AGPL-3",
     "images": ["static/description/icon.png"],
     "depends": [
-        "account",
+        "l10n_fi_invoice_delivery_date",
+        "l10n_fi_invoice_numbers",
     ],
     "data": [
         "views/report_templates.xml",
         "views/account_invoice_templates.xml",
-        "views/account_invoice_views.xml",
         "views/account_journal_views.xml",
         "data/report_paperformat_data.xml",  # Only after the template
     ],
     "summary": "Suomalainen laskupohja",
     "active": False,
-    "installable": False,
+    "installable": False,  # The template is broken, see issue #6
     "auto_install": False,
     "application": False
 }
