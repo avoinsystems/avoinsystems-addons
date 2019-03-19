@@ -26,7 +26,6 @@
     "category": "Localization",
     "website": "https://avoin.systems",
     "license": "AGPL-3",
-    "images": ["static/description/icon.png"],
     "depends": [
         "account",
     ],
