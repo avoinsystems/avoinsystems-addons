@@ -39,7 +39,7 @@
     ],
     "summary": "Suomalainen laskupohja",
     "active": False,
-    "installable": False,  # The template is broken, see issue #6
+    "installable": True,
     "auto_install": False,
     "application": False
 }

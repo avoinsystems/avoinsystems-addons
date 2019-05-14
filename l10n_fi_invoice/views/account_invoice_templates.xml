@@ -2,7 +2,6 @@
 <odoo>
 
     <template id="report_layout_finnish">
-        <t t-name="l10n_fi_invoice.external_layout_finnish">
             <!-- Multicompany -->
 
             <t t-if="o and 'company_id' in o">
@@ -17,17 +16,12 @@
                 <t t-raw="0" />
             </div>
             <t t-call="l10n_fi_invoice.report_layout_footer_finnish"/>
-        </t>
     </template>
 
     <template id="report_layout_header_finnish">
-        <t t-name="l10n_fi_invoice.external_layout_header_finnish">
-
-        </t>
     </template>
 
     <template id="report_layout_footer_finnish">
-        <t t-name="l10n_fi_invoice.external_layout_footer_finnish">
             <div class="footer">
                 <div class="text-center">
                     <ul class="list-inline">
@@ -58,13 +52,11 @@
                     </ul>
                 </div>
             </div>
-        </t>
     </template>
 
     <template id="report_invoice_finnish_document">
-        <t t-name="account.report_invoice_document">
             <t t-call="l10n_fi_invoice.report_layout_finnish">
-                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
                 <div class="page">
                     <!-- Custom CSS for reports is not trivial, see here:
                         https://github.com/odoo/odoo/issues/4359
@@ -171,18 +163,18 @@
                     <div style="height: 2.62cm; position: relative;">
                         <div class="padding-correction" style="position: absolute; width: 100%; bottom: 0;">
                             <div class="row">
-                                <div class="col-xs-2 col-xs-offset-1"
+                                <div class="col-2 offset-1"
                                      style="float: none; display: inline-block; vertical-align: middle;">
                                     <img t-if="o.company_id.logo"
                                          t-att-src="'data:image/png;base64,%s' % o.company_id.logo"
                                          style="max-height: 2.1cm; max-width: 4cm;"/>
                                 </div>
-                                <div class="col-xs-4"
+                                <div class="col-4"
                                      style="font-size: .85em; float: none; display: inline-block; vertical-align: middle;">
                                     <div t-field="o.company_id.partner_id"
                                          t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
                                 </div>
-                                <div class="col-xs-5 text-left"
+                                <div class="col-5 text-left"
                                      style="font-weight: bold; font-size: large; float: none; display: inline-block; vertical-align: bottom; width: auto; padding-left: 5px;">
                                     <span>Invoice</span>
                                 </div>
@@ -192,7 +184,7 @@
                     <div class="padding-correction" style="min-height: 6.68cm">
                         <!-- Min height reduced to make invoice fit on one page. Original height was 8.68cm" -->
                         <div class="row">
-                            <div class="col-xs-6 col-xs-offset-1"
+                            <div class="col-6 offset-1"
                                  style="margin-top: 3em; margin-bottom: 4em; font-size:1.1em;">
                                 <address t-field="o.partner_id"
                                          t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
@@ -201,7 +193,7 @@
                                 </span>
                                 <span id="partner_business_id"/>
                             </div>
-                            <div class="col-xs-5">
+                            <div class="col-5">
                                 <table class="invoice-info"
                                        style="line-height: 1.5em; position:relative; top: 0.5em;">
                                     <tr>
@@ -271,7 +263,7 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        <span class="col-xs-offset-2">Description</span>
+                                        <span class="offset-2">Description</span>
                                     </th>
                                     <th>Quantity</th>
                                     <th class="text-right">Unit Price</th>
@@ -285,7 +277,7 @@
                                 <tr t-foreach="o.invoice_line_ids" t-as="l">
                                     <td>
                                         <span class="line_number" t-esc="str(l_index+1) + '.'"/>
-                                        <span class="col-xs-offset-2" t-field="l.name"/>
+                                        <span class="offset-2" t-field="l.name"/>
                                     </td>
                                     <td>
                                         <span t-field="l.quantity"/>
@@ -309,7 +301,7 @@
                         </table>
 
                         <div class="row">
-                            <div class="col-xs-4 pull-right">
+                            <div class="col-sm-7 col-md-5 ml-auto">
                                 <table class="table table-condensed products-table-totals">
                                     <tr>
                                         <td>Total Without Taxes</td>
@@ -337,7 +329,7 @@
                         </div>
 
                         <div class="row" t-if="o.tax_line_ids">
-                            <div class="col-xs-6 col-xs-offset-6">
+                            <div class="col-6 offset-6">
                                 <table class="table table-condensed">
                                     <thead>
                                         <tr>
@@ -373,11 +365,11 @@
                     <hr/>
                     <div class="bank-transfer-wrap last-page" style="page-break-inside: avoid;">
                         <div class="row padding-correction" style="margin-bottom: 1em; font-size: .8em;">
-                            <div class="col-xs-4">
+                            <div class="col-4">
                                 <div t-field="o.company_id.partner_id"
                                      t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-4">
                                 <div>
                                     <span t-field="o.company_id.phone"/>
                                 </div>
@@ -388,7 +380,7 @@
                                     <span t-field="o.company_id.website"/>
                                 </div>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-4">
                                 <div t-if="o.company_id.city">Domicile:
                                     <span t-field="o.company_id.city"/>
                                 </div>
@@ -398,15 +390,15 @@
                             </div>
                         </div>
                         <div class="row row-eq-height border-bottom" style="border-top: 1px dashed gray">
-                            <div class="col-xs-7 border-right">
+                            <div class="col-7 border-right">
                                 <div class="row row-eq-height border-bottom medium-row">
-                                    <div class="col-xs-2 bank-transfer-label">
+                                    <div class="col-2 bank-transfer-label">
                                         <div>
                                             Recipient's
                                             account number
                                         </div>
                                     </div>
-                                    <div class="col-xs-10 border-left">
+                                    <div class="col-10 border-left">
                                         <t t-if="o.partner_bank_id.acc_number">
                                             IBAN
                                             <t t-esc="o.partner_bank_id.acc_number"/>
@@ -428,85 +420,85 @@
                                     </div>
                                 </div>
                                 <div class="row row-eq-height border-bottom">
-                                    <div class="col-xs-2 bank-transfer-label">
+                                    <div class="col-2 bank-transfer-label">
                                         <div>
                                             Recipient
                                         </div>
                                     </div>
-                                    <div class="col-xs-10 border-left" id="company-info" style="height: 4.5em">
+                                    <div class="col-10 border-left" id="company-info" style="height: 4.5em">
                                         <div t-field="o.company_id.partner_id"
                                              t-options='{"widget": "contact", "fields": ["name"], "no_marker": true}'
                                              style="font-size: .8em;"/>
                                     </div>
                                 </div>
                                 <div class="row row-eq-height">
-                                    <div class="col-xs-2 bank-transfer-label">
+                                    <div class="col-2 bank-transfer-label">
                                         <div>
                                             Debtor
                                         </div>
                                     </div>
-                                    <div class="col-xs-10" id="payer-info" style="height: 6em;">
+                                    <div class="col-10" id="payer-info" style="height: 6em;">
                                         <div t-field="o.partner_id"
                                              t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
                                              style="font-size: .8em;"/>
                                     </div>
                                 </div>
                                 <div class="row row-eq-height border-bottom small-row">
-                                    <div class="col-xs-2 bank-transfer-label"
+                                    <div class="col-2 bank-transfer-label"
                                          style="font-size: 9px; text-align: right; line-height: 10px; min-height: 0;">
                                         <div>
                                             Signature
                                         </div>
                                     </div>
-                                    <div class="col-xs-10" style="min-height: 0;">
+                                    <div class="col-10" style="min-height: 0;">
                                         <div style="border-bottom: 1px solid black; margin-top: 15px;"/>
                                     </div>
                                 </div>
                                 <div class="row row-eq-height small-row">
-                                    <div class="col-xs-2 bank-transfer-label">
+                                    <div class="col-2 bank-transfer-label">
                                         <div>
                                             From account No.
                                         </div>
                                     </div>
-                                    <div class="col-xs-10" style="border-left: 1px solid black;">
+                                    <div class="col-10" style="border-left: 1px solid black;">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-5">
+                            <div class="col-5">
                                 <div class="row border-bottom medium-row">
-                                    <div class="col-xs-2 bank-transfer-label"></div>
-                                    <div class="col-xs-10">
+                                    <div class="col-2 bank-transfer-label"></div>
+                                    <div class="col-10">
                                         <!-- BIC used to be here. Now there's space for a QR code. -->
                                     </div>
                                 </div>
                                 <div class="row border-bottom">
-                                    <div class="col-xs-12" style="height: 10.5em;">
+                                    <div class="col-12" style="height: 10.5em;">
                                         Invoice number
                                         <t t-esc="o.number"/>
                                     </div>
                                 </div>
                                 <div class="row row-eq-height border-bottom small-row">
-                                    <div class="col-xs-2 bank-transfer-label text-left">
+                                    <div class="col-2 bank-transfer-label text-left">
                                         <div>
                                             Reference No.
                                         </div>
                                     </div>
-                                    <div class="col-xs-10 border-left">
+                                    <div class="col-10 border-left">
                                         <strong>
                                             <span t-field="o.ref_number" class="bank-transfer-value"/>
                                         </strong>
                                     </div>
                                 </div>
                                 <div class="row row-eq-height small-row">
-                                    <div class="col-xs-2 bank-transfer-label text-left">
+                                    <div class="col-2 bank-transfer-label text-left">
                                         <div>Date due</div>
                                     </div>
-                                    <div class="col-xs-4 border-left">
+                                    <div class="col-4 border-left">
                                         <strong>
                                             <span t-field="o.date_due" class="bank-transfer-value"/>
                                         </strong>
                                     </div>
-                                    <div class="col-xs-6 border-left" style="padding-left: 0;">
+                                    <div class="col-6 border-left" style="padding-left: 0;">
                                         <span class="bank-transfer-label">Euro</span>
                                         <strong>
                                             <span t-field="o.amount_total" class="bank-transfer-value"
@@ -517,7 +509,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-9" style="text-align: center;">
+                            <div class="col-9" style="text-align: center;">
                                 <t t-if="o.barcode_string">
                                     <img style="margin-left: 2cm; margin-right: 2cm; margin-top: .2cm;"
                                          t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;height=%s&amp;width=%s' %('Code128', o.barcode_string, 60, 600)"/>
@@ -526,7 +518,7 @@
                                     </div>
                                 </t>
                             </div>
-                            <div class="col-xs-3 payment-terms">
+                            <div class="col-3 payment-terms">
                                 <p>The payment will be issued to the recipient under the terms of payment service and
                                     only to the account number specified by the debtor.
                                 </p>
@@ -535,13 +527,13 @@
                     </div>
                 </div>
             </t>
-        </t>
     </template>
 
     <template id="report_invoice_finnish_translate" t-name="Finnish Invoice">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="l10n_fi_invoice.report_invoice_finnish_document" t-lang="o.partner_id.lang"/>
+                <t t-set="lang" t-value="o.user_id.lang if o.type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                <t t-call="l10n_fi_invoice.report_invoice_finnish_document" t-lang="lang"/>
             </t>
         </t>
     </template>

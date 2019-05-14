@@ -50,9 +50,7 @@ class AccountInvoice(models.Model):
                                       + amount_total_string[:-3] \
                                       + amount_total_string[-2:] \
                                       + "000" + ref_number_filled \
-                                      + invoice.date_due[2:4] \
-                                      + invoice.date_due[5:-3] \
-                                      + invoice.date_due[-2:]
+                                      + invoice.date_due.strftime('%y%m%d')
             else:
                 invoice.barcode_string = False
 
