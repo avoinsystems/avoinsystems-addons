@@ -166,7 +166,7 @@
                                 <div class="col-2 offset-1"
                                      style="float: none; display: inline-block; vertical-align: middle;">
                                     <img t-if="o.company_id.logo"
-                                         t-att-src="'data:image/png;base64,%s' % o.company_id.logo"
+                                         t-att-src="image_data_uri(o.company_id.logo)"
                                          style="max-height: 2.1cm; max-width: 4cm;"/>
                                 </div>
                                 <div class="col-4"
@@ -545,6 +545,7 @@
             report_type="qweb-pdf"
             name="l10n_fi_invoice.report_invoice_finnish_translate"
             file="l10n_fi_invoice.report_invoice_finnish_translate"
+            print_report_name="(object.invoice_number+'-'+object.company_id.display_name.replace(' ','-')+'-'+object.partner_id.display_name.replace(' ','-'))"
     />
 
 </odoo>
