@@ -280,7 +280,7 @@
                                 <tr t-foreach="o.invoice_line_ids" t-as="l">
                                     <td>
                                         <span class="line_number" t-esc="str(l_index+1) + '.'"/>
-                                        <span class="offset-2" t-field="l.name"/>
+                                        <span class="offset-2" t-field="l.name" style="display:block"/>
                                     </td>
                                     <td>
                                         <span t-field="l.quantity"/>
@@ -331,7 +331,7 @@
                             </div>
                         </div>
 
-                        <div class="row" t-if="o.tax_line_ids">
+                        <div class="row" t-if="o.tax_line_ids" style="page-break-inside: avoid;">
                             <div class="col-6 offset-6">
                                 <table class="table table-condensed">
                                     <thead>
