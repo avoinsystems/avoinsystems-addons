@@ -548,7 +548,7 @@
             report_type="qweb-pdf"
             name="l10n_fi_invoice.report_invoice_finnish_translate"
             file="l10n_fi_invoice.report_invoice_finnish_translate"
-            print_report_name="('-'.join(((object.refund_invoice_id.number or object.number or ''),object.company_id.display_name,object.partner_id.display_name)).replace(' ','-').replace(',','').strip('-'))"
+            print_report_name="object._get_invoice_pdf_filename()"
     />
 
 </odoo>
