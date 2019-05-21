@@ -30,6 +30,21 @@ log = logging.getLogger(__name__)
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
+    def _get_invoice_pdf_filename(self):
+        type_string = 'Invoice'
+        invoice_numbers = self.number or ''
+        if self.type in ('in_refund', 'out_refund'):
+            type_string = 'Refund'
+            invoice_numbers = '-'.join((
+                invoice_numbers, self.refund_invoice_id.number))
+        filename = '-'.join((
+            type_string,
+            invoice_numbers,
+            self.company_id.display_name,
+            self.partner_id.display_name)). \
+            replace(' ', '-').replace(',', '').replace('--', '-')
+        return filename
+
     @api.multi
     def _compute_barcode_string(self):
         for invoice in self:
@@ -50,9 +65,7 @@ class AccountInvoice(models.Model):
                                       + amount_total_string[:-3] \
                                       + amount_total_string[-2:] \
                                       + "000" + ref_number_filled \
-                                      + invoice.date_due[2:4] \
-                                      + invoice.date_due[5:-3] \
-                                      + invoice.date_due[-2:]
+                                      + invoice.date_due.strftime('%y%m%d')
             else:
                 invoice.barcode_string = False
 
