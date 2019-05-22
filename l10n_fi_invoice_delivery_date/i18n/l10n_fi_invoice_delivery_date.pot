@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e-20190111\n"
+"Project-Id-Version: Odoo Server 12.0-20190520\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-29 15:52+0000\n"
-"PO-Revision-Date: 2019-01-29 15:52+0000\n"
+"POT-Creation-Date: 2019-05-22 07:39+0000\n"
+"PO-Revision-Date: 2019-05-22 07:39+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,12 +26,8 @@ msgid "Invoice"
 msgstr ""
 
 #. module: l10n_fi_invoice_delivery_date
-#: model:ir.model.fields,help:l10n_fi_invoice_delivery_date.field_account_invoice__date_delivered
-msgid "Se päivä jolloin tuotteet tai palvelut katsotaan toimitetuiksi verotuksen kannalta."
-msgstr ""
-
-#. module: l10n_fi_invoice_delivery_date
 #: code:addons/l10n_fi_invoice_delivery_date/models/account_invoice.py:31
+#: model:ir.model.fields,help:l10n_fi_invoice_delivery_date.field_account_invoice__date_delivered
 #, python-format
 msgid "The date when the invoiced product or service was considered delivered, for taxation purposes."
 msgstr ""

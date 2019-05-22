@@ -4,23 +4,37 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 10.0+e-20170215\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-15 16:57+0000\n"
-"PO-Revision-Date: 2018-01-15 18:58+0200\n"
-"Last-Translator: santeri valjakka <santeri.valjakka@avoin.systems>\n"
+"POT-Creation-Date: 2019-05-22 07:39+0000\n"
+"PO-Revision-Date: 2019-05-22 10:41+0300\n"
+"Last-Translator: Miku Laitinen <miku@avoin.systems>\n"
 "Language-Team: \n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #. module: l10n_fi_invoice_business_code
-#: model:ir.ui.view,arch_db:l10n_fi_invoice_business_code.report_invoice_finnish_document_business_id
+#: model_terms:ir.ui.view,arch_db:l10n_fi_invoice_business_code.report_invoice_finnish_document_business_id
 msgid "Business ID:"
 msgstr "Y-tunnus:"
+
+#~ msgid "Identifier number used to refer to this invoice in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
+#~ msgstr "Laksun tunnistenumero jolla voidaan viitata yksiselitteisesti tähän laskuun. Katso https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf."
+
+#~ msgid "Invoice"
+#~ msgstr "Lasku"
+
+#~ msgid "Invoice number"
+#~ msgstr "Laskun numero"
+
+#~ msgid "Invoice reference number in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
+#~ msgstr "Viitenumero. Katso Invoice reference number in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
+
+#~ msgid "Reference Number"
+#~ msgstr "Viite"
 
 #~ msgid "&amp;bull;"
 #~ msgstr "&amp;bull;"
@@ -85,20 +99,8 @@ msgstr "Y-tunnus:"
 #~ msgid "IBAN"
 #~ msgstr "IBAN"
 
-#~ msgid "Identifier number used to refer to this invoice in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
-#~ msgstr "Laksun tunnistenumero jolla voidaan viitata yksiselitteisesti tähän laskuun. Katso https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf."
-
-#~ msgid "Invoice"
-#~ msgstr "Lasku"
-
 #~ msgid "Invoice Date"
 #~ msgstr "Laskun päiväys"
-
-#~ msgid "Invoice number"
-#~ msgstr "Laskun numero"
-
-#~ msgid "Invoice reference number in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
-#~ msgstr "Viitenumero. Katso Invoice reference number in accordance with https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/kotimaisen_viitteen_rakenneohje.pdf"
 
 #~ msgid "Our reference"
 #~ msgstr "Viitteemme"
@@ -125,9 +127,6 @@ msgstr "Y-tunnus:"
 
 #~ msgid "Reference No."
 #~ msgstr "Viitenro"
-
-#~ msgid "Reference Number"
-#~ msgstr "Viite"
 
 #~ msgid "Signature"
 #~ msgstr "Allekirjoitus"
