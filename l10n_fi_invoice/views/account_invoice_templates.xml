@@ -75,7 +75,7 @@
                         margin-bottom: 10px;
                         }
 
-                        .bank-transfer-wrap .row .row > div {
+                        .bank-transfer-wrap .row .row &gt; div {
                         padding-top: 5px;
                         padding-bottom: 5px;
                         }
@@ -107,11 +107,11 @@
                         border-bottom: 2px solid black;
                         }
 
-                        .medium-row > div {
+                        .medium-row &gt; div {
                         height: 4.9em;
                         }
 
-                        .small-row > div {
+                        .small-row &gt; div {
                         height: 2.5em;
                         }
 
@@ -123,11 +123,11 @@
                         font-weight: bold;
                         }
 
-                        .table-condensed > thead > tr > th {
+                        .table-condensed &gt; thead &gt; tr &gt; th {
                         border-bottom: none;
                         }
 
-                        .table > tbody > tr > td {
+                        .table &gt; tbody &gt; tr &gt; td {
                         border-top: none;
                         }
 
@@ -159,23 +159,21 @@
                         .payment-terms p {
                         margin-bottom: 0;
                         }
+
+                        .invoice_tbody tr td:last-child, .products-table-totals tr td:last-child, .table-condensed tr td:last-child {
+                        width: 160px;
+                        }
                     </style>
                     <div style="height: 2.62cm; position: relative;">
                         <div class="padding-correction" style="position: absolute; width: 100%; bottom: 0;">
                             <div>
-                                <div class="col-2 offset-1"
-                                     style="float: none; display: inline-block; vertical-align: middle;">
-                                    <img t-if="o.company_id.logo"
-                                         t-att-src="image_data_uri(o.company_id.logo)"
-                                         style="max-height: 2.1cm; max-width: 4cm;"/>
+                                <div class="col-2 offset-1" style="float: none; display: inline-block; vertical-align: middle;">
+                                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 2.1cm; max-width: 4cm;"/>
                                 </div>
-                                <div class="col-4"
-                                     style="font-size: .85em; float: none; display: inline-block; vertical-align: middle;">
-                                    <div t-field="o.company_id.partner_id"
-                                         t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                                <div class="col-4" style="font-size: .85em; float: none; display: inline-block; vertical-align: middle;">
+                                    <div t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
                                 </div>
-                                <div class="col-5 text-left"
-                                     style="font-weight: bold; font-size: large; float: none; display: inline-block; vertical-align: bottom; width: auto; padding-left: 5px;">
+                                <div class="col-5 text-left" style="font-weight: bold; font-size: large; float: none; display: inline-block; vertical-align: bottom; width: auto; padding-left: 10px;">
                                     <span t-if="o.type == 'in_refund'">Refund</span>
                                     <span t-if="o.type == 'out_refund'">Refund</span>
                                     <span t-if="o.type == 'in_invoice'">Invoice</span>
@@ -187,18 +185,15 @@
                     <div class="padding-correction" style="min-height: 6.68cm">
                         <!-- Min height reduced to make invoice fit on one page. Original height was 8.68cm" -->
                         <div class="row">
-                            <div class="col-6 offset-1"
-                                 style="margin-top: 3em; margin-bottom: 4em; font-size:1.1em;">
-                                <address t-field="o.partner_id"
-                                         t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                            <div class="col-6 offset-1" style="margin-top: 3em; margin-bottom: 4em; font-size:1.1em;">
+                                <address t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
                                 <span t-if="o.partner_id.vat">VAT:
                                     <span t-field="o.partner_id.vat"/>
                                 </span>
                                 <span id="partner_business_id"/>
                             </div>
                             <div class="col-5">
-                                <table class="invoice-info"
-                                       style="line-height: 1.5em; position:relative; top: 0.5em;">
+                                <table class="invoice-info" style="line-height: 1.5em; position:relative; top: 0.5em;">
                                     <tr>
                                         <td>
                                             <span>Invoice number</span>
@@ -296,8 +291,7 @@
                                         <span t-esc="', '.join(map(lambda x: x.name, l.invoice_line_tax_ids))"/>
                                     </td>
                                     <td class="text-right">
-                                        <span t-field="l.price_subtotal"
-                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                        <span t-field="l.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -309,22 +303,19 @@
                                     <tr>
                                         <td>Total Without Taxes</td>
                                         <td class="text-right totals-col">
-                                            <span t-field="o.amount_untaxed"
-                                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                            <span t-field="o.amount_untaxed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Taxes</td>
                                         <td class="text-right totals-col">
-                                            <span t-field="o.amount_tax"
-                                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                            <span t-field="o.amount_tax" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Total</td>
+                                        <td style="font-size:18px;"><strong>Total</strong></td>
                                         <td class="text-right totals-col">
-                                            <span t-field="o.amount_total"
-                                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                            <span style="font-size:18px;" t-field="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                         </td>
                                     </tr>
                                 </table>
@@ -347,12 +338,10 @@
                                                 <span t-field="t.name"/>
                                             </td>
                                             <td class="text-right">
-                                                <span t-field="t.base"
-                                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                                <span t-field="t.base" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                             </td>
                                             <td class="text-right">
-                                                <span t-field="t.amount"
-                                                      t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                                <span t-field="t.amount" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                             </td>
                                         </tr>
                                         <tr t-if="o.fiscal_position_id.note">
@@ -369,8 +358,7 @@
                     <div class="bank-transfer-wrap last-page" style="page-break-inside: avoid;">
                         <div class="row padding-correction" style="margin-bottom: 1em; font-size: .8em;">
                             <div class="col-4">
-                                <div t-field="o.company_id.partner_id"
-                                     t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                                <div t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
                             </div>
                             <div class="col-4">
                                 <div>
@@ -429,9 +417,7 @@
                                         </div>
                                     </div>
                                     <div class="col-10 border-left" id="company-info" style="height: 4.5em">
-                                        <div t-field="o.company_id.partner_id"
-                                             t-options='{"widget": "contact", "fields": ["name"], "no_marker": true}'
-                                             style="font-size: .8em;"/>
+                                        <div t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;], &quot;no_marker&quot;: true}" style="font-size: .8em;"/>
                                     </div>
                                 </div>
                                 <div class="row row-eq-height">
@@ -441,14 +427,11 @@
                                         </div>
                                     </div>
                                     <div class="col-10" id="payer-info" style="height: 6em;">
-                                        <div t-field="o.partner_id"
-                                             t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
-                                             style="font-size: .8em;"/>
+                                        <div t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}" style="font-size: .8em;"/>
                                     </div>
                                 </div>
                                 <div class="row row-eq-height border-bottom small-row">
-                                    <div class="col-2 bank-transfer-label"
-                                         style="font-size: 9px; text-align: right; line-height: 10px; min-height: 0;">
+                                    <div class="col-2 bank-transfer-label" style="font-size: 9px; text-align: right; line-height: 10px; min-height: 0;">
                                         <div>
                                             Signature
                                         </div>
@@ -463,13 +446,13 @@
                                             From account No.
                                         </div>
                                     </div>
-                                    <div class="col-10" style="border-left: 1px solid black;">
+                                    <div class="col-10" style="border-left: 1px solid #dee2e6;">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-5">
                                 <div class="row border-bottom medium-row">
-                                    <div class="col-2 bank-transfer-label"></div>
+                                    <div class="col-2 bank-transfer-label"/>
                                     <div class="col-10">
                                         <!-- BIC used to be here. Now there's space for a QR code. -->
                                     </div>
@@ -504,8 +487,7 @@
                                     <div class="col-6 border-left" style="padding-left: 0;">
                                         <span class="bank-transfer-label">Euro</span>
                                         <strong>
-                                            <span t-field="o.amount_total" class="bank-transfer-value"
-                                                  style="float: right;"/>
+                                            <span t-field="o.amount_total" class="bank-transfer-value" style="float: right;"/>
                                         </strong>
                                     </div>
                                 </div>
@@ -514,8 +496,7 @@
                         <div class="row">
                             <div class="col-9" style="text-align: center;">
                                 <t t-if="o.barcode_string">
-                                    <img style="margin-left: 2cm; margin-right: 2cm; margin-top: .2cm;"
-                                         t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;height=%s&amp;width=%s' %('Code128', o.barcode_string, 60, 600)"/>
+                                    <img style="margin-left: 2cm; margin-right: 2cm; margin-top: .2cm;" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;height=%s&amp;width=%s' %('Code128', o.barcode_string, 60, 600)"/>
                                     <div class="barcode-values">
                                         <t t-esc="o.barcode_string"/>
                                     </div>
