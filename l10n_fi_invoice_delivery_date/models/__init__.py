@@ -1,1 +1,3 @@
-from . import account_invoice
+# See LICENSE for licensing information
+
+from . import account_move
