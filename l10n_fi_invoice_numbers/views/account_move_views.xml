@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Invoice form modifications -->
+    <record id="view_account_move_form_finnish" model="ir.ui.view">
+        <field name="name">account.move.form.finnish</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other_info']//group/group[@name='sale_info_group']/field[@name='invoice_origin']" position="after">
+                <field name="invoice_number"/>
+                <field name="ref_number"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
