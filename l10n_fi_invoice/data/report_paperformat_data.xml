@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Make custom paper format to eliminate margins-->
+    <record id="paperformat_finnish" model="report.paperformat">
+        <field name="name">Finnish Invoice w/ Transfer</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <!--Remove template header-->
+        <field name="margin_top">0</field>
+        <field name="header_spacing">0</field>
+        <!--Remove template footer-->
+        <field name="margin_bottom">0</field>
+        <!--Remove side margins-->
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="dpi">100</field>
+    </record>
+
+    <!--Make report use custom paper format-->
+    <record id="report_invoice_finnish" model="ir.actions.report">
+        <field name="paperformat_id" ref="paperformat_finnish"/>
+    </record>
+
+</odoo>
