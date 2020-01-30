@@ -207,7 +207,7 @@
                                             <span>Invoice reference</span>
                                         </td>
                                         <td>
-                                            <t t-esc="o.ref_number"/>
+                                            <t t-esc="o.invoice_payment_ref"/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -394,20 +394,6 @@
                                             IBAN
                                             <t t-esc="o.invoice_partner_bank_id.acc_number"/>
                                         </t>
-                                        <t t-if="not o.invoice_partner_bank_id.acc_number">
-                                            <t t-foreach="o.company_id.partner_id.bank_ids" t-as="t">
-                                                <t t-if="t.journal_id.include_on_invoice">
-                                                    <div t-if="t_index &lt; 3">
-                                                        IBAN
-                                                        <span t-field="t.acc_number"/>
-                                                        <t t-if="t.bank_bic">
-                                                            – BIC
-                                                            <span t-field="t.bank_bic"/>
-                                                        </t>
-                                                    </div>
-                                                </t>
-                                            </t>
-                                        </t>
                                     </div>
                                 </div>
                                 <div class="row row-eq-height border-bottom">
@@ -471,7 +457,7 @@
                                     </div>
                                     <div class="col-10 border-left">
                                         <strong>
-                                            <span t-field="o.ref_number" class="bank-transfer-value"/>
+                                            <span t-field="o.invoice_payment_ref" class="bank-transfer-value"/>
                                         </strong>
                                     </div>
                                 </div>
@@ -495,10 +481,10 @@
                         </div>
                         <div class="row">
                             <div class="col-9" style="text-align: center;">
-                                <t t-if="o.barcode_string">
-                                    <img style="margin-left: 2cm; margin-right: 2cm; margin-top: .2cm;" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;height=%s&amp;width=%s' %('Code128', o.barcode_string, 60, 600)"/>
+                                <t t-if="o.bank_barcode">
+                                    <img style="margin-left: 2cm; margin-right: 2cm; margin-top: .2cm;" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;height=%s&amp;width=%s' %('Code128', o.bank_barcode, 60, 600)"/>
                                     <div class="barcode-values">
-                                        <t t-esc="o.barcode_string"/>
+                                        <t t-esc="o.bank_barcode"/>
                                     </div>
                                 </t>
                             </div>
