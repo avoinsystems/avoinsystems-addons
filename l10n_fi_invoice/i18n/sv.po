@@ -58,11 +58,6 @@ msgid "Amount"
 msgstr "Belopp"
 
 #. module: l10n_fi_invoice
-#: model:ir.model.fields,field_description:l10n_fi_invoice.field_account_move__barcode_string
-msgid "Barcode String"
-msgstr "Streckkod"
-
-#. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Base"
 msgstr "Bas"
@@ -117,19 +112,6 @@ msgstr "Från konto nr"
 msgid "IBAN"
 msgstr "IBAN"
 
-
-#. module: l10n_fi_invoice
-#: model:ir.model.fields,field_description:l10n_fi_invoice.field_account_journal__include_on_invoice
-msgid "Include on Invoice"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model:ir.model.fields,help:l10n_fi_invoice.field_account_journal__include_on_invoice
-msgid ""
-"Include this bank account in Finnish invoices generated for the associated "
-"company"
-msgstr ""
-
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Invoice"
@@ -144,11 +126,6 @@ msgstr "Fakturadatum"
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Invoice number"
 msgstr "Fakturanummer"
-
-#. module: l10n_fi_invoice
-#: model:ir.model,name:l10n_fi_invoice.model_account_journal
-msgid "Journal"
-msgstr ""
 
 #. module: l10n_fi_invoice
 #: model:ir.model,name:l10n_fi_invoice.model_account_move
@@ -253,16 +230,6 @@ msgstr "Hemsida:"
 msgid "Your reference"
 msgstr "Er referens"
 
-#. module: l10n_fi_invoice
-#: code:addons/l10n_fi_invoice/models/account_move.py:0
-#: model:ir.model.fields,help:l10n_fi_invoice.field_account_move__barcode_string
-#, python-format
-msgid ""
-"https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
-"Pankkiviivakoodi-opas.pdf"
-msgstr ""
-"https://www.fkl.fi/teemasivut/sepa/tekninen_dokumentaatio/Dokumentit/"
-"Pankkiviivakoodi-opas.pdf"
 
 #. module: l10n_fi_invoice
 #: model:ir.actions.report,print_report_name:l10n_fi_invoice.report_invoice_finnish

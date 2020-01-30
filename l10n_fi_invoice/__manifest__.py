@@ -12,11 +12,10 @@
     "images": ["static/description/icon.png"],
     "depends": [
         "l10n_fi_invoice_delivery_date",
-        "l10n_fi_invoice_numbers",
+        "l10n_fi_bank_barcode",
     ],
     "data": [
         "views/account_move_templates.xml",
-        "views/account_journal_views.xml",
         "data/report_paperformat_data.xml",  # Only after the template
     ],
     "summary": "Suomalainen laskupohja",
