@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_supplier_move_form_barcode" model="ir.ui.view">
+            <field name="name">account.move.form.barcode.supplier</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <data>
+
+                    <field name="fiscal_position_id" position="after">
+                        <field name="bank_barcode" readonly="1"
+                               attrs="{'invisible':[('bank_barcode', '=', False)]}"/>
+                    </field>
+
+                </data>
+            </field>
+        </record>
+
+    </data>
+</odoo>
