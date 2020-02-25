@@ -1,0 +1,28 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_fi_bank_barcode
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e-20191218\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-25 19:55+0200\n"
+"PO-Revision-Date: 2020-02-25 19:57+0200\n"
+"Last-Translator: Miku Laitinen <miku@avoin.systems>\n"
+"Language-Team: \n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#. module: l10n_fi_bank_barcode
+#: model:ir.model.fields,field_description:l10n_fi_bank_barcode.field_account_move__bank_barcode
+msgid "Bank Barcode"
+msgstr "Virtuaaliviivakoodi"
+
+#. module: l10n_fi_bank_barcode
+#: model:ir.model,name:l10n_fi_bank_barcode.model_account_move
+msgid "Journal Entries"
+msgstr "Päiväkirjaviennit"
