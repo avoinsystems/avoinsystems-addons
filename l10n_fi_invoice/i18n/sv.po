@@ -74,7 +74,7 @@ msgstr "Förf.dag"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Date fulfilled"
+msgid "Delivery date"
 msgstr "Datum uppfyllt"
 
 #. module: l10n_fi_invoice
@@ -178,7 +178,7 @@ msgstr "Ref.nr"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Refund"
+msgid "Credit note"
 msgstr ""
 
 #. module: l10n_fi_invoice

@@ -44,9 +44,8 @@ msgstr "<span>Laskun numero</span>"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "<span>Invoice reference</span>"
-msgstr "<span>Laskun viite</span>"
-
+msgid "<span>Payment reference</span>"
+msgstr "<span>Maksun viite</span>"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
@@ -68,6 +67,12 @@ msgstr "Perus"
 msgid "Business ID:"
 msgstr "Y-tunnus:"
 
+
+#. module: l10n_fi_invoice
+#: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "Credit note"
+msgstr "Hyvityslasku"
+
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Date due"
@@ -75,8 +80,8 @@ msgstr "Eräpäivä"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Date fulfilled"
-msgstr "Toimituspvm"
+msgid "Delivery date"
+msgstr "Toimituspäivä"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
@@ -177,11 +182,6 @@ msgstr "Viitenro"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Refund"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Signature"
 msgstr "Allekirjoitus"
 
@@ -228,11 +228,6 @@ msgstr "Verkkosivusto:"
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Your reference"
 msgstr "Viitteenne"
-
-#. module: l10n_fi_invoice
-#: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "– BIC"
-msgstr "– BIC"
 
 #~ msgid "<span>Invoice</span>"
 #~ msgstr "<span>Viite</span>"
