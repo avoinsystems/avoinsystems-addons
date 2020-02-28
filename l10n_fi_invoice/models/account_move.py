@@ -19,9 +19,7 @@ class AccountMove(models.Model):
         type_string = 'Invoice'
         invoice_numbers = self.name or ''
         if self.type in ('in_refund', 'out_refund'):
-            type_string = 'Refund'
-            invoice_numbers = '-'.join((
-                invoice_numbers, self.refund_invoice_id.name))
+            type_string = 'Credit_Note'
         filename = '-'.join((
             type_string,
             invoice_numbers,

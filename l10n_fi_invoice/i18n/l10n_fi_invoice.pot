@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 13.0+e-20191202\n"
+"Project-Id-Version: Odoo Server 13.0+e-20200224\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-12 14:04+0000\n"
-"PO-Revision-Date: 2019-12-12 14:04+0000\n"
+"POT-Creation-Date: 2020-02-28 15:18+0000\n"
+"PO-Revision-Date: 2020-02-28 15:18+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "<span>Invoice reference</span>"
+msgid "<span>Payment reference</span>"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -67,17 +67,22 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
+msgid "Credit note"
+msgstr ""
+
+#. module: l10n_fi_invoice
+#: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Date due"
 msgstr ""
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Date fulfilled"
+msgid "Debtor"
 msgstr ""
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Debtor"
+msgid "Delivery date"
 msgstr ""
 
 #. module: l10n_fi_invoice
@@ -174,11 +179,6 @@ msgstr ""
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Refund"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Signature"
 msgstr ""
 
@@ -227,9 +227,4 @@ msgstr ""
 #. module: l10n_fi_invoice
 #: model:ir.actions.report,print_report_name:l10n_fi_invoice.report_invoice_finnish
 msgid "object._get_invoice_pdf_filename()"
-msgstr ""
-
-#. module: l10n_fi_invoice
-#: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "– BIC"
 msgstr ""

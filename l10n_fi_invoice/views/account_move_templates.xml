@@ -167,15 +167,15 @@
                     <div style="height: 2.62cm; position: relative;">
                         <div class="padding-correction" style="position: absolute; width: 100%; bottom: 0;">
                             <div>
-                                <div class="col-2 offset-1" style="float: none; display: inline-block; vertical-align: middle;">
+                                <div class="col-2 offset-1" style="float: none; display: inline-block; vertical-align: middle; padding-left: 3px;">
                                     <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 2.1cm; max-width: 4cm;"/>
                                 </div>
                                 <div class="col-4" style="font-size: .85em; float: none; display: inline-block; vertical-align: middle;">
                                     <div t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
                                 </div>
-                                <div class="col-5 text-left" style="font-weight: bold; font-size: large; float: none; display: inline-block; vertical-align: bottom; width: auto; padding-left: 10px;">
-                                    <span t-if="o.type == 'in_refund'">Refund</span>
-                                    <span t-if="o.type == 'out_refund'">Refund</span>
+                                <div class="col-5 text-left" style="font-weight: bold; font-size: large; float: none; display: inline-block; vertical-align: bottom; width: auto; padding-left: 14px;">
+                                    <span t-if="o.type == 'in_refund'">Credit note</span>
+                                    <span t-if="o.type == 'out_refund'">Credit note</span>
                                     <span t-if="o.type == 'in_invoice'">Invoice</span>
                                     <span t-if="o.type == 'out_invoice'">Invoice</span>
                                 </div>
@@ -204,7 +204,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <span>Invoice reference</span>
+                                            <span>Payment reference</span>
                                         </td>
                                         <td>
                                             <t t-esc="o.invoice_payment_ref"/>
@@ -225,7 +225,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Date fulfilled</td>
+                                        <td>Delivery date</td>
                                         <td>
                                             <span t-field="o.date_delivered"/>
                                         </td>
@@ -239,13 +239,14 @@
                                     <tr>
                                         <td>Our reference</td>
                                         <td>
-                                            <span t-field="o.invoice_origin"/>
+                                            <span t-field="o.invoice_origin" t-if="o.type == 'in_invoice' or o.type == 'out_invoice'"/>
+                                            <span t-field="o.ref" t-if="o.type == 'in_refund' or o.type == 'out_refund'"/>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr t-if="o.type == 'in_invoice' or o.type == 'out_invoice'">
                                         <td>Your reference</td>
                                         <td>
-                                            <span t-field="o.name"/>
+                                            <span t-field="o.ref"/>
                                         </td>
                                     </tr>
                                 </table>
@@ -277,22 +278,22 @@
                                         <span class="line_number" t-esc="str(l_index+1) + '.'"/>
                                         <span class="offset-2" t-field="l.name" style="display:block"/>
                                     </td>
-                                    <td>
-                                        <span t-field="l.quantity"/>
-                                        <span t-field="l.uom_id" groups="product.group_uom"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-field="l.price_unit"/>
-                                    </td>
-                                    <td class="text-right" groups="sale.group_discount_per_so_line">
-                                        <span t-field="l.discount"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-esc="', '.join(map(lambda x: x.name, l.tax_ids))"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-field="l.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
-                                    </td>
+                                        <td>
+                                            <span t-field="l.quantity" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
+                                            <span t-field="l.uom_id" groups="product.group_uom" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="l.price_unit" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
+                                        </td>
+                                        <td class="text-right" groups="sale.group_discount_per_so_line">
+                                            <span t-field="l.discount" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="', '.join(map(lambda x: x.name, l.tax_ids))" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="l.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
+                                        </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -322,7 +323,7 @@
                             </div>
                         </div>
 
-                        <div class="row" t-if="o.amount_by_group" style="page-break-inside: avoid;">
+                        <div class="row" t-if="o.amount_by_group" style="page-break-inside: avoid; font-size: .8em;">
                             <div class="col-6 offset-6">
                                 <table class="table table-condensed">
                                     <thead>
