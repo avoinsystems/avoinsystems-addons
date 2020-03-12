@@ -130,7 +130,7 @@ msgstr "Fakturanummer"
 #. module: l10n_fi_invoice
 #: model:ir.model,name:l10n_fi_invoice.model_account_move
 msgid "Journal Entries"
-msgstr ""
+msgstr "Journalanteckningar"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
@@ -179,7 +179,7 @@ msgstr "Ref.nr"
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Credit note"
-msgstr ""
+msgstr "Kreditnota"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
