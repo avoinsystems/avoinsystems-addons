@@ -261,26 +261,39 @@
                                 </tr>
                             </thead>
                             <tbody class="invoice_tbody">
+                                <t t-set="index" t-value="1"/>
                                 <tr t-foreach="o.invoice_line_ids" t-as="l">
                                     <td>
-                                        <span class="offset-2" t-field="l.name" style="display:block"/>
+                                        <t t-if="not l.display_type">
+                                            <span class="line_number" t-esc="str(index) + '.'"/>
+                                            <t t-set="index" t-value="index + 1"/>
+                                        </t>
+                                        <t t-if="l.display_type == 'line_section'">
+                                            <span class="offset-2" t-field="l.name" style="display:block;font-weight:bold"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="offset-2" t-field="l.name" style="display:block"/>
+                                        </t>
+
                                     </td>
                                     <td>
-                                        <span t-field="l.quantity"/>
-                                        <span t-field="l.uom_id" groups="product.group_uom"/>
+                                        <t t-if="not l.display_type">
+                                            <span t-field="l.quantity"/>
+                                            <span t-field="l.uom_id" groups="product.group_uom"/>
+                                        </t>
                                     </td>
                                     <td class="text-right">
-                                        <span t-field="l.price_unit"/>
+                                        <span t-if="not l.display_type" t-field="l.price_unit"/>
                                     </td>
                                     <td class="text-right" groups="sale.group_discount_per_so_line">
-                                        <span t-field="l.discount"/>
+                                        <span t-if="not l.display_type" t-field="l.discount"/>
                                     </td>
                                     <td class="text-right">
-                                        <!--<span t-esc="', '.join(map(lambda x: x.name, l.invoice_line_tax_ids))"/>-->
-                                        <span t-field="l.invoice_line_tax_ids.description"/>
+                                        <span t-if="not l.display_type" t-esc="', '.join(map(lambda x: x.description or x.name, l.invoice_line_tax_ids))" style="white-space:nowrap;"/>
                                     </td>
                                     <td class="text-right">
-                                        <span t-field="l.price_subtotal"
+                                        <span t-if="not l.display_type"
+                                              t-field="l.price_subtotal"
                                               t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
                                     </td>
                                 </tr>
