@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Author: Avoin.Systems
-#    Copyright 2015 Avoin.Systems
+#    Copyright 2021 Avoin.Systems
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -29,30 +29,41 @@ _logger = logging.getLogger(__name__)
 class InvoiceBarcode(models.Model):
     _inherit = 'account.move'
 
-    bank_barcode = fields.Char(string='Bank Barcode', compute='_compute_bank_barcode', store=True)
+    bank_barcode = fields.Char(
+        string='Bank Barcode',
+        compute='_compute_bank_barcode',
+        store=True
+    )
 
-    def _get_amount_str(self, amount):
-        if amount and amount > 0: # No negative payments
+    def _get_amount_str(self):
+        self.ensure_one()
+        amount = self.amount_total
+        if amount and amount > 0:  # No negative payments
             snt, eur = math.modf(amount)
             eur_str = str(int(eur)).rjust(6, '0')
             snt_str = str(int(round(snt * 100))).rjust(2, '0')
             return eur_str + snt_str
         return None
 
-    def _get_date_str(self, date):
-        if date:
-            return fields.Date.from_string(date).strftime("%y%m%d")
+    def _get_date_str(self):
+        self.ensure_one()
+        if self.invoice_date_due:
+            return fields.Date.from_string(self.invoice_date_due).strftime("%y%m%d")
         return None
 
-    def _get_iban_str(self, bank_account):
+    def _get_iban_str(self):
+        self.ensure_one()
+        bank_account = self.invoice_partner_bank_id
         if bank_account:
-            acc_num = bank_account.acc_number
+            acc_num = bank_account.sanitized_acc_number
             if len(acc_num) == 18 and acc_num[:2] == 'FI' and acc_num[2:].isdigit():
                 return acc_num[2:]
             return None
         return None
 
-    def _get_version(self, ref):
+    def _get_barcode_version(self):
+        self.ensure_one()
+        ref = self.invoice_payment_ref
         if ref and ' ' not in ref:
             if ref[:2] == 'RF' and ref[2:].isdigit():
                 return 5
@@ -61,18 +72,23 @@ class InvoiceBarcode(models.Model):
             return None
         return None
 
-    def _get_rf_ref_str(self, ref):
-        if ref and ref[:2] == 'RF' and ref[2:].isdigit() and len(ref) <= 25 and len(ref) >= 8:
+    def _get_rf_ref_str(self):
+        self.ensure_one()
+        ref = self.invoice_payment_ref
+        if ref and ref[:2] == 'RF' and ref[2:].isdigit() and 25 >= len(ref) >= 8:
             start = ref[2:4]
             end = ref[4:].rjust(21, '0')
             return start + end
         return None
 
-    def _get_fin_ref_str(self, ref):
-        if ref and len(ref) <= 20 and len(ref) >= 4:
+    def _get_fin_ref_str(self):
+        self.ensure_one()
+        ref = self.invoice_payment_ref
+        if ref and 20 >= len(ref) >= 4:
             return ref.rjust(20, '0')
         return None
 
+    # noinspection PyProtectedMember
     @api.depends('currency_id', 'amount_total', 'invoice_date_due',
                  'invoice_payment_ref', 'invoice_partner_bank_id')
     def _compute_bank_barcode(self):
@@ -86,27 +102,29 @@ class InvoiceBarcode(models.Model):
                 record.bank_barcode = False
                 continue
 
-            if record.is_invoice():
-                version = record._get_version(record.invoice_payment_ref)  # Barcode version
+            if not record.is_invoice():
+                record.bank_barcode = False
+                continue
 
-                if version:
-                    inv_sum_str = record._get_amount_str(record.amount_total)
-                    inv_date_str = record._get_date_str(record.invoice_date_due)
-                    inv_iban_str = record._get_iban_str(record.invoice_partner_bank_id)
+            version = record._get_barcode_version()
 
-                    if version == 5:
-                        inv_extra_str = ''  # No padding for version 5
-                        inv_ref_str = record._get_rf_ref_str(record.invoice_payment_ref)
-                    else:
-                        inv_extra_str = '000'  # Padding for version 4
-                        inv_ref_str = record._get_fin_ref_str(record.invoice_payment_ref)
+            if not version:
+                record.bank_barcode = False
+                continue
 
-                    if inv_sum_str and inv_date_str and inv_ref_str and inv_iban_str:
-                        record.bank_barcode = str(version) + inv_iban_str + \
-                            inv_sum_str + inv_extra_str + inv_ref_str + inv_date_str
-                    else:
-                        record.bank_barcode = False
-                else:
-                    record.bank_barcode = False
+            inv_sum_str = record._get_amount_str()
+            inv_date_str = record._get_date_str()
+            inv_iban_str = record._get_iban_str()
+
+            if version == 5:
+                inv_extra_str = ''  # No padding for version 5
+                inv_ref_str = record._get_rf_ref_str()
+            else:
+                inv_extra_str = '000'  # Padding for version 4
+                inv_ref_str = record._get_fin_ref_str()
+
+            if inv_sum_str and inv_date_str and inv_ref_str and inv_iban_str:
+                record.bank_barcode = str(version) + inv_iban_str + \
+                    inv_sum_str + inv_extra_str + inv_ref_str + inv_date_str
             else:
                 record.bank_barcode = False

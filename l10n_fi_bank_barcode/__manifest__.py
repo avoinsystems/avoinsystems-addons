@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Author: Avoin.Systems
-#    Copyright 2015- Avoin.Systems
+#    Copyright 2021 Avoin.Systems
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Finnish Bank Barcode",
-    "version": "13.0.1.0.0",
+    "version": "13.0.1.1.0",
     "license": "AGPL-3",
     "category": "Accounting",
     "description": """
