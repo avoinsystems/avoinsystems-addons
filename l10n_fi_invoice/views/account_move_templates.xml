@@ -266,7 +266,7 @@
                                     </th>
                                     <th>Quantity</th>
                                     <th class="text-right">Unit Price</th>
-                                    <th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)
+                                    <th class="text-right" groups="product.group_discount_per_so_line">Discount (%)
                                     </th>
                                     <th class="text-right">Taxes</th>
                                     <th class="text-right totals-col">Amount</th>
@@ -285,7 +285,7 @@
                                         <td class="text-right">
                                             <span t-field="l.price_unit" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
                                         </td>
-                                        <td class="text-right" groups="sale.group_discount_per_so_line">
+                                        <td class="text-right" groups="product.group_discount_per_so_line">
                                             <span t-field="l.discount" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
                                         </td>
                                         <td class="text-right">
