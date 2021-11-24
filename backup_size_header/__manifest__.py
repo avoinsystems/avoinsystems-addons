@@ -16,4 +16,5 @@
         "web",
     ],
     "auto_install": False,
+    "installable": False,
 }

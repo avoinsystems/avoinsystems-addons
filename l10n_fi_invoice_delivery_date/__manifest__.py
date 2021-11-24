@@ -10,10 +10,10 @@
         "account",
     ],
     "data": [
-        "views/account_move_view.xml",
+        # "views/account_move_view.xml",
     ],
     "summary": "Toimituspäivä laskulle",
-    "installable": True,
+    "installable": False,
     "auto_install": False,
     "application": False,
 }

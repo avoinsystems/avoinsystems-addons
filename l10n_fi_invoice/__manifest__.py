@@ -15,12 +15,12 @@
         "l10n_fi_bank_barcode",
     ],
     "data": [
-        "views/account_move_templates.xml",
-        "data/report_paperformat_data.xml",  # Only after the template
+        # "views/account_move_templates.xml",
+        # "data/report_paperformat_data.xml",  # Only after the template
     ],
     "summary": "Suomalainen laskupohja",
     "active": False,
-    "installable": True,
+    "installable": False,
     "auto_install": False,
     "application": False
 }
