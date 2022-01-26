@@ -4,7 +4,7 @@
 # noinspection PyStatementEffect
 {
     "name": "Finnish Invoice",
-    "version": "13.0.1.0.1",
+    "version": "15.0.1.0.0",
     "author": "Avoin.Systems",
     "category": "Localization",
     "website": "https://avoin.systems",
@@ -15,12 +15,8 @@
         "l10n_fi_bank_barcode",
     ],
     "data": [
-        # "views/account_move_templates.xml",
-        # "data/report_paperformat_data.xml",  # Only after the template
+        "views/account_move_templates.xml",
+        "data/report_paperformat_data.xml",  # Only after the template
     ],
     "summary": "Suomalainen laskupohja",
-    "active": False,
-    "installable": False,
-    "auto_install": False,
-    "application": False
 }
