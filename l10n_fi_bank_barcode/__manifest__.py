@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Finnish Bank Barcode",
-    "version": "13.0.1.1.0",
+    "version": "15.0.1.0.0",
     "license": "AGPL-3",
     "category": "Accounting",
     "description": """
@@ -40,7 +40,6 @@ This module only adds the barcode on the invoice form, given that
     ],
 
     "data": [
-        # "views/account_move.xml"
+        "views/account_move.xml"
     ],
-    "installable": False,
 }

@@ -13,7 +13,7 @@
 
             <t t-call="l10n_fi_invoice.report_layout_header_finnish"/>
             <div class="article" style="margin:0px;padding:0px;">
-                <t t-raw="0" />
+                <t t-out="0" />
             </div>
             <t t-call="l10n_fi_invoice.report_layout_footer_finnish"/>
     </template>
@@ -174,10 +174,10 @@
                                     <div t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
                                 </div>
                                 <div class="col-5 text-left" style="font-weight: bold; font-size: large; float: none; display: inline-block; vertical-align: bottom; width: auto; padding-left: 14px;">
-                                    <span t-if="o.type == 'in_refund'">Credit note</span>
-                                    <span t-if="o.type == 'out_refund'">Credit note</span>
-                                    <span t-if="o.type == 'in_invoice'">Invoice</span>
-                                    <span t-if="o.type == 'out_invoice'">Invoice</span>
+                                    <span t-if="o.move_type == 'in_refund'">Credit note</span>
+                                    <span t-if="o.move_type == 'out_refund'">Credit note</span>
+                                    <span t-if="o.move_type == 'in_invoice'">Invoice</span>
+                                    <span t-if="o.move_type == 'out_invoice'">Invoice</span>
                                 </div>
                             </div>
                         </div>
@@ -207,7 +207,7 @@
                                             <span>Payment reference</span>
                                         </td>
                                         <td>
-                                            <t t-esc="o.invoice_payment_ref"/>
+                                            <t t-esc="o.payment_reference"/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -239,11 +239,11 @@
                                     <tr>
                                         <td>Our reference</td>
                                         <td>
-                                            <span t-field="o.invoice_origin" t-if="o.type == 'in_invoice' or o.type == 'out_invoice'"/>
-                                            <span t-field="o.ref" t-if="o.type == 'in_refund' or o.type == 'out_refund'"/>
+                                            <span t-field="o.invoice_origin" t-if="o.move_type == 'in_invoice' or o.move_type == 'out_invoice'"/>
+                                            <span t-field="o.ref" t-if="o.move_type == 'in_refund' or o.move_type == 'out_refund'"/>
                                         </td>
                                     </tr>
-                                    <tr t-if="o.type == 'in_invoice' or o.type == 'out_invoice'">
+                                    <tr t-if="o.move_type == 'in_invoice' or o.move_type == 'out_invoice'">
                                         <td>Your reference</td>
                                         <td>
                                             <span t-field="o.ref"/>
@@ -323,7 +323,8 @@
                             </div>
                         </div>
 
-                        <div class="row" t-if="o.amount_by_group" style="page-break-inside: avoid; font-size: .8em;">
+                        <t t-set="groups_by_subtotal" t-value="json.loads(o.tax_totals_json)['groups_by_subtotal']"/>
+                        <div class="row" t-if="groups_by_subtotal" style="page-break-inside: avoid; font-size: .8em;">
                             <div class="col-6 offset-6">
                                 <table class="table table-condensed">
                                     <thead>
@@ -334,17 +335,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr t-foreach="o.amount_by_group" t-as="t">
-                                            <td>
-                                                <span t-esc="t[0]"/>
-                                            </td>
-                                            <td class="text-right">
-                                                <span t-esc="t[2]" />
-                                            </td>
-                                            <td class="text-right">
-                                                <span t-esc="t[3]" />
-                                            </td>
-                                        </tr>
+                                        <t t-foreach="groups_by_subtotal" t-as="subtotal_title">
+                                            <tr t-foreach="groups_by_subtotal[subtotal_title]" t-as="tax_group">
+                                                <td>
+                                                    <span t-esc="tax_group['tax_group_name']"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="tax_group['formatted_tax_group_base_amount']" />
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="tax_group['formatted_tax_group_amount']" />
+                                                </td>
+                                            </tr>
+                                        </t>
                                         <tr t-if="o.fiscal_position_id.note">
                                             <td>
                                                 <span t-field="o.fiscal_position_id.note"/>
@@ -391,9 +394,9 @@
                                         </div>
                                     </div>
                                     <div class="col-10 border-left">
-                                        <t t-if="o.invoice_partner_bank_id.acc_number">
+                                        <t t-if="o.partner_bank_id.acc_number">
                                             IBAN
-                                            <t t-esc="o.invoice_partner_bank_id.acc_number"/>
+                                            <t t-esc="o.partner_bank_id.acc_number"/>
                                         </t>
                                     </div>
                                 </div>
@@ -458,7 +461,7 @@
                                     </div>
                                     <div class="col-10 border-left">
                                         <strong>
-                                            <span t-field="o.invoice_payment_ref" class="bank-transfer-value"/>
+                                            <span t-field="o.payment_reference" class="bank-transfer-value"/>
                                         </strong>
                                     </div>
                                 </div>
@@ -503,20 +506,21 @@
     <template id="report_invoice_finnish_translate" t-name="Finnish Invoice">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-set="lang" t-value="o.user_id.lang if o.type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                <t t-set="lang" t-value="o.user_id.lang if o.move_type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
                 <t t-call="l10n_fi_invoice.report_invoice_finnish_document" t-lang="lang"/>
             </t>
         </t>
     </template>
 
-    <report
-            string="Finnish Invoice"
-            id="report_invoice_finnish"
-            model="account.move"
-            report_type="qweb-pdf"
-            name="l10n_fi_invoice.report_invoice_finnish_translate"
-            file="l10n_fi_invoice.report_invoice_finnish_translate"
-            print_report_name="object._get_invoice_pdf_filename()"
-    />
+    <record id="report_invoice_finnish" model="ir.actions.report">
+        <field name="name">Finnish Invoice</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_fi_invoice.report_invoice_finnish_translate</field>
+        <field name="report_file">l10n_fi_invoice.report_invoice_finnish_translate</field>
+        <field name="print_report_name">object._get_invoice_pdf_filename()</field>
+        <field name="binding_view_types">form</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+    </record>
 
 </odoo>
