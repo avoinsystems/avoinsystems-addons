@@ -53,7 +53,7 @@ class InvoiceBarcode(models.Model):
 
     def _get_iban_str(self):
         self.ensure_one()
-        bank_account = self.invoice_partner_bank_id
+        bank_account = self.partner_bank_id
         if bank_account:
             acc_num = bank_account.sanitized_acc_number
             if len(acc_num) == 18 and acc_num[:2] == 'FI' and acc_num[2:].isdigit():
@@ -63,7 +63,7 @@ class InvoiceBarcode(models.Model):
 
     def _get_barcode_version(self):
         self.ensure_one()
-        ref = self.invoice_payment_ref
+        ref = self.payment_reference
         if ref and ' ' not in ref:
             if ref[:2] == 'RF' and ref[2:].isdigit():
                 return 5
@@ -74,7 +74,7 @@ class InvoiceBarcode(models.Model):
 
     def _get_rf_ref_str(self):
         self.ensure_one()
-        ref = self.invoice_payment_ref
+        ref = self.payment_reference
         if ref and ref[:2] == 'RF' and ref[2:].isdigit() and 25 >= len(ref) >= 8:
             start = ref[2:4]
             end = ref[4:].rjust(21, '0')
@@ -83,14 +83,14 @@ class InvoiceBarcode(models.Model):
 
     def _get_fin_ref_str(self):
         self.ensure_one()
-        ref = self.invoice_payment_ref
+        ref = self.payment_reference
         if ref and 20 >= len(ref) >= 4:
             return ref.rjust(20, '0')
         return None
 
     # noinspection PyProtectedMember
     @api.depends('currency_id', 'amount_total', 'invoice_date_due',
-                 'invoice_payment_ref', 'invoice_partner_bank_id')
+                 'payment_reference', 'partner_bank_id')
     def _compute_bank_barcode(self):
         for record in self:
 
