@@ -15,5 +15,5 @@
         "l10n_fi_invoice_delivery_date",
         "sale_stock",
     ],
-    "installable": True,
+    "installable": False,
 }

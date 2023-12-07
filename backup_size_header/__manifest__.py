@@ -17,5 +17,5 @@
     ],
     "icon": "/backup_size_header/static/description/icon.png",
     "auto_install": False,
-    "installable": True,
+    "installable": False,
 }

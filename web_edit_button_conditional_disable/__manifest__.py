@@ -16,7 +16,7 @@
             "web_edit_button_conditional_disable/static/src/js/form_controller.js",
         ]
     },
-    "installable": True,
+    "installable": False,
     # Does currently the same thingas web_access_rule_buttons, but based on a different logic.
     # There is no built-in compatibility (at least yet), so the two modules would potentially
     # undo each other's changes to the form.
