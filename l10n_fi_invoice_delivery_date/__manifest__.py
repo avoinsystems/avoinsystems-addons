@@ -1,7 +1,7 @@
 # See LICENSE for licensing information
 {
     "name": "Finnish Invoice Delivery Date",
-    "version": "15.0.1.0.0",
+    "version": "17.0.1.0.0",
     "author": "Avoin.Systems",
     "category": "Localization",
     "website": "https://avoin.systems",
@@ -13,7 +13,7 @@
         "views/account_move_view.xml",
     ],
     "summary": "Toimituspäivä laskulle",
-    "installable": False,
+    "installable": True,
     "auto_install": False,
     "application": False,
 }
