@@ -4,7 +4,7 @@
 {
     "name": "Web Conditionally Disable Editing",
     "summary": "Allow other modules to disable the edit button conditionally",
-    "version": "15.0.1.0.0",
+    "version": "17.0.1.0.0",
     "author": "Camptocamp, Onestein, Avoin.Systems, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "category": "Web",

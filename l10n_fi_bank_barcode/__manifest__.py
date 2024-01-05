@@ -20,7 +20,7 @@
 ##############################################################################
 {
     "name": "Finnish Bank Barcode",
-    "version": "15.0.1.0.0",
+    "version": "17.0.1.0.0",
     "license": "AGPL-3",
     "category": "Accounting",
     "description": """

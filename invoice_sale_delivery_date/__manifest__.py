@@ -1,7 +1,7 @@
 # noinspection PyStatementEffect
 {
     "name": "Invoice delivery date from Sale Order",
-    "version": "15.0.1.0.0",
+    "version": "17.0.1.0.0",
     "license": "AGPL-3",
     "summary": """
     Sale Order's Effective Date set as the delivery date of created invoices
