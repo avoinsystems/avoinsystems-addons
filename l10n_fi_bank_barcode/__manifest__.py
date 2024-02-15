@@ -42,4 +42,5 @@ This module only adds the barcode on the invoice form, given that
     "data": [
         "views/account_move.xml"
     ],
+    "installable": False,
 }

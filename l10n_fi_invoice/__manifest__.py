@@ -19,4 +19,5 @@
         "data/report_paperformat_data.xml",  # Only after the template
     ],
     "summary": "Suomalainen laskupohja",
+    "installable": False,
 }
