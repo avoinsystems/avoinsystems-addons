@@ -10,7 +10,7 @@
 
                 <field name="fiscal_position_id" position="after">
                     <field name="bank_barcode" readonly="1"
-                           attrs="{'invisible':[('bank_barcode', '=', False)]}"/>
+                           invisible="not bank_barcode"/>
                 </field>
 
             </data>
