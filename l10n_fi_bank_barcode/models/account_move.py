@@ -18,12 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-import logging
 import math
-
 from odoo import models, fields, api
-
-_logger = logging.getLogger(__name__)
 
 
 class InvoiceBarcode(models.Model):
@@ -95,10 +91,7 @@ class InvoiceBarcode(models.Model):
         for record in self:
 
             # Only EUR invoices are supported
-            # Since the default company currency is now USD, we have to bypass
-            # this check in the unit tests using the test_bank_barcode flag.
-            if record.company_currency_id.name != 'EUR' \
-                    and not self._context.get('test_bank_barcode'):
+            if record.currency_id.name != 'EUR':
                 record.bank_barcode = False
                 continue
 

@@ -1,9 +1,9 @@
-import datetime
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from odoo.tests import tagged
 
-from odoo.tests import common
 
-
-class TestBankBarcode(common.TransactionCase):
+@tagged('post_install', '-at_install')
+class TestBankBarcode(AccountTestInvoicingCommon):
 
     inputs = [
         ({
@@ -120,22 +120,16 @@ class TestBankBarcode(common.TransactionCase):
             'partner_id': self.partner.id,
         })
 
-        inv = self.env['account.move'].with_context(test_bank_barcode=True).create({
-            'move_type': 'in_invoice',
-            'partner_bank_id': acc.id,
-            'partner_id': self.partner.id,
-            'payment_reference': invoice_fields['payment_reference'],
-            'invoice_date_due': datetime.datetime.strptime(invoice_fields['date'], '%Y-%m-%d'),
-        })
-
-        line = self.env['account.move.line'].with_context(check_move_validity=False).create({
-            'move_id': inv.id,
-            'account_id':  self.partner.property_account_payable_id.id,
-            'quantity': 1,
-            'price_unit': invoice_fields['amount'],
-            'name': "row"
-        })
-
+        inv = self.init_invoice(
+            'in_invoice',
+            self.partner,
+            invoice_date=invoice_fields['date'],
+            amounts=[invoice_fields['amount']],
+            currency=self.env.ref('base.EUR'),
+        )
+        inv.partner_bank_id = acc
+        inv.invoice_date_due = invoice_fields['date']
+        inv.payment_reference = invoice_fields['payment_reference']
         return inv
 
     def test_barcode(self):
@@ -143,8 +137,6 @@ class TestBankBarcode(common.TransactionCase):
         barcode_len = 54
         for test_input, expected in self.inputs:
             result = self._create_invoice(test_input).bank_barcode
-            self.assertEqual(result, expected,
-                             'Invalid bank barcode. Expected: {}, got: {}'.format(expected, result))
+            self.assertEqual(expected, result, 'Invalid bank barcode')
             if result:
-                self.assertEqual(len(result), barcode_len,
-                                 'Invalid bank barcode length. Expected: {}, got: {}'.format(barcode_len, len(result)))
+                self.assertEqual(len(result), barcode_len, 'Invalid bank barcode length')
