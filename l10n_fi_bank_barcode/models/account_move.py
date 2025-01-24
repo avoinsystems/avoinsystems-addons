@@ -84,6 +84,10 @@ class InvoiceBarcode(models.Model):
             return ref.rjust(20, '0')
         return None
 
+    def _inverse_payment_reference(self):
+        super()._inverse_payment_reference()
+        self._compute_bank_barcode()
+
     # noinspection PyProtectedMember
     @api.depends('currency_id', 'amount_total', 'invoice_date_due',
                  'payment_reference', 'partner_bank_id')
