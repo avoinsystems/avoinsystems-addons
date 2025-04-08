@@ -323,7 +323,7 @@
                             </div>
                         </div>
 
-                        <t t-set="groups_by_subtotal" t-value="json.loads(o.tax_totals_json)['groups_by_subtotal']"/>
+                        <t t-set="groups_by_subtotal" t-value="o.tax_totals['groups_by_subtotal']"/>
                         <div class="row" t-if="groups_by_subtotal" style="page-break-inside: avoid; font-size: .8em;">
                             <div class="col-6 offset-6">
                                 <table class="table table-condensed">
@@ -486,7 +486,7 @@
                         <div class="row">
                             <div class="col-9" style="text-align: center;">
                                 <t t-if="o.bank_barcode">
-                                    <img style="margin-left: 2cm; margin-right: 2cm; margin-top: .2cm;" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;height=%s&amp;width=%s' %('Code128', o.bank_barcode, 60, 600)"/>
+                                    <img style="margin-left: 2cm; margin-right: 2cm; margin-top: .2cm; width:600px; height:60px;" t-att-src="'/report/barcode/Code128/' + o.bank_barcode" />
                                     <div class="barcode-values">
                                         <t t-esc="o.bank_barcode"/>
                                     </div>
