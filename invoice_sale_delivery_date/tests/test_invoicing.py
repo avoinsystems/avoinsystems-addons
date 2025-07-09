@@ -102,8 +102,8 @@ class TestSaleExpectedDate(ValuationReconciliationTestCommon):
 
         picking = sale_order.picking_ids[0]
         for ml in picking.move_line_ids:
-            ml.qty_done = ml.product_uom_qty
-        picking._action_done()
+            ml.quantity = ml.move_id.product_uom_qty
+        picking.button_validate()
         self.assertEqual(
             picking.state,
             'done',
