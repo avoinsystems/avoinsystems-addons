@@ -108,6 +108,7 @@ class TestBankBarcode(AccountTestInvoicingCommon):
 
     def setUp(self):
         super(TestBankBarcode, self).setUp()
+        self.env = self.env(context=dict(self.env.context, tracking_disable=True))
 
         self.partner = self.env['res.partner'].create({
             'name': 'testpartner',
@@ -125,8 +126,8 @@ class TestBankBarcode(AccountTestInvoicingCommon):
             self.partner,
             invoice_date=invoice_fields['date'],
             amounts=[invoice_fields['amount']],
-            currency=self.env.ref('base.EUR'),
         )
+        inv.currency_id = self.env.ref('base.EUR') # bypass "can't write on invisible field" error
         inv.partner_bank_id = acc
         inv.invoice_date_due = invoice_fields['date']
         inv.payment_reference = invoice_fields['payment_reference']
