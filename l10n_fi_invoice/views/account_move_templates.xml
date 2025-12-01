@@ -262,7 +262,7 @@
                                     </th>
                                     <th>Quantity</th>
                                     <th class="text-right">Unit Price</th>
-                                    <th class="text-right" groups="product.group_discount_per_so_line">Discount (%)
+                                    <th class="text-right">Discount (%)
                                     </th>
                                     <th class="text-right">Taxes</th>
                                     <th class="text-right totals-col">Amount</th>
@@ -276,12 +276,12 @@
                                     </td>
                                         <td>
                                             <span t-field="l.quantity" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
-                                            <span t-field="l.uom_id" groups="product.group_uom" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
+                                            <span t-field="l.uom_id" groups="uom.group_uom" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
                                         </td>
                                         <td class="text-right">
                                             <span t-field="l.price_unit" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
                                         </td>
-                                        <td class="text-right" groups="product.group_discount_per_so_line">
+                                        <td class="text-right">
                                             <span t-field="l.discount" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
                                         </td>
                                         <td class="text-right">
@@ -319,8 +319,9 @@
                             </div>
                         </div>
 
-                        <t t-set="groups_by_subtotal" t-value="o.tax_totals['groups_by_subtotal']"/>
-                        <div class="row" t-if="groups_by_subtotal" style="page-break-inside: avoid; font-size: .8em;">
+                        <t t-set="subtotals" t-value="o.tax_totals['subtotals'] if o.tax_totals else False"/>
+                        <t t-set="currency" t-value="o.company_currency_id"/>
+                        <div class="row" t-if="subtotals" style="page-break-inside: avoid; font-size: .8em;">
                             <div class="col-6 offset-6">
                                 <table class="table table-condensed">
                                     <thead>
@@ -331,16 +332,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <t t-foreach="groups_by_subtotal" t-as="subtotal_title">
-                                            <tr t-foreach="groups_by_subtotal[subtotal_title]" t-as="tax_group">
+                                        <t t-foreach="subtotals" t-as="subtotal">
+                                            <tr t-foreach="subtotal['tax_groups']" t-as="tax_group">
                                                 <td>
-                                                    <span t-esc="tax_group['tax_group_name']"/>
+                                                    <span t-esc="tax_group['group_name']"/>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span t-esc="tax_group['formatted_tax_group_base_amount']" />
+                                                    <span t-esc="tax_group['display_base_amount']"
+                                                          t-options='{"widget": "monetary", "display_currency": currency}'
+                                                    />
                                                 </td>
                                                 <td class="text-right">
-                                                    <span t-esc="tax_group['formatted_tax_group_amount']" />
+                                                    <span t-esc="tax_group['tax_amount']"
+                                                          t-options='{"widget": "monetary", "display_currency": currency}'
+                                                    />
                                                 </td>
                                             </tr>
                                         </t>
