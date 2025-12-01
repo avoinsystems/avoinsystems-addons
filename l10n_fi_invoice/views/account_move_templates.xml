@@ -115,8 +115,9 @@
                         height: 2.5em;
                         }
 
-                        .invoice-info tr td:last-child {
-                        padding-left: 3em;
+                        .invoice-info tr td {
+                        padding-left: 1em;
+                        padding-right: 1em;
                         }
 
                         address span[itemprop=name] {
