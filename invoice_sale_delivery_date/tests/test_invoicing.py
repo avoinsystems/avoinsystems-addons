@@ -1,13 +1,66 @@
-from datetime import timedelta
-
-from odoo import fields
 from odoo.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_common import \
     ValuationReconciliationTestCommon
-from odoo.tests import tagged, Form
+from odoo.tests import tagged, Form, new_test_user, users
 
 
 @tagged('post_install', '-at_install')
 class TestSaleExpectedDate(ValuationReconciliationTestCommon):
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
+
+        cls.test_user = new_test_user(
+            cls.env,
+            login='sale_user',
+            groups='sales_team.group_sale_salesman,stock.group_stock_user'
+        )
+        cls.partner = cls.env['res.partner'].create(
+            {'name': 'A Customer'}
+        )
+
+        product = cls.env['product.product']
+        cls.product_A = product.create(
+            {
+                'name': 'Product A',
+                'is_storable': True,
+                'sale_delay': 5,
+                'uom_id': 1,
+            }
+        )
+        cls.product_B = product.create(
+            {
+                'name': 'Product B',
+                'is_storable': True,
+                'sale_delay': 10,
+                'uom_id': 1,
+            }
+        )
+        cls.product_C = product.create(
+            {
+                'name': 'Product C',
+                'is_storable': True,
+                'sale_delay': 15,
+                'uom_id': 1,
+            }
+        )
+
+        cls.env['stock.quant']._update_available_quantity(
+            cls.product_A,
+            cls.company_data['default_warehouse'].lot_stock_id,
+            10
+        )
+        cls.env['stock.quant']._update_available_quantity(
+            cls.product_B,
+            cls.company_data['default_warehouse'].lot_stock_id,
+            10
+        )
+        cls.env['stock.quant']._update_available_quantity(
+            cls.product_C,
+            cls.company_data['default_warehouse'].lot_stock_id,
+            10
+        )
 
     def _do_invoicing(self, sale: 'sale.order') -> 'account.move':
         """
@@ -27,70 +80,26 @@ class TestSaleExpectedDate(ValuationReconciliationTestCommon):
         assert invoice
         return invoice
 
+    @users('sale_user')
     def test_expected_date_goes_to_invoice(self):
-        Product = self.env['product.product']
-
-        product_A = Product.create(
-            {
-                'name': 'Product A',
-                'type': 'product',
-                'sale_delay': 5,
-                'uom_id': 1,
-            }
-        )
-        product_B = Product.create(
-            {
-                'name': 'Product B',
-                'type': 'product',
-                'sale_delay': 10,
-                'uom_id': 1,
-            }
-        )
-        product_C = Product.create(
-            {
-                'name': 'Product C',
-                'type': 'product',
-                'sale_delay': 15,
-                'uom_id': 1,
-            }
-        )
-
-        self.env['stock.quant']._update_available_quantity(
-            product_A,
-            self.company_data['default_warehouse'].lot_stock_id,
-            10
-        )
-        self.env['stock.quant']._update_available_quantity(
-            product_B,
-            self.company_data['default_warehouse'].lot_stock_id,
-            10
-        )
-        self.env['stock.quant']._update_available_quantity(
-            product_C,
-            self.company_data['default_warehouse'].lot_stock_id,
-            10
-        )
-
         sale_order = self.env['sale.order'].create(
             {
-                'partner_id': self.env['res.partner'].create(
-                    {'name': 'A Customer'}
-                ).id,
+                'partner_id': self.partner.id,
                 'picking_policy': 'direct',
                 'order_line': [(0, 0, {
-                    'name': product_A.name,
-                    'product_id': product_A.id,
-                    'customer_lead': product_A.sale_delay,
+                    'name': self.product_A.name,
+                    'product_id': self.product_A.id,
+                    'customer_lead': self.product_A.sale_delay,
                     'product_uom_qty': 5
                 }), (0, 0, {
-                    'name': product_B.name,
-                    'product_id': product_B.id,
-                    'customer_lead': product_B.sale_delay,
+                    'name': self.product_B.name,
+                    'product_id': self.product_B.id,
+                    'customer_lead': self.product_B.sale_delay,
                     'product_uom_qty': 5
                 }), (0, 0, {
-                    'name': product_C.name,
-                    'product_id': product_C.id,
-                    'customer_lead': product_C.sale_delay,
+                    'name': self.product_C.name,
+                    'product_id': self.product_C.id,
+                    'customer_lead': self.product_C.sale_delay,
                     'product_uom_qty': 5
                 })],
             }
