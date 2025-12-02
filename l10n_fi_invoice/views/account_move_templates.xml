@@ -258,15 +258,14 @@
                         <table class="table table-condensed products-table">
                             <thead>
                                 <tr>
-                                    <th>
+                                    <th><strong>
                                         <span class="offset-2">Description</span>
-                                    </th>
-                                    <th>Quantity</th>
-                                    <th class="text-right">Unit Price</th>
-                                    <th class="text-right">Discount (%)
-                                    </th>
-                                    <th class="text-right">Taxes</th>
-                                    <th class="text-right totals-col">Amount</th>
+                                    </strong></th>
+                                    <th><strong>Quantity</strong></th>
+                                    <th class="text-right"><strong>Unit Price</strong></th>
+                                    <th class="text-right"><strong>Discount (%)</strong></th>
+                                    <th class="text-right"><strong>Taxes</strong></th>
+                                    <th class="text-right totals-col"><strong>Amount</strong></th>
                                 </tr>
                             </thead>
                             <tbody class="invoice_tbody">
@@ -327,9 +326,9 @@
                                 <table class="table table-condensed">
                                     <thead>
                                         <tr>
-                                            <th>Tax</th>
-                                            <th class="text-right">Base</th>
-                                            <th class="text-right">Amount</th>
+                                            <th><strong>Tax</strong></th>
+                                            <th class="text-right"><strong>Base</strong></th>
+                                            <th class="text-right"><strong>Amount</strong></th>
                                         </tr>
                                     </thead>
                                     <tbody>
