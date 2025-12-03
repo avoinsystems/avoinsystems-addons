@@ -115,8 +115,9 @@
                         height: 2.5em;
                         }
 
-                        .invoice-info tr td:last-child {
-                        padding-left: 3em;
+                        .invoice-info tr td {
+                        padding-left: 1em;
+                        padding-right: 1em;
                         }
 
                         address span[itemprop=name] {
@@ -257,15 +258,14 @@
                         <table class="table table-condensed products-table">
                             <thead>
                                 <tr>
-                                    <th>
+                                    <th><strong>
                                         <span class="offset-2">Description</span>
-                                    </th>
-                                    <th>Quantity</th>
-                                    <th class="text-right">Unit Price</th>
-                                    <th class="text-right" groups="product.group_discount_per_so_line">Discount (%)
-                                    </th>
-                                    <th class="text-right">Taxes</th>
-                                    <th class="text-right totals-col">Amount</th>
+                                    </strong></th>
+                                    <th><strong>Quantity</strong></th>
+                                    <th class="text-right"><strong>Unit Price</strong></th>
+                                    <th class="text-right"><strong>Discount (%)</strong></th>
+                                    <th class="text-right"><strong>Taxes</strong></th>
+                                    <th class="text-right totals-col"><strong>Amount</strong></th>
                                 </tr>
                             </thead>
                             <tbody class="invoice_tbody">
@@ -276,12 +276,12 @@
                                     </td>
                                         <td>
                                             <span t-field="l.quantity" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
-                                            <span t-field="l.uom_id" groups="product.group_uom" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
+                                            <span t-field="l.uom_id" groups="uom.group_uom" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
                                         </td>
                                         <td class="text-right">
                                             <span t-field="l.price_unit" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
                                         </td>
-                                        <td class="text-right" groups="product.group_discount_per_so_line">
+                                        <td class="text-right">
                                             <span t-field="l.discount" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
                                         </td>
                                         <td class="text-right">
@@ -319,28 +319,33 @@
                             </div>
                         </div>
 
-                        <t t-set="groups_by_subtotal" t-value="o.tax_totals['groups_by_subtotal']"/>
-                        <div class="row" t-if="groups_by_subtotal" style="page-break-inside: avoid; font-size: .8em;">
+                        <t t-set="subtotals" t-value="o.tax_totals['subtotals'] if o.tax_totals else False"/>
+                        <t t-set="currency" t-value="o.company_currency_id"/>
+                        <div class="row" t-if="subtotals" style="page-break-inside: avoid; font-size: .8em;">
                             <div class="col-6 offset-6">
                                 <table class="table table-condensed">
                                     <thead>
                                         <tr>
-                                            <th>Tax</th>
-                                            <th class="text-right">Base</th>
-                                            <th class="text-right">Amount</th>
+                                            <th><strong>Tax</strong></th>
+                                            <th class="text-right"><strong>Base</strong></th>
+                                            <th class="text-right"><strong>Amount</strong></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <t t-foreach="groups_by_subtotal" t-as="subtotal_title">
-                                            <tr t-foreach="groups_by_subtotal[subtotal_title]" t-as="tax_group">
+                                        <t t-foreach="subtotals" t-as="subtotal">
+                                            <tr t-foreach="subtotal['tax_groups']" t-as="tax_group">
                                                 <td>
-                                                    <span t-esc="tax_group['tax_group_name']"/>
+                                                    <span t-esc="tax_group['group_name']"/>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span t-esc="tax_group['formatted_tax_group_base_amount']" />
+                                                    <span t-esc="tax_group['display_base_amount']"
+                                                          t-options='{"widget": "monetary", "display_currency": currency}'
+                                                    />
                                                 </td>
                                                 <td class="text-right">
-                                                    <span t-esc="tax_group['formatted_tax_group_amount']" />
+                                                    <span t-esc="tax_group['tax_amount']"
+                                                          t-options='{"widget": "monetary", "display_currency": currency}'
+                                                    />
                                                 </td>
                                             </tr>
                                         </t>
@@ -517,10 +522,10 @@
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">l10n_fi_invoice.report_invoice_finnish_translate</field>
         <field name="report_file">l10n_fi_invoice.report_invoice_finnish_translate</field>
-        <field name="print_report_name">object.name.replace('/', '') + '.pdf'</field>
+        <field name="print_report_name">(object.name or 'New').replace('/', '') + '.pdf'</field>
         <field name="binding_view_types">form</field>
         <field name="binding_model_id" ref="account.model_account_move"/>
-        <field name="attachment">object.name.replace('/', '') + '.pdf'</field>
+        <field name="attachment">(object.name or 'New').replace('/', '') + '.pdf'</field>
     </record>
 
 </odoo>
