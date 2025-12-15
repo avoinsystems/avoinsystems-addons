@@ -276,7 +276,7 @@
                                     </td>
                                         <td>
                                             <span t-field="l.quantity" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
-                                            <span t-field="l.uom_id" groups="uom.group_uom" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
+                                            <span t-field="l.product_uom_id" groups="uom.group_uom" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
                                         </td>
                                         <td class="text-right">
                                             <span t-field="l.price_unit" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
