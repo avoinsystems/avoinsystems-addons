@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pos_payment_method_view_form" model="ir.ui.view">
+        <field name="name">pos.payment.method</field>
+        <field name="model">pos.payment.method</field>
+        <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form"/>
+        <field name="arch" type="xml">
+
+            <sheet position="inside">
+                <group string="Market Pay" invisible="use_payment_terminal != 'marketpay'">
+                    <group>
+                        <field name="marketpay_path_to_certificate" required="use_payment_terminal == 'marketpay'"/>
+                        <field name="marketpay_path_to_private_key" required="use_payment_terminal == 'marketpay'"/>
+                        <field name="marketpay_terminal_identifier" required="use_payment_terminal == 'marketpay'"/>
+                        <button type="object" name="test_certificate_access" string="Test Configuration"/>
+                    </group>
+                    <group>
+                        <field name="marketpay_terminal_lang_code" required="use_payment_terminal == 'marketpay'"/>
+                        <field name="marketpay_printer_available"/>
+                        <field name="marketpay_test_mode"/>
+                    </group>
+
+                    <group string="Market Pay Debug" groups="base.group_no_one">
+                        <field name="marketpay_store_code"/>
+                        <field name="marketpay_registered_terminals"/>
+                        <button type="object" name="get_regitered_terminals_from_marketpay" string="Refresh"/>
+                    </group>
+                </group>
+            </sheet>
+
+        </field>
+
+    </record>
+</odoo>
