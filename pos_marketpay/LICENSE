@@ -1,0 +1,28 @@
+Avoin.Systems Oy License v1.0 (https://www.avoin.systems).
+
+This software and associated files (the "Software") can only be utilized
+(executed, modified, executed after modifications) with a valid License Agreement with
+Avoin.Systems Oy, or by obtaining user rights for this module by purchasing it from the Odoo
+Apps Store.
+
+You may develop Odoo modules based on the Software and distribute them under the license of
+your choice, provided that it is compatible with the terms of the obtained valid Avoin.Systems License Agreement.
+
+If the Software has been acquired via Odoo Apps Store, you have the right to use the Software
+in a single production and test installation, within the systems owned by the company that has made
+the purchase, but you cannot develop other Odoo modules based on the Software, nor distribute
+it under any license without a valid License Agreement with Avoin.Systems Oy.
+
+It is prohibited to publish, distribute, sublicense, or sell copies of the Software or modified
+copies of the Software.
+
+The above copyright notice and this permission notice must be included in all copies or
+substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE AND NON-INFRINGEMENT.
+
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
