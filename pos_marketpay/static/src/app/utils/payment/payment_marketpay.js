@@ -3,6 +3,32 @@ import { PaymentInterface } from "@point_of_sale/app/utils/payment/payment_inter
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { register_payment_method } from "@point_of_sale/app/services/pos_store";
 
+// Centralized logger for Market Pay flow. Easy to grep in DevTools as "[MarketPay]".
+// Only emits when Odoo debug mode is enabled (standard or assets).
+// The payload is deep-cloned so DevTools shows the values at log time, not
+// whatever the live (potentially mutated) object looks like when expanded later.
+function mpLog(event, payload = {}) {
+    if (!odoo.debug) {
+        return;
+    }
+    try {
+        let snapshot;
+        try {
+            snapshot = JSON.parse(JSON.stringify(payload));
+        } catch (_e) {
+            // JSON serialization failed (e.g. circular references). Fall back to
+            // the live reference so we still capture something useful.
+            snapshot = payload;
+        }
+        console.info(`[MarketPay] ${event}`, {
+            ts: new Date().toISOString(),
+            ...snapshot,
+        });
+    } catch (_e) {
+        // Never let logging break the payment flow.
+    }
+}
+
 export class PaymentMarketpay extends PaymentInterface {
     setup() {
         super.setup(...arguments);
@@ -13,16 +39,19 @@ export class PaymentMarketpay extends PaymentInterface {
 
     sendPaymentRequest(uuid) {
         super.sendPaymentRequest(uuid);
+        mpLog("sendPaymentRequest", { uuid });
         return this._marketpayPaymentRequest("marketpay_request_process_transaction");
     }
 
     sendPaymentReversal(uuid) {
         super.sendPaymentReversal(uuid);
+        mpLog("sendPaymentReversal", { uuid });
         return this._marketpayPaymentRequest("marketpay_request_cancel_transaction");
     }
 
     sendPaymentCancel(order, uuid) {
         super.sendPaymentCancel(order, uuid);
+        mpLog("sendPaymentCancel", { uuid, order_uuid: order && order.uuid });
         return this._marketpayAbort(uuid);
     }
 
@@ -32,6 +61,10 @@ export class PaymentMarketpay extends PaymentInterface {
 
     _handleOdooConnectionFailure(data = {}) {
         var line = this.pendingMarketpayLine();
+        mpLog("OdooConnectionFailure", {
+            line_uuid: line && line.uuid,
+            data,
+        });
         if (line) {
             line.setPaymentStatus("retry");
         }
@@ -46,11 +79,20 @@ export class PaymentMarketpay extends PaymentInterface {
     }
 
     _callMarketpay(data, method) {
+        mpLog("ORM call -> backend", {
+            method,
+            payment_method_id: this.payment_method_id.id,
+            data,
+        });
         return this.env.services.orm.silent
             .call("pos.payment.method", method, [
                 [this.payment_method_id.id],
                 data
             ])
+            .then((response) => {
+                mpLog("ORM response <- backend", { method, response });
+                return response;
+            })
             .catch(this._handleOdooConnectionFailure.bind(this));
     }
 
@@ -92,7 +134,22 @@ export class PaymentMarketpay extends PaymentInterface {
         var data = this._marketpayOrderData();
         var promise = this.waitForPaymentConfirmation();
 
+        mpLog("payment request prepared", {
+            method,
+            line_uuid: line && line.uuid,
+            order_uuid: order && order.uuid,
+            ecrTransactionId: data.ecrTransactionId,
+            terminalTransactionId: data.terminalTransactionId,
+            amountInCents: data.amount,
+        });
+
         this._callMarketpay(data, method).then((response) => {
+            mpLog("initial transaction response", {
+                method,
+                line_uuid: line && line.uuid,
+                response_status: response && response.status,
+                response,
+            });
 
             if (response.status === "NOK") {
                 this.saveResponseValues(line, response);
@@ -110,10 +167,14 @@ export class PaymentMarketpay extends PaymentInterface {
 
             } else if (response.status === "OK") {
                 this.handleSuccessResponse(line, response);
+            } else {
+                // NEUTRAL: we'll wait for asynchronous notifications via websocket.
+                mpLog("waiting for async notifications", {
+                    method,
+                    line_uuid: line && line.uuid,
+                    response_status: response && response.status,
+                });
             }
-
-            // We may also receive NEUTRAL response status,
-            // which means we'll listen to notifications for further responses.
         });
 
         return promise;
@@ -135,6 +196,9 @@ export class PaymentMarketpay extends PaymentInterface {
 
     waitForPaymentConfirmation() {
         const line = this.pendingMarketpayLine();
+        mpLog("registering payment confirmation resolver", {
+            line_uuid: line && line.uuid,
+        });
 
         return new Promise((resolve) => {
             this.marketpayPaymentLineResolvers[line.uuid] = resolve;
@@ -143,6 +207,10 @@ export class PaymentMarketpay extends PaymentInterface {
 
     resolvePaymentFalse(uuid) {
         const resolver = this.marketpayPaymentLineResolvers ? this.marketpayPaymentLineResolvers[uuid] : false;
+        mpLog("resolvePaymentFalse", {
+            line_uuid: uuid,
+            resolver_present: Boolean(resolver),
+        });
         if (resolver) {
             resolver(false);
         }
@@ -154,10 +222,17 @@ export class PaymentMarketpay extends PaymentInterface {
         const line = this.pendingMarketpayLine();
 
         if (!line) {
+            mpLog("resolvePaymentTrue: no pending line", {
+                resolvers: Object.keys(this.marketpayPaymentLineResolvers || {}),
+            });
             return;
         }
 
         const resolver = this.marketpayPaymentLineResolvers ? this.marketpayPaymentLineResolvers[line.uuid] : false;
+        mpLog("resolvePaymentTrue", {
+            line_uuid: line.uuid,
+            resolver_present: Boolean(resolver),
+        });
         if (resolver) {
             resolver(true);
         }
@@ -166,6 +241,8 @@ export class PaymentMarketpay extends PaymentInterface {
     }
 
     async handleMarketpayStatusResponse() {
+        mpLog("handleMarketpayStatusResponse: fetching latest notification");
+
         const notification = await this.env.services.orm.silent.call(
             "pos.payment.method",
             "get_latest_marketpay_message", [
@@ -173,7 +250,10 @@ export class PaymentMarketpay extends PaymentInterface {
             ]
         );
 
+        mpLog("handleMarketpayStatusResponse: notification fetched", { notification });
+
         if (!notification) {
+            mpLog("handleMarketpayStatusResponse: empty notification, treating as connection failure");
             this._handleOdooConnectionFailure();
             return;
         }
@@ -181,10 +261,21 @@ export class PaymentMarketpay extends PaymentInterface {
 
         // It may be that the line was already resolved by an initial `process-transaction` response or a notification
         if (!line) {
+            mpLog("handleMarketpayStatusResponse: no pending line, ignoring notification", {
+                notification_status: notification.message && notification.message.status,
+                transaction_id: notification.transaction_id,
+            });
             return;
         }
 
-        switch (notification.message.status) {
+        const status = notification.message && notification.message.status;
+        mpLog("handleMarketpayStatusResponse: dispatching status", {
+            line_uuid: line.uuid,
+            status,
+            transaction_id: notification.transaction_id,
+        });
+
+        switch (status) {
             case "WAITING_FOR_CARD":
                 line.setPaymentStatus("waitingCard");
                 return;
@@ -198,7 +289,12 @@ export class PaymentMarketpay extends PaymentInterface {
                 return;
 
             case "COMPLETED":
-                const payment_status = notification.message.result.status;
+                const payment_status = notification.message.result && notification.message.result.status;
+                mpLog("handleMarketpayStatusResponse: COMPLETED", {
+                    line_uuid: line.uuid,
+                    payment_status,
+                    result: notification.message.result,
+                });
                 if (payment_status === "OK")
                 {
                     this.handleSuccessResponse(line, notification.message);
@@ -206,6 +302,14 @@ export class PaymentMarketpay extends PaymentInterface {
                     line.setPaymentStatus("retry");
                     this.resolvePaymentFalse(line.uuid);
                 }
+                break;
+
+            default:
+                mpLog("handleMarketpayStatusResponse: unknown status", {
+                    line_uuid: line.uuid,
+                    status,
+                    notification,
+                });
                 break;
         }
     }
@@ -244,6 +348,10 @@ export class PaymentMarketpay extends PaymentInterface {
     }
 
     handleSuccessResponse(line, response) {
+        mpLog("handleSuccessResponse", {
+            line_uuid: line && line.uuid,
+            response,
+        });
         this.saveResponseValues(line, response);
         this.resolvePaymentTrue();
     }
