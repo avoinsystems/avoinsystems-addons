@@ -13,6 +13,14 @@ patch(PaymentScreen.prototype, {
                     paymentLine.getPaymentStatus() !== "pending"
             );
             if (pendingPaymentLine) {
+                if (odoo.debug) {
+                    console.info("[MarketPay] PaymentScreen mount detected stuck Market Pay line, forcing 'force_done'", {
+                        ts: new Date().toISOString(),
+                        line_uuid: pendingPaymentLine.uuid,
+                        previous_status: pendingPaymentLine.getPaymentStatus(),
+                        order_uuid: this.currentOrder && this.currentOrder.uuid,
+                    });
+                }
                 pendingPaymentLine.setPaymentStatus("force_done");
             }
         });
