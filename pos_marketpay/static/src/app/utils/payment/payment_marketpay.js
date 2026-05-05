@@ -56,17 +56,21 @@ export class PaymentMarketpay extends PaymentInterface {
             .catch(this._handleOdooConnectionFailure.bind(this));
     }
 
+    _computeEcrTransactionId(order) {
+        var config = this.pos.config;
+        const orderId = order.uid.replace(" ", "").replaceAll("-", "").toUpperCase();
+        return `${config.id}-${orderId}--${order.pos_session_id}`;
+    }
+
     _marketpayOrderData() {
         var order = this.pos.get_order();
         var config = this.pos.config;
         var line = order.selected_paymentline;
         const amountInCents = Math.round(line.amount * 100);
 
-        const orderId = order.uid.replace(" ", "").replaceAll("-", "").toUpperCase();
-
         var data = {
             "terminalTransactionId": line.transaction_id,
-            "ecrTransactionId": `${config.id}-${orderId}--${order.pos_session_id}`,
+            "ecrTransactionId": this._computeEcrTransactionId(order),
             "cashierId": String(order.pos_session_id),
             "amount": amountInCents,
             "currency": this.pos.currency.numeric_code,
@@ -183,6 +187,16 @@ export class PaymentMarketpay extends PaymentInterface {
 
         // It may be that the line was already resolved by an initial `process-transaction` response or a notification
         if (!line) {
+            return;
+        }
+
+        // Make sure the notification belongs to the current pending line. The
+        // backend forwards the `ecrTransactionId` we sent in the original
+        // request as `transaction_id`, so we recompute it from the line's
+        // order and compare. This guards against stale notifications from a
+        // previous order/line being applied to the wrong payment.
+        const expectedEcrTransactionId = this._computeEcrTransactionId(line.order);
+        if (notification.transaction_id !== expectedEcrTransactionId) {
             return;
         }
 
