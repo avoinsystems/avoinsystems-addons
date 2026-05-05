@@ -96,17 +96,21 @@ export class PaymentMarketpay extends PaymentInterface {
             .catch(this._handleOdooConnectionFailure.bind(this));
     }
 
+    _computeEcrTransactionId(order) {
+        var config = this.pos.config;
+        const orderId = order.pos_reference.replace(" ", "").replaceAll("-", "").toUpperCase();
+        return `${config.id}-${orderId}--${order.session_id.id}`;
+    }
+
     _marketpayOrderData() {
         var order = this.pos.getOrder();
         var config = this.pos.config;
         var line = order.getSelectedPaymentline();
         const amountInCents = Math.round(line.amount * 100);
 
-        const orderId = order.pos_reference.replace(" ", "").replaceAll("-", "").toUpperCase();
-
         var data = {
             "terminalTransactionId": line.transaction_id,
-            "ecrTransactionId": `${config.id}-${orderId}--${order.session_id.id}`,
+            "ecrTransactionId": this._computeEcrTransactionId(order),
             "cashierId": order.user_id.id,
             "amount": amountInCents,
             "currency": this.pos.currency.iso_numeric,
@@ -264,6 +268,21 @@ export class PaymentMarketpay extends PaymentInterface {
             mpLog("handleMarketpayStatusResponse: no pending line, ignoring notification", {
                 notification_status: notification.message && notification.message.status,
                 transaction_id: notification.transaction_id,
+            });
+            return;
+        }
+
+        // Make sure the notification belongs to the current pending line. The
+        // backend forwards the `ecrTransactionId` we sent in the original
+        // request as `transaction_id`, so we recompute it from the line's
+        // order and compare. This guards against stale notifications from a
+        // previous order/line being applied to the wrong payment.
+        const expectedEcrTransactionId = this._computeEcrTransactionId(line.pos_order_id);
+        if (notification.transaction_id !== expectedEcrTransactionId) {
+            mpLog("handleMarketpayStatusResponse: ecrTransactionId mismatch, ignoring notification", {
+                line_uuid: line.uuid,
+                expected: expectedEcrTransactionId,
+                received: notification.transaction_id,
             });
             return;
         }
