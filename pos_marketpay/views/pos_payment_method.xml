@@ -21,6 +21,14 @@
                         <field name="marketpay_test_mode"/>
                     </group>
 
+                    <group string="Webhook Security" groups="base.group_erp_manager">
+                        <field name="marketpay_notification_secret" readonly="1" password="True"/>
+                        <button type="object"
+                                name="regenerate_marketpay_notification_secret"
+                                string="Regenerate Secret"
+                                confirm="Regenerating the notification secret will cause any Market Pay transaction already in flight to have its callback rejected. Continue?"/>
+                    </group>
+
                     <group string="Market Pay Debug" groups="base.group_no_one">
                         <field name="marketpay_store_code"/>
                         <field name="marketpay_registered_terminals"/>
