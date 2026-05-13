@@ -32,6 +32,37 @@ For localhost testing, expose your Odoo instance to the internet so Market Pay c
 
 ---
 
+## Notification Secret
+
+Because the callback endpoint must be public, every notification URL we send to Market Pay carries a per-payment-method secret token. The endpoint rejects any incoming notification whose secret does not match the one stored on the payment method, which prevents anyone who guesses or learns a terminal identifier from forging payment-completed callbacks.
+
+**Format of the URL we register with Market Pay:**
+
+```
+{web.base.url}/pos_marketpay/notification/{terminal_id}/{secret}/{transaction_id}
+```
+
+**Key facts:**
+
+- The secret is **generated automatically** the first time a payment method is created. There is nothing to configure on the Market Pay side — the secret is part of the callback URL we hand to Market Pay with each transaction.
+- It is **per payment method** (i.e. per terminal), so rotating one terminal’s secret does not affect the others.
+- The endpoint uses a **constant-time comparison** to validate the secret and returns HTTP 403 on mismatch.
+- The secret is stored on the payment method as **Notification Secret** (visible to ERP managers under the **Webhook Security** group on the payment-method form). It is masked by default; reveal it only when you need to copy it.
+
+**Rotating the secret:**
+
+If you suspect a notification URL has leaked (for example, it appeared in a screen share, a chat message, or a third-party log), rotate it immediately:
+
+1. Open the payment method form (**PoS → Configuration → Payment Methods**).
+2. Under **Webhook Security**, click **Regenerate Secret** and confirm.
+3. From that moment, all *new* transactions use the new secret automatically.
+
+> **Heads-up:** Rotating the secret invalidates any Market Pay transaction that is *already in flight* — Market Pay will still call back with the old URL, and our endpoint will (correctly) reject it. Rotate during quiet periods if possible, or accept that any pending payments at the moment of rotation will need to be retried from the POS.
+
+Rotations are recorded in the Odoo server log (the entry includes which payment method was rotated and which user did it), so the action is auditable after the fact.
+
+---
+
 ## What must an Odoo partner do when they need to enable the Market Pay integration for their customer?
 
 1. The Odoo partner contacts **Market Pay** via [https://market-pay.com/en/contact](https://market-pay.com/en/contact) to request the Market Pay module for Odoo (currently supported versions are **17** and **19**). Module access and distribution follow Market Pay’s process.
@@ -63,6 +94,8 @@ For localhost testing, expose your Odoo instance to the internet so Market Pay c
       - **Terminal Identifier:** The payment terminal’s serial number. *Important:* The terminal identifier should be prefixed with the manufacturer code, for example: `PAX:12345678`.
 
       - **Test Mode:** This is selected when testing.
+
+      - **Notification Secret** (under **Webhook Security**, manager-only): Generated automatically — you do not need to set or share this value with Market Pay. It secures the callback URL Market Pay uses to deliver transaction notifications. If it ever leaks, rotate it with the **Regenerate Secret** button. See the **Notification Secret** section above for details.
 
       - **Store Code** (behind Debug Mode): By filling this in and pressing the **Refresh** button, you can see which payment terminals are linked to the respective customer-specific store code. The Store Code can be obtained from Market Pay.
 
