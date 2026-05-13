@@ -1,7 +1,16 @@
+import hmac
 import json
+import logging
+import secrets
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError, AccessDenied, UserError
 from ..client.marketpay import MarketPay
+
+_logger = logging.getLogger(__name__)
+
+
+def _generate_marketpay_notification_secret():
+    return secrets.token_urlsafe(32)
 
 
 class PosPaymentMethod(models.Model):
@@ -58,6 +67,18 @@ class PosPaymentMethod(models.Model):
         groups="base.group_erp_manager",
     )
 
+    marketpay_notification_secret = fields.Char(
+        string="Notification Secret",
+        copy=False,
+        groups="base.group_erp_manager",
+        default=lambda self: _generate_marketpay_notification_secret(),
+        help=(
+            "Secret token embedded in the notification URL sent to Market Pay. "
+            "Incoming notifications must include this exact value or they are "
+            "rejected. It is generated automatically and should be kept secret."
+        ),
+    )
+
     @api.constrains("marketpay_terminal_identifier")
     def _check_marketpay_terminal_identifier(self):
         for rec in self:
@@ -87,7 +108,16 @@ class PosPaymentMethod(models.Model):
                 )
 
     def _is_write_forbidden(self, fields):
-        return super()._is_write_forbidden(fields - {"latest_marketpay_notification"})
+        # `latest_marketpay_notification` is updated by the webhook controller
+        # whenever a notification arrives, so it must always be writable.
+        # `marketpay_notification_secret` is rotated by admins on demand
+        # (typically in response to a suspected leak); requiring all POS
+        # sessions to be closed first would defeat the point of an emergency
+        # rotation, so we whitelist it too.
+        return super()._is_write_forbidden(fields - {
+            "latest_marketpay_notification",
+            "marketpay_notification_secret",
+        })
 
     def get_latest_marketpay_message(self):
         self.ensure_one()
@@ -106,6 +136,57 @@ class PosPaymentMethod(models.Model):
         if not self.env.su and not self.env.user.has_group('point_of_sale.group_pos_user'):
             raise AccessDenied()
 
+    def _ensure_marketpay_notification_secret(self):
+        self.ensure_one()
+        self_sudo = self.sudo()
+        if not self_sudo.marketpay_notification_secret:
+            self_sudo.marketpay_notification_secret = _generate_marketpay_notification_secret()
+        return self_sudo.marketpay_notification_secret
+
+    def _build_marketpay_notification_url(self, transaction_id):
+        self.ensure_one()
+        self_sudo = self.sudo()
+        base_url = self_sudo.env["ir.config_parameter"].get_param("web.base.url").rstrip("/")
+        secret = self._ensure_marketpay_notification_secret()
+        return (
+            f"{base_url}/pos_marketpay/notification"
+            f"/{self_sudo.marketpay_terminal_identifier}/{secret}/{transaction_id}"
+        )
+
+    def _verify_marketpay_notification_secret(self, candidate):
+        self.ensure_one()
+        expected = self.sudo().marketpay_notification_secret or ""
+        if not expected or not candidate:
+            return False
+        return hmac.compare_digest(expected, candidate)
+
+    def regenerate_marketpay_notification_secret(self):
+        self.ensure_one()
+        # Writing through the ORM (without sudo) so the field's `groups`
+        # restriction enforces manager-only access.
+        self.marketpay_notification_secret = _generate_marketpay_notification_secret()
+        _logger.info(
+            "Market Pay notification secret regenerated for payment method %s (id=%s) by user %s (id=%s).",
+            self.display_name,
+            self.id,
+            self.env.user.login,
+            self.env.user.id,
+        )
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "type": "warning",
+                "sticky": False,
+                "title": _("Notification secret regenerated"),
+                "message": _(
+                    "Any Market Pay transaction already in flight will have its "
+                    "notification rejected. New transactions will use the new "
+                    "secret automatically."
+                ),
+            },
+        }
+
     def marketpay_request_process_transaction(self, values):
         self.ensure_one()
         self.prevalidate_marketpay_request()
@@ -122,8 +203,8 @@ class PosPaymentMethod(models.Model):
         if not is_refund and amount <= 0:
             raise ValidationError(_("Amount must be positive."))
 
-        base_url = self_sudo.env["ir.config_parameter"].get_param("web.base.url").rstrip("/")
         transaction_id = values["ecrTransactionId"]
+        notification_url = self._build_marketpay_notification_url(transaction_id)
 
         payload = {
             "ecrTransactionId": transaction_id,
@@ -132,7 +213,7 @@ class PosPaymentMethod(models.Model):
             "currency": values["currency"],
             "transactionReference": values["transactionReference"],
             "ecrParams": {
-                "notificationUrl": f"{base_url}/pos_marketpay/notification/{self_sudo.marketpay_terminal_identifier}/{transaction_id}",
+                "notificationUrl": notification_url,
                 "ecrId": values["ecrId"],
                 "printerAvailable": self_sudo.marketpay_printer_available,
                 "operatorLanguage": self_sudo.marketpay_terminal_lang_code,
@@ -152,8 +233,8 @@ class PosPaymentMethod(models.Model):
 
         self_sudo = self.sudo()
 
-        base_url = self_sudo.env["ir.config_parameter"].get_param("web.base.url").rstrip("/")
         transaction_id = values["ecrTransactionId"]
+        notification_url = self._build_marketpay_notification_url(transaction_id)
 
         payload = {
             "terminalTransactionId": values["terminalTransactionId"],
@@ -163,7 +244,7 @@ class PosPaymentMethod(models.Model):
             "currency": values["currency"],
             "ecrParams": {
                 "ecrId": values["ecrId"],
-                "notificationUrl": f"{base_url}/pos_marketpay/notification/{self_sudo.marketpay_terminal_identifier}/{transaction_id}",
+                "notificationUrl": notification_url,
                 "printerAvailable": self_sudo.marketpay_printer_available,
                 "operatorLanguage": self_sudo.marketpay_terminal_lang_code,
             }

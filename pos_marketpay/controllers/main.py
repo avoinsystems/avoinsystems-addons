@@ -2,14 +2,22 @@ import json
 import logging
 from odoo import http
 from odoo.http import request
+from werkzeug.exceptions import Forbidden
 
 _logger = logging.getLogger(__name__)
 
 
 class PosMarketpayController(http.Controller):
 
-    @http.route("/pos_marketpay/notification/<string:terminal_id>/<string:transaction_id>", type="http", methods=["POST"], auth="public", csrf=False, save_session=False)
-    def notification(self, terminal_id, transaction_id):
+    @http.route(
+        "/pos_marketpay/notification/<string:terminal_id>/<string:secret>/<string:transaction_id>",
+        type="http",
+        methods=["POST"],
+        auth="public",
+        csrf=False,
+        save_session=False,
+    )
+    def notification(self, terminal_id, secret, transaction_id):
         message = json.loads(request.httprequest.data)
 
         _logger.info(
@@ -27,6 +35,19 @@ class PosMarketpayController(http.Controller):
         if not marketpay_pm_sudo:
             _logger.warning("Received a Market Pay event notification for a terminal not registered in Odoo: %s", terminal_id)
             return
+
+        # Validate the pre-shared secret embedded in the notification URL.
+        # The URL is generated server-side and handed to Market Pay with each
+        # transaction request, so a valid secret proves the caller received
+        # that URL from us. Constant-time comparison avoids leaking the
+        # secret via response timing.
+        if not marketpay_pm_sudo._verify_marketpay_notification_secret(secret):
+            _logger.warning(
+                "Rejected Market Pay notification with invalid secret for terminal %s (transaction %s).",
+                terminal_id,
+                transaction_id,
+            )
+            raise Forbidden()
 
         received_data = {
             "message": message,
