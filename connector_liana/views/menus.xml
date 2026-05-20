@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu for Liana App -->
+    <menuitem
+        id="liana_menu_root"
+        name="Liana"
+        web_icon="connector_liana,static/description/icon.png"
+        action="action_liana_dashboard"
+        sequence="100"
+    />
+
+    <!-- Dashboard (visible to all users, default child) -->
+    <menuitem
+        id="liana_menu_dashboard"
+        name="Dashboard"
+        parent="liana_menu_root"
+        action="action_liana_dashboard"
+        sequence="1"
+    />
+
+    <!-- Configuration Menu (admin-only) -->
+    <menuitem
+        id="liana_menu_configuration"
+        name="Configuration"
+        parent="liana_menu_root"
+        sequence="20"
+        groups="base.group_system"
+    />
+
+    <!-- Menu item for Liana Event (admin-only) -->
+    <menuitem
+        id="liana_menu_events"
+        name="Events"
+        parent="liana_menu_configuration"
+        action="action_liana_event"
+        sequence="10"
+        groups="base.group_system"
+    />
+
+    <!-- Menu item for Liana Automations -->
+    <menuitem
+        id="liana_menu_automations"
+        name="Automations"
+        parent="liana_menu_configuration"
+        action="action_liana_automation"
+        sequence="20"
+    />
+
+    <!-- Liana Backends Menu Item -->
+    <menuitem
+        id="liana_menu_backends"
+        name="Backends"
+        parent="liana_menu_configuration"
+        action="liana_backend_action"
+        sequence="30"
+    />
+</odoo>

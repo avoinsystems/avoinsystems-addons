@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View for liana.backend -->
+    <record id="liana_backend_form" model="ir.ui.view">
+        <field name="name">Liana Backend Form</field>
+        <field name="model">liana.backend</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Backend Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Liana Automation Configuration">
+                            <field name="liana_automation_realm"/>
+                            <field name="liana_automation_user"/>
+                            <field name="liana_automation_secret" password="True"/>
+                            <field name="liana_automation_address"/>
+                            <button
+                                    name="test_automation_connection"
+                                    type="object"
+                                    string="Test Automation Connection"
+                                    class="oe_highlight"
+                            />
+                        </group>
+                        <group>
+                            <label for="liana_channel_id"/>
+                            <div class="o_row">
+                                <field name="liana_channel_id"
+                                       nolabel="1"/>
+                                <button name="action_fetch_liana_channels"
+                                        type="object"
+                                        string="Get Channels"
+                                        icon="fa-refresh"
+                                        class="btn-link"/>
+                            </div>
+                            <label for="liana_channel_id" string="Default Automations"/>
+                            <div>
+                                <button name="action_install_default_automations"
+                                        type="object"
+                                        string="Install default automations"
+                                        icon="fa-magic"
+                                        class="btn-link"
+                                        invisible="not liana_channel_id"
+                                        help="Activate the shipped 'Export lead on stage change' and 'Export sale order on state change' rules, using this backend and its default channel."/>
+                                <span invisible="liana_channel_id"
+                                      class="text-muted">
+                                    Pick a default channel above to enable.
+                                </span>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- List View for liana.backend -->
+    <record id="liana_backend_list" model="ir.ui.view">
+        <field name="name">Liana Backend List</field>
+        <field name="model">liana.backend</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="liana_automation_address"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Search View for liana.backend -->
+    <record id="liana_backend_search" model="ir.ui.view">
+        <field name="name">Liana Backend Search</field>
+        <field name="model">liana.backend</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Backend Name"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action for liana.backend -->
+    <record id="liana_backend_action" model="ir.actions.act_window">
+        <field name="name">Liana Backends</field>
+        <field name="res_model">liana.backend</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>
+

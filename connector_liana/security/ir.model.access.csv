@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+liana_backend_rule_manager,Liana Backend Manager Access,model_liana_backend,base.group_system,1,1,1,1
+liana_event_rule_manager,Liana Event Manager Access,model_liana_event,base.group_system,1,1,1,1
+liana_channel_rule_manager,Liana Channel Manager Access,model_liana_channel,base.group_system,1,1,1,1
+liana_event_item_rule_manager,Liana Event Item Manager Access,model_liana_event_item,base.group_system,1,1,1,1
+liana_event_report_rule_user,Liana Event Report Read,model_liana_event_report,base.group_user,1,0,0,0
+liana_event_report_rule_manager,Liana Event Report Manager,model_liana_event_report,base.group_system,1,0,0,0
