@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_server_action_form_liana" model="ir.ui.view">
+        <field name="name">ir.actions.server.form.liana</field>
+        <field name="model">ir.actions.server</field>
+        <field name="inherit_id" ref="base.view_server_action_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[field[@name='state' and @widget='selection_badge_with_filter']]"
+                   position="attributes">
+                <attribute name="invisible">context.get('is_liana_automation')</attribute>
+            </xpath>
+            <xpath expr="//group[@invisible=&quot;state != 'webhook'&quot;]" position="after">
+                <group invisible="state != 'liana'">
+                    <group>
+                        <field name="liana_backend_id"
+                               options="{'no_create': True}"
+                               help="Leave empty when there is exactly one backend in the database."/>
+                        <field name="liana_channel_id"
+                                   required="state == 'liana'"
+                        />
+                        <field name="liana_no_duplicates"/>
+                        <field name="liana_event_verb"
+                               required="state == 'liana'"
+                               placeholder="e.g. order, subscribe"/>
+                        <field name="liana_identity_field_id"
+                               options="{'no_create': True, 'no_open': True}"
+                               context="{'hide_model': 1}"
+                               placeholder="Pick a partner/lead field..."/>
+                    </group>
+                    <group>
+                        <label for="liana_sample_payload"/>
+                        <field name="liana_sample_payload"
+                               nolabel="1"
+                               colspan="2"
+                               readonly="1"
+                               widget="code"
+                               options="{'mode': 'javascript'}"/>
+                    </group>
+                </group>
+                <group invisible="state != 'liana'"
+                       string="Event Items">
+                    <field name="liana_event_item_ids"
+                           colspan="2"
+                           nolabel="1">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="model_id" column_invisible="1"/>
+                            <field name="field_ttype" column_invisible="1"/>
+                            <field name="field_relation" column_invisible="1"/>
+                            <field name="field_id"
+                                   domain="[('model_id', '=', parent.model_id)]"
+                                   context="{'hide_model': 1}"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="subfield_id"
+                                   domain="[('model', '=', field_relation)]"
+                                   context="{'hide_model': 1}"
+                                   options="{'no_create': True, 'no_open': True}"
+                                   invisible="field_ttype not in ('many2one', 'one2many', 'many2many')"
+                                   required="field_ttype in ('many2one', 'one2many', 'many2many')"/>
+                            <field name="key"/>
+                        </list>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_server_action_kanban_liana" model="ir.ui.view">
+        <field name="name">ir.actions.server.kanban.liana</field>
+        <field name="model">ir.actions.server</field>
+        <field name="inherit_id" ref="base.view_server_action_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//control" position="replace">
+                <control>
+                    <create string="Add an action"
+                            invisible="context.get('is_liana_automation')"/>
+                    <create string="Add Liana action"
+                            context="{'default_state': 'liana'}"
+                            invisible="not context.get('is_liana_automation') or parent.liana_action_server_count"/>
+                </control>
+            </xpath>
+        </field>
+    </record>
+</odoo>
