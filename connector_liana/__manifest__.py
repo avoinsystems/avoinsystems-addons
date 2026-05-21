@@ -23,6 +23,9 @@
         "views/menus.xml",
         "data/default_automations.xml",
     ],
+    "images": [
+        "static/description/banner.png",
+    ],
     "application": True,
     "installable": True,
     "auto_install": False  # Don't install when all dependencies are satisfied
