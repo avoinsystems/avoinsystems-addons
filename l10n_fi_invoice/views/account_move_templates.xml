@@ -217,6 +217,12 @@
                                             <span t-field="o.invoice_date"/>
                                         </td>
                                     </tr>
+                                    <tr t-if="o.taxable_supply_date and o.show_taxable_supply_date">
+                                        <td>Taxable Supply</td>
+                                        <td>
+                                            <span t-field="o.taxable_supply_date"/>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td>
                                             <span>Date due</span>
@@ -255,6 +261,8 @@
                         </div>
                     </div>
                     <div class="padding-correction" style="min-height: 13.70cm;">
+                        <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
+                        <t t-set="display_taxes" t-value="any(l.tax_ids for l in o.invoice_line_ids)"/>
                         <table class="table table-condensed products-table">
                             <thead>
                                 <tr>
@@ -263,8 +271,8 @@
                                     </strong></th>
                                     <th><strong>Quantity</strong></th>
                                     <th class="text-right"><strong>Unit Price</strong></th>
-                                    <th class="text-right"><strong>Discount (%)</strong></th>
-                                    <th class="text-right"><strong>Taxes</strong></th>
+                                    <th class="text-right" t-if="display_discount"><strong>Discount (%)</strong></th>
+                                    <th class="text-right" t-if="display_taxes"><strong>Taxes</strong></th>
                                     <th class="text-right totals-col"><strong>Amount</strong></th>
                                 </tr>
                             </thead>
@@ -281,14 +289,15 @@
                                         <td class="text-right">
                                             <span t-field="l.price_unit" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
                                         </td>
-                                        <td class="text-right">
+                                        <td class="text-right" t-if="display_discount">
                                             <span t-field="l.discount" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
                                         </td>
-                                        <td class="text-right">
+                                        <td class="text-right" t-if="display_taxes">
                                             <span t-esc="', '.join(map(lambda x: x.name, l.tax_ids))" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="l.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
+                                            <span t-if="l.display_type != 'line_note' and l.display_type != 'line_section' and o.company_price_include == 'tax_included'" t-field="l.price_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                            <span t-if="l.display_type != 'line_note' and l.display_type != 'line_section' and o.company_price_include != 'tax_included'" t-field="l.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
                                         </td>
                                 </tr>
                             </tbody>
@@ -297,25 +306,42 @@
                         <div class="row">
                             <div class="col-sm-7 col-md-5 ml-auto">
                                 <table class="table table-condensed products-table-totals">
-                                    <tr>
-                                        <td>Total Without Taxes</td>
-                                        <td class="text-right totals-col">
-                                            <span t-field="o.amount_untaxed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Taxes</td>
-                                        <td class="text-right totals-col">
-                                            <span t-field="o.amount_tax" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-size:18px;"><strong>Total</strong></td>
-                                        <td class="text-right totals-col">
-                                            <span style="font-size:18px;" t-field="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
-                                        </td>
-                                    </tr>
+
+                                    <!-- Tax totals summary (invoice currency), shared with the standard invoice PDF -->
+                                    <t t-if="o.tax_totals" t-call="account.document_tax_totals">
+                                        <t t-set="tax_totals" t-value="o.tax_totals"/>
+                                        <t t-set="currency" t-value="o.currency_id"/>
+                                    </t>
+
+                                    <!--Payments-->
+                                    <t t-if="print_with_payments and o.payment_state != 'invoicing_legacy'">
+                                        <t t-set="payments_vals" t-value="o.sudo().invoice_payments_widget and o.sudo().invoice_payments_widget['content'] or []"/>
+                                        <t t-foreach="payments_vals" t-as="payment_vals">
+                                            <tr t-if="payment_vals['is_exchange'] == 0">
+                                                <td>
+                                                    <i class="oe_form_field text-right oe_payment_label">
+                                                        <t t-if="payment_vals['is_refund']">Reversed on </t>
+                                                        <t t-else="">Paid on </t>
+                                                        <t t-out="payment_vals['date']" t-options='{"widget": "date"}'/>
+                                                    </i>
+                                                </td>
+                                                <td class="text-right totals-col">
+                                                    <span t-out="payment_vals['amount']" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <tr t-if="len(payments_vals) > 0">
+                                            <td><strong>Amount Due</strong></td>
+                                            <td class="text-right totals-col">
+                                                <span t-field="o.amount_residual"/>
+                                            </td>
+                                        </tr>
+                                    </t>
                                 </table>
+                                <p class="text-right" t-if="o.company_id.display_invoice_amount_total_words">
+                                    Total amount in words: <br/>
+                                    <small class="text-muted"><span t-field="o.amount_total_words"/></small>
+                                </p>
                             </div>
                         </div>
 
@@ -349,15 +375,40 @@
                                                 </td>
                                             </tr>
                                         </t>
-                                        <tr t-if="o.fiscal_position_id.note">
-                                            <td>
-                                                <span t-field="o.fiscal_position_id.note"/>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                    </div>
+                    <div id="payment_term" class="payment-terms" style="margin-bottom: 1em;">
+                        <p t-if="not is_html_empty(o.fiscal_position_id.note)" name="note">
+                            <span t-field="o.fiscal_position_id.note"/>
+                        </p>
+                        <p t-if="not is_html_empty(o.taxes_legal_notes)" name="taxes_legal_notes">
+                            <span t-field="o.taxes_legal_notes"/>
+                        </p>
+                        <t t-set="payment_term_details" t-value="o.payment_term_details"/>
+                        <span id="payment_terms_note_id"
+                              t-if="o.invoice_payment_term_id.note"
+                              t-field="o.invoice_payment_term_id.note"
+                              name="payment_term"/>
+                        <t t-if="o.invoice_payment_term_id.display_on_invoice and payment_term_details and o.show_payment_term_details">
+                            <t t-if="o._is_eligible_for_early_payment_discount(o.currency_id, o.invoice_date)">
+                                <div id="early_payment_discount">
+                                    <span t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                          t-out="o.invoice_payment_term_id._get_amount_due_after_discount(o.amount_total, o.amount_tax)"/> due if paid before
+                                    <span t-out="o.invoice_payment_term_id._get_last_discount_date_formatted(o.invoice_date)"/>
+                                </div>
+                            </t>
+                            <t t-if="len(payment_term_details) > 1" t-foreach="payment_term_details" t-as="term">
+                                <div>
+                                    <span t-out="term_index + 1"/> - Installment of
+                                    <t t-options='{"widget": "monetary", "display_currency": o.currency_id}' t-out="term.get('amount')"/>
+                                    <span> due on </span>
+                                    <t t-out="term.get('date')"/>
+                                </div>
+                            </t>
+                        </t>
                     </div>
                     <div style="margin-bottom: 1em;">
                         <span t-field="o.narration"/>
@@ -449,6 +500,18 @@
                                     <div class="col-2 bank-transfer-label"/>
                                     <div class="col-10">
                                         <!-- BIC used to be here. Now there's space for a QR code. -->
+                                        <t t-set="show_qr" t-value="o.display_qr_code and o.amount_residual"/>
+                                        <t t-if="show_qr">
+                                            <t t-set="qr_code_url" t-value="o._generate_qr_code(silent_errors=True)"/>
+                                            <img t-if="qr_code_url" t-att-src="qr_code_url" style="max-height: 4.5em;"/>
+                                        </t>
+                                        <t t-set="show_link_qr" t-value="o.display_link_qr_code and o.amount_residual"/>
+                                        <t t-if="show_link_qr">
+                                            <t t-set="portal_qr_code" t-value="o._generate_portal_payment_qr()"/>
+                                            <a t-if="portal_qr_code" t-att-href="o._get_portal_payment_link()" target="_blank">
+                                                <img t-att-src="portal_qr_code" style="max-height: 4.5em;"/>
+                                            </a>
+                                        </t>
                                     </div>
                                 </div>
                                 <div class="row border-bottom">
@@ -511,6 +574,9 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t t-set="lang" t-value="o.user_id.lang if o.move_type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                <!-- Mirror account.report_invoice_with_payments so the Finnish layout
+                     can render payments + Amount Due like the standard invoice PDF. -->
+                <t t-set="print_with_payments" t-value="True"/>
                 <t t-call="l10n_fi_invoice.report_invoice_finnish_document" t-lang="lang"/>
             </t>
         </t>
