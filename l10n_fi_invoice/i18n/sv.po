@@ -103,6 +103,11 @@ msgid "Finnish Invoice"
 msgstr "Finska faktura"
 
 #. module: l10n_fi_invoice
+#: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.res_config_settings_view_form
+msgid "Finnish invoice layout"
+msgstr "Finsk fakturalayout"
+
+#. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "From account No."
 msgstr "Från konto nr"
@@ -177,6 +182,15 @@ msgid "Reference No."
 msgstr "Ref.nr"
 
 #. module: l10n_fi_invoice
+#: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.res_config_settings_view_form
+msgid ""
+"Replace the standard invoice PDF with the Finnish invoice report for this "
+"company"
+msgstr ""
+"Ersätt standardfakturans PDF med den finska fakturarapporten för detta "
+"företag"
+
+#. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "Credit note"
 msgstr "Kreditnota"
@@ -216,6 +230,12 @@ msgid "Unit Price"
 msgstr "Enhetspris"
 
 #. module: l10n_fi_invoice
+#: model:ir.model.fields,field_description:l10n_fi_invoice.field_res_company__l10n_fi_invoice_set_default
+#: model:ir.model.fields,field_description:l10n_fi_invoice.field_res_config_settings__l10n_fi_invoice_set_default
+msgid "Use Finnish invoice layout as default invoice PDF"
+msgstr "Använd finsk fakturalayout som standard faktura-PDF"
+
+#. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "VAT:"
 msgstr "MOMS:"
@@ -224,6 +244,18 @@ msgstr "MOMS:"
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_layout_footer_finnish
 msgid "Website:"
 msgstr "Hemsida:"
+
+#. module: l10n_fi_invoice
+#: model:ir.model.fields,help:l10n_fi_invoice.field_res_company__l10n_fi_invoice_set_default
+#: model:ir.model.fields,help:l10n_fi_invoice.field_res_config_settings__l10n_fi_invoice_set_default
+msgid ""
+"When enabled, the standard invoice PDF "
+"(account.report_invoice_with_payments) is replaced by the Finnish invoice "
+"report for this company."
+msgstr ""
+"När detta är aktiverat ersätts standardfakturans PDF "
+"(account.report_invoice_with_payments) med den finska fakturarapporten för "
+"detta företag."
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document

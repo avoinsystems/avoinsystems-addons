@@ -516,6 +516,10 @@
         </t>
     </template>
 
+    <!-- NOTE: When a company enables `l10n_fi_invoice_set_default`, the standard
+         invoice PDF (account.report_invoice_with_payments) is routed to this
+         report by IrActionsReport._render_qweb_pdf_prepare_streams in
+         models/ir_actions_report.py. -->
     <record id="report_invoice_finnish" model="ir.actions.report">
         <field name="name">Finnish Invoice</field>
         <field name="model">account.move</field>
