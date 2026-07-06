@@ -172,9 +172,12 @@
                                     <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 2.1cm; max-width: 4cm;"/>
                                 </div>
                                 <div class="col-4" style="font-size: .85em; float: none; display: inline-block; vertical-align: middle;">
-                                    <div t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                                    <div t-field="o.company_id.partner_id"
+                                         t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"
+                                    />
                                 </div>
-                                <div class="col-5 text-left" style="font-weight: bold; font-size: large; float: none; display: inline-block; vertical-align: bottom; width: auto; padding-left: 14px;">
+                                <div class="col-5 text-left"
+                                     style="font-weight: bold; font-size: large; float: none; display: inline-block; vertical-align: bottom; width: auto; padding-left: 14px;">
                                     <span t-if="o.move_type == 'in_refund'">Credit note</span>
                                     <span t-if="o.move_type == 'out_refund'">Credit note</span>
                                     <span t-if="o.move_type == 'in_invoice'">Invoice</span>
@@ -187,7 +190,9 @@
                         <!-- Min height reduced to make invoice fit on one page. Original height was 8.68cm" -->
                         <div class="row">
                             <div class="col-6 offset-1" style="margin-top: 3em; margin-bottom: 4em; font-size:1.1em;">
-                                <address t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                                <address t-field="o.partner_id"
+                                         t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"
+                                />
                                 <span t-if="o.partner_id.vat">VAT:
                                     <span t-field="o.partner_id.vat"/>
                                 </span>
@@ -284,7 +289,10 @@
                                     </td>
                                         <td>
                                             <span t-field="l.quantity" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
-                                            <span t-field="l.product_uom_id" groups="uom.group_uom" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
+                                            <span t-field="l.product_uom_id"
+                                                  groups="uom.group_uom"
+                                                  t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"
+                                            />
                                         </td>
                                         <td class="text-right">
                                             <span t-field="l.price_unit" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
@@ -296,8 +304,14 @@
                                             <span t-esc="', '.join(map(lambda x: x.name, l.tax_ids))" t-if="l.display_type != 'line_note' and l.display_type != 'line_section'"/>
                                         </td>
                                         <td class="text-right">
-                                            <span t-if="l.display_type != 'line_note' and l.display_type != 'line_section' and o.company_price_include == 'tax_included'" t-field="l.price_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
-                                            <span t-if="l.display_type != 'line_note' and l.display_type != 'line_section' and o.company_price_include != 'tax_included'" t-field="l.price_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                            <span t-if="l.display_type != 'line_note' and l.display_type != 'line_section' and o.company_price_include == 'tax_included'"
+                                                  t-field="l.price_total"
+                                                  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
+                                            />
+                                            <span t-if="l.display_type != 'line_note' and l.display_type != 'line_section' and o.company_price_include != 'tax_included'"
+                                                  t-field="l.price_subtotal"
+                                                  t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
+                                            />
                                         </td>
                                 </tr>
                             </tbody>
@@ -417,7 +431,9 @@
                     <div class="bank-transfer-wrap last-page" style="page-break-inside: avoid;">
                         <div class="row padding-correction" style="margin-bottom: 1em; font-size: .8em;">
                             <div class="col-4">
-                                <div t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                                <div t-field="o.company_id.partner_id"
+                                     t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"
+                                />
                             </div>
                             <div class="col-4">
                                 <div>
@@ -462,7 +478,10 @@
                                         </div>
                                     </div>
                                     <div class="col-10 border-left" id="company-info" style="height: 4.5em">
-                                        <div t-field="o.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;], &quot;no_marker&quot;: true}" style="font-size: .8em;"/>
+                                        <div t-field="o.company_id.partner_id"
+                                             t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;], &quot;no_marker&quot;: true}"
+                                             style="font-size: .8em;"
+                                        />
                                     </div>
                                 </div>
                                 <div class="row row-eq-height">
@@ -472,7 +491,10 @@
                                         </div>
                                     </div>
                                     <div class="col-10" id="payer-info" style="height: 6em;">
-                                        <div t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}" style="font-size: .8em;"/>
+                                        <div t-field="o.partner_id"
+                                             t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"
+                                             style="font-size: .8em;"
+                                        />
                                     </div>
                                 </div>
                                 <div class="row row-eq-height border-bottom small-row">
@@ -553,7 +575,9 @@
                         <div class="row">
                             <div class="col-9" style="text-align: center;">
                                 <t t-if="o.bank_barcode">
-                                    <img style="margin-left: 2cm; margin-right: 2cm; margin-top: .2cm; width:600px; height:60px;" t-att-src="'/report/barcode/Code128/' + o.bank_barcode" />
+                                    <img style="margin-left: 2cm; margin-right: 2cm; margin-top: .2cm; width:600px; height:60px;"
+                                         t-att-src="'/report/barcode/Code128/' + o.bank_barcode"
+                                    />
                                     <div class="barcode-values">
                                         <t t-esc="o.bank_barcode"/>
                                     </div>
