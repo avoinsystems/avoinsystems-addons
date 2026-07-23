@@ -147,6 +147,10 @@ export class PaymentMarketpay extends PaymentInterface {
             amountInCents: data.amount,
         });
 
+        // Frontend-only debug field (logging); stripped by the backend before
+        // the Market Pay API payload is built.
+        data["requestInitTimestamp"] = new Date().toISOString();
+
         this._callMarketpay(data, method).then((response) => {
             mpLog("initial transaction response", {
                 method,

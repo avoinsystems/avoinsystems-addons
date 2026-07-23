@@ -230,6 +230,9 @@ class PosPaymentMethod(models.Model):
         self.ensure_one()
         self.prevalidate_marketpay_request()
 
+        # Frontend-only debug field (logging); not part of the Market Pay API payload.
+        values.pop("requestInitTimestamp", None)
+
         self_sudo = self.sudo()
 
         is_refund = values["is_refund"]
@@ -272,6 +275,9 @@ class PosPaymentMethod(models.Model):
     def marketpay_request_cancel_transaction(self, values):
         self.ensure_one()
         self.prevalidate_marketpay_request()
+
+        # Frontend-only debug field (logging); not part of the Market Pay API payload.
+        values.pop("requestInitTimestamp", None)
 
         self_sudo = self.sudo()
 
