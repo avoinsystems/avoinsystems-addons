@@ -4,7 +4,12 @@ import logging
 import secrets
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError, AccessDenied, UserError
-from ..client.marketpay import MarketPay
+from ..client.marketpay import (
+    MARKETPAY_WAIT_TIME_DEFAULT,
+    MARKETPAY_WAIT_TIME_MAX,
+    MARKETPAY_WAIT_TIME_MIN,
+    MarketPay,
+)
 
 _logger = logging.getLogger(__name__)
 
@@ -193,6 +198,34 @@ class PosPaymentMethod(models.Model):
             },
         }
 
+    def _get_marketpay_wait_time(self):
+        """Return process-transaction `waitTime` (seconds) from system parameters.
+
+        Market Pay ECR API accepts `waitTime` in the range
+        MARKETPAY_WAIT_TIME_MIN..MARKETPAY_WAIT_TIME_MAX.
+        """
+        raw = self.env["ir.config_parameter"].sudo().get_param(
+            "pos_marketpay.wait_time", str(MARKETPAY_WAIT_TIME_DEFAULT)
+        )
+        try:
+            wait_time = int(raw)
+        except (TypeError, ValueError):
+            _logger.warning(
+                "Invalid pos_marketpay.wait_time=%r; falling back to %s.",
+                raw, MARKETPAY_WAIT_TIME_DEFAULT,
+            )
+            return MARKETPAY_WAIT_TIME_DEFAULT
+        if not MARKETPAY_WAIT_TIME_MIN <= wait_time <= MARKETPAY_WAIT_TIME_MAX:
+            _logger.warning(
+                "pos_marketpay.wait_time=%s is outside API range (%s..%s); falling back to %s.",
+                wait_time,
+                MARKETPAY_WAIT_TIME_MIN,
+                MARKETPAY_WAIT_TIME_MAX,
+                MARKETPAY_WAIT_TIME_DEFAULT,
+            )
+            return MARKETPAY_WAIT_TIME_DEFAULT
+        return wait_time
+
     def marketpay_request_process_transaction(self, values):
         self.ensure_one()
         self.prevalidate_marketpay_request()
@@ -231,7 +264,10 @@ class PosPaymentMethod(models.Model):
             "merchantOption": "",
         }
 
-        return MarketPay(self_sudo).process_transaction(payload)
+        return MarketPay(self_sudo).process_transaction(
+            payload,
+            wait_time=self._get_marketpay_wait_time(),
+        )
 
     def marketpay_request_cancel_transaction(self, values):
         self.ensure_one()
@@ -256,7 +292,10 @@ class PosPaymentMethod(models.Model):
             }
         }
 
-        return MarketPay(self_sudo).cancel_transaction(payload)
+        return MarketPay(self_sudo).cancel_transaction(
+            payload,
+            wait_time=self._get_marketpay_wait_time(),
+        )
 
     def marketpay_request_abort_transaction(self, values):
         self.ensure_one()

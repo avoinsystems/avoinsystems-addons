@@ -16,6 +16,12 @@ MARKETPAY_ENV_HOST_MAP = {
 
 MARKETPAY_TIMEOUT = 310 # Market Pay timeout is 300s
 
+# Bounds for the `waitTime` query parameter of the process-transaction endpoint.
+# Values outside this range are rejected by Market Pay with HTTP 400.
+MARKETPAY_WAIT_TIME_MIN = 1
+MARKETPAY_WAIT_TIME_MAX = 300
+MARKETPAY_WAIT_TIME_DEFAULT = 20
+
 
 class MarketPay():
 
@@ -199,11 +205,35 @@ class MarketPay():
     def get(self, endpoint, **kwargs):
         return self._request("GET", endpoint, None, **kwargs)
 
-    def process_transaction(self, data):
-        return self.post(f"/process-transaction/{self.terminal_id}", data, timeout=MARKETPAY_TIMEOUT)
+    @staticmethod
+    def _check_wait_time(wait_time):
+        # Validated here as a safety net; direct callers must not bypass the
+        # Market Pay API bounds.
+        if not MARKETPAY_WAIT_TIME_MIN <= wait_time <= MARKETPAY_WAIT_TIME_MAX:
+            raise ValueError(
+                "Market Pay waitTime must be between %s and %s, got %r."
+                % (MARKETPAY_WAIT_TIME_MIN, MARKETPAY_WAIT_TIME_MAX, wait_time)
+            )
 
-    def cancel_transaction(self, data):
-        return self.post(f"/cancel-transaction/{self.terminal_id}", data, timeout=MARKETPAY_TIMEOUT)
+    def process_transaction(self, data, wait_time=MARKETPAY_WAIT_TIME_DEFAULT):
+        # `waitTime` is the ECR API query param: how long Market Pay holds the
+        # HTTP request before answering 202 and finishing via notification.
+        self._check_wait_time(wait_time)
+        return self.post(
+            f"/process-transaction/{self.terminal_id}",
+            data,
+            params={"waitTime": wait_time},
+            timeout=MARKETPAY_TIMEOUT,
+        )
+
+    def cancel_transaction(self, data, wait_time=MARKETPAY_WAIT_TIME_DEFAULT):
+        self._check_wait_time(wait_time)
+        return self.post(
+            f"/cancel-transaction/{self.terminal_id}",
+            data,
+            params={"waitTime": wait_time},
+            timeout=MARKETPAY_TIMEOUT,
+        )
 
     def abort_transaction(self):
         return self.post(f"/abort-transaction/{self.terminal_id}", {})
