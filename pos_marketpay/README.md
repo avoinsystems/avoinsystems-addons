@@ -63,6 +63,25 @@ Rotations are recorded in the Odoo server log (the entry includes which payment 
 
 ---
 
+## `waitTime` system parameter (`pos_marketpay.wait_time`)
+
+The Market Pay Cloud API `process-transaction` and `cancel-transaction` endpoints accept a `waitTime` query parameter (in seconds). It controls **how long the Market Pay Cloud holds the HTTP request open** before responding with `202 Accepted` and continuing the transaction asynchronously via the notification callback. If the payment finishes on the terminal within `waitTime`, the client gets the final result inline; if not, Market Pay returns `202` and the final outcome arrives later on the callback URL described in the **Notification Secret** section.
+
+This value is configured through the system parameter `pos_marketpay.wait_time` (default **`20`**, allowed range **`1..300`**). It is created automatically by the module (`data/ir_config_parameter.xml`) and can be edited under **Settings → Technical → Parameters → System Parameters**.
+
+**Important — impact on Odoo workers in multi-terminal / multi-threaded environments:**
+
+While an ECR call is in flight, the Odoo HTTP worker handling the POS request is **blocked** for up to `waitTime` seconds waiting for Market Pay to reply. Odoo has a **fixed pool of HTTP workers** (`--workers` / `--limit-request`), so a high `waitTime` combined with several payment terminals can quickly exhaust the pool:
+
+- With, say, 4 HTTP workers and 4 cashiers each starting a card payment at the same time, **all workers can be occupied waiting on Market Pay** for up to `waitTime` seconds. During that window, other Odoo requests (POS UI, backend, other webhooks, even the Market Pay notification callback itself) will queue up or time out.
+- The effect scales with the number of concurrently active terminals — the more terminals, the more likely worker starvation becomes.
+- Setting `waitTime` **too low** (e.g. `1..5`) causes Market Pay to return `202` almost immediately for every transaction, which is safe for workers but means the POS almost always has to wait for the asynchronous notification callback to learn the outcome, so the cashier-visible latency does not really improve.
+- Setting `waitTime` **too high** (e.g. close to the maximum of `300`) keeps workers tied up for long periods even when nothing is happening on the terminal (e.g. the customer walked away), which is what causes the delays described above.
+
+**Recommendation:** keep the default of **`20`** seconds unless you have a specific reason to change it. If you do raise it, make sure the Odoo HTTP worker count is scaled accordingly (roughly: at least as many workers as concurrently active terminals, plus headroom for the notification callback and normal traffic). If you lower it, remember that the module still relies on the notification callback being reachable — see the **Important Callback URL Requirement** section above.
+
+---
+
 ## What must an Odoo partner do when they need to enable the Market Pay integration for their customer?
 
 1. The Odoo partner contacts **Market Pay** via [https://market-pay.com/en/contact](https://market-pay.com/en/contact) to request the Market Pay module for Odoo (currently supported versions are **17** and **19**). Module access and distribution follow Market Pay’s process.

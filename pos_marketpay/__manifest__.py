@@ -1,7 +1,7 @@
 {
     "name": "PoS - Market Pay",
     "summary": "Market Pay payment connector — elevate Odoo POS with integrated European-grade terminals",
-    "version": "17.0.1.1.0",
+    "version": "17.0.1.1.1",
     "license": "Other proprietary",
     "author": "Avoin.Systems",
     "category": "Sales/Point of Sale",
@@ -11,6 +11,7 @@
         "point_of_sale",
     ],
     "data": [
+        "data/ir_config_parameter.xml",
         "views/pos_payment_method.xml",
         "views/res_currency.xml",
     ],
