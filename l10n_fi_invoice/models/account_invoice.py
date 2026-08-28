@@ -21,10 +21,14 @@
 from odoo import models, fields, api
 # noinspection PyProtectedMember
 from odoo.tools.translate import _
+from odoo.tools import float_round
 import re
 import logging
 
 log = logging.getLogger(__name__)
+
+# Barcode version 4 reserves six digits for euros and two for cents.
+MAX_BARCODE_AMOUNT_CENTS = 10 ** 8
 
 
 class AccountInvoice(models.Model):
@@ -45,6 +49,21 @@ class AccountInvoice(models.Model):
             replace(' ', '-').replace(',', '').replace('--', '-')
         return filename
 
+    @api.model
+    def _format_barcode_amount(self, amount):
+        """Encode a monetary amount as the eight digit euro and cent segment
+        of the bank barcode.
+
+        Returns False for amounts that do not fit the fixed width segment,
+        as an out of range amount would silently shift every field after it.
+        """
+        cents = int(float_round(amount * 100, precision_digits=0))
+
+        if not 0 <= cents < MAX_BARCODE_AMOUNT_CENTS:
+            return False
+
+        return str(cents).zfill(8)
+
     @api.multi
     def _compute_barcode_string(self):
         for invoice in self:
@@ -53,17 +72,17 @@ class AccountInvoice(models.Model):
                 displayed_bank_accounts and displayed_bank_accounts[0]
             if (invoice.amount_total and primary_bank_account.acc_number
                     and invoice.ref_number and invoice.date_due):
-                amount_total_string = str(invoice.amount_total)
-                if amount_total_string[-2:-1] == '.':
-                    amount_total_string += '0'
-                amount_total_string = amount_total_string.zfill(9)
+                amount_string = self._format_barcode_amount(
+                    invoice.amount_total)
+                if not amount_string:
+                    invoice.barcode_string = False
+                    continue
                 receiver_bank_account = re\
                     .sub("[^0-9]", "", str(primary_bank_account.acc_number))
                 ref_number_filled = invoice.ref_number.zfill(20)
                 invoice.barcode_string = '4' \
                                       + receiver_bank_account \
-                                      + amount_total_string[:-3] \
-                                      + amount_total_string[-2:] \
+                                      + amount_string \
                                       + "000" + ref_number_filled \
                                       + invoice.date_due.strftime('%y%m%d')
             else:
