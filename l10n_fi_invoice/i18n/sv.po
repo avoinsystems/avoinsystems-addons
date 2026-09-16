@@ -25,12 +25,18 @@ msgstr "&amp;bull;"
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "<span class=\"bank-transfer-label\">Euro</span>"
-msgstr "<span class=“bank-transfer-label”>Euro</span>"
+msgstr "<span class=\"bank-transfer-label\">Euro</span>"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "<span class=\"offset-2\">Description</span>"
-msgstr "<span class=“offset-2”>Beskrivning</span>"
+msgid ""
+"<strong>\n"
+"                                        <span class=\"offset-2\">Description</span>\n"
+"                                    </strong>"
+msgstr ""
+"<strong>\n"
+"                                        <span class=\"offset-2\">Beskrivning</span>\n"
+"                                    </strong>"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
@@ -54,13 +60,13 @@ msgstr "<strong>Totalt</strong>"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Amount"
-msgstr "Belopp"
+msgid "<strong>Amount</strong>"
+msgstr "<strong>Belopp</strong>"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Base"
-msgstr "Bas"
+msgid "<strong>Base</strong>"
+msgstr "<strong>Bas</strong>"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
@@ -84,8 +90,8 @@ msgstr "Betalare"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Discount (%)"
-msgstr "Rabatt (%)"
+msgid "<strong>Discount (%)</strong>"
+msgstr "<strong>Rabatt (%)</strong>"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
@@ -159,8 +165,8 @@ msgstr "Telefon:"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Quantity"
-msgstr "Antal"
+msgid "<strong>Quantity</strong>"
+msgstr "<strong>Antal</strong>"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
@@ -202,13 +208,13 @@ msgstr "Underskrift"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Tax"
-msgstr "Skatt"
+msgid "<strong>Tax</strong>"
+msgstr "<strong>Skatt</strong>"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Taxes"
-msgstr "Skatter"
+msgid "<strong>Taxes</strong>"
+msgstr "<strong>Skatter</strong>"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
@@ -226,8 +232,8 @@ msgstr "Totalt Utan Skatt"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
-msgid "Unit Price"
-msgstr "Enhetspris"
+msgid "<strong>Unit Price</strong>"
+msgstr "<strong>Enhetspris</strong>"
 
 #. module: l10n_fi_invoice
 #: model:ir.model.fields,field_description:l10n_fi_invoice.field_res_company__l10n_fi_invoice_set_default
