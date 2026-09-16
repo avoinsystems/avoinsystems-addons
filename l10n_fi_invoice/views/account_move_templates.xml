@@ -124,9 +124,23 @@
                         min-height: 2.5em;
                         }
 
+                        /* Fixed column widths reserve room for a 50 character
+                           customer reference, and break-word keeps a long value
+                           inside the table instead of over the invoice lines */
+                        .invoice-info {
+                        width: 100%;
+                        table-layout: fixed;
+                        }
+
                         .invoice-info tr td {
                         padding-left: 1em;
                         padding-right: 1em;
+                        word-wrap: break-word;
+                        overflow-wrap: break-word;
+                        }
+
+                        .invoice-info tr td:first-child {
+                        width: 40%;
                         }
 
                         address span[itemprop=name] {
@@ -208,7 +222,7 @@
                                 <span id="partner_business_id"/>
                             </div>
                             <div class="col-5">
-                                <table class="invoice-info" style="line-height: 1.5em; position:relative; top: 0.5em;">
+                                <table class="invoice-info" style="line-height: 1.5em; margin-top: 0.5em;">
                                     <tr>
                                         <td>
                                             <span>Invoice number</span>
