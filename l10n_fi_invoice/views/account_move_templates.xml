@@ -84,7 +84,14 @@
                         font-size: 9px;
                         text-align: right;
                         line-height: 10px;
-                        padding: 3px;
+                        padding: 3px 6px 3px 3px;
+                        }
+
+                        /* Keep transfer form values clear of the cell borders */
+                        .bank-transfer-wrap .border-left,
+                        .bank-transfer-wrap #payer-info,
+                        .bank-transfer-wrap #invoice-number {
+                        padding-left: 10px;
                         }
 
                         .bank-transfer-value {
@@ -107,12 +114,14 @@
                         border-bottom: 2px solid black;
                         }
 
+                        /* Transfer form cells grow with their content so long
+                           addresses and references stay inside their borders */
                         .medium-row &gt; div {
-                        height: 4.9em;
+                        min-height: 4.9em;
                         }
 
                         .small-row &gt; div {
-                        height: 2.5em;
+                        min-height: 2.5em;
                         }
 
                         .invoice-info tr td {
@@ -477,7 +486,7 @@
                                             Recipient
                                         </div>
                                     </div>
-                                    <div class="col-10 border-left" id="company-info" style="height: 4.5em">
+                                    <div class="col-10 border-left" id="company-info" style="min-height: 4.5em">
                                         <div t-field="o.company_id.partner_id"
                                              t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;], &quot;no_marker&quot;: true}"
                                              style="font-size: .8em;"
@@ -490,7 +499,7 @@
                                             Debtor
                                         </div>
                                     </div>
-                                    <div class="col-10" id="payer-info" style="height: 6em;">
+                                    <div class="col-10" id="payer-info" style="min-height: 6em;">
                                         <div t-field="o.partner_id"
                                              t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"
                                              style="font-size: .8em;"
@@ -537,7 +546,7 @@
                                     </div>
                                 </div>
                                 <div class="row border-bottom">
-                                    <div class="col-12" style="height: 10.5em;">
+                                    <div class="col-12" id="invoice-number" style="min-height: 10.5em;">
                                         Invoice number
                                         <t t-esc="o.name"/>
                                     </div>
