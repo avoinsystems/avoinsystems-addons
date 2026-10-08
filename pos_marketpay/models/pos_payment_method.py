@@ -226,6 +226,13 @@ class PosPaymentMethod(models.Model):
             return MARKETPAY_WAIT_TIME_DEFAULT
         return wait_time
 
+    def _get_marketpay_client(self):
+        # You can use this method to override the marketpay client
+        # with a mock client for development purposes if you don't have
+        # a certificate and a terminal at hand, or for tests.
+        self.ensure_one()
+        return MarketPay(self)
+
     def marketpay_request_process_transaction(self, values):
         self.ensure_one()
         self.prevalidate_marketpay_request()
@@ -264,7 +271,7 @@ class PosPaymentMethod(models.Model):
             "merchantOption": "",
         }
 
-        return MarketPay(self_sudo).process_transaction(
+        return self_sudo._get_marketpay_client().process_transaction(
             payload,
             wait_time=self._get_marketpay_wait_time(),
         )
@@ -292,7 +299,7 @@ class PosPaymentMethod(models.Model):
             }
         }
 
-        return MarketPay(self_sudo).cancel_transaction(
+        return self_sudo._get_marketpay_client().cancel_transaction(
             payload,
             wait_time=self._get_marketpay_wait_time(),
         )
@@ -303,7 +310,14 @@ class PosPaymentMethod(models.Model):
 
         self_sudo = self.sudo()
 
-        return MarketPay(self_sudo).abort_transaction()
+        # The abort endpoint only acknowledges the request (Market Pay replies
+        # with HTTP 204); it does NOT report whether the transaction was actually
+        # cancelled. The authoritative result is delivered through the pending
+        # process-transaction response and the completion notification, which the
+        # POS frontend waits on. So we just forward the request result here.
+        result = self_sudo._get_marketpay_client().abort_transaction()
+        _logger.info("Market Pay abort transaction response: %s", result)
+        return result
 
     def get_regitered_terminals_from_marketpay(self):
         self.ensure_one()
@@ -311,7 +325,7 @@ class PosPaymentMethod(models.Model):
         if not self.marketpay_store_code:
             raise UserError(_("Store Code is required to fetch registered terminals."))
 
-        terminals = MarketPay(self).get("/terminals", params={
+        terminals = self._get_marketpay_client().get("/terminals", params={
             "storeCode": self.marketpay_store_code,
             "ecrId": 1, # currently required, but inactive option
         })
@@ -320,7 +334,7 @@ class PosPaymentMethod(models.Model):
 
     def test_certificate_access(self):
         self.ensure_one()
-        MarketPay(self)
+        self._get_marketpay_client()
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
