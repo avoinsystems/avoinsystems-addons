@@ -6,7 +6,7 @@ import { register_payment_method } from "@point_of_sale/app/services/pos_store";
 // Must stay in sync with MARKETPAY_ABORT_TIMEOUT in client/marketpay.py (30s)
 // plus a short buffer. One deadline for the whole Back spinner: the abort
 // request and the pending payment resolution share it, so they cannot stack.
-const MARKETPAY_ABORT_WAIT_MS = 35000;
+export const MARKETPAY_ABORT_WAIT_MS = 35000;
 
 // Centralized logger for Market Pay flow. Easy to grep in DevTools as "[MarketPay]".
 // Only emits when Odoo debug mode is enabled (standard or assets).
