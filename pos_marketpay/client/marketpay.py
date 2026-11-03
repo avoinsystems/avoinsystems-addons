@@ -22,6 +22,11 @@ MARKETPAY_WAIT_TIME_MIN = 1
 MARKETPAY_WAIT_TIME_MAX = 300
 MARKETPAY_WAIT_TIME_DEFAULT = 20
 
+# An abort is meant to be a quick request; cap it so a hung call cannot leave
+# the POS spinner blocking the UI forever. The POS abort wait
+# (MARKETPAY_ABORT_WAIT_MS in payment_marketpay.js) is this value plus a buffer.
+MARKETPAY_ABORT_TIMEOUT = 30
+
 
 class MarketPay():
 
@@ -42,6 +47,12 @@ class MarketPay():
             ))
         self.terminal_id = pos_payment_method.marketpay_terminal_identifier
 
+        self._validate_credentials(pos_payment_method)
+
+    def _validate_credentials(self, pos_payment_method):
+        # You can use this method to override the certificate
+        # validation for development purposes if you don't have
+        # a certificate and a terminal at hand, or for tests.
         if not pos_payment_method.marketpay_path_to_certificate:
             raise UserError(_(
                 "The path to the Market Pay certificate is not configured. "
@@ -156,6 +167,13 @@ class MarketPay():
                 except json.decoder.JSONDecodeError:
                     return res
 
+            # Abort acknowledges with HTTP 204 and an empty body.
+            elif res.status_code == 204:
+                return {
+                    "status": "OK",
+                    "debug": "204 received. Success without content.",
+                }
+
             elif res.status_code == 202:
                 res = {
                     "status": "NEUTRAL",
@@ -230,8 +248,8 @@ class MarketPay():
         )
 
     def abort_transaction(self):
-        self.post(f"/abort-transaction/{self.terminal_id}", {})
-
-        return {
-            "status": "OK",
-        }
+        return self.post(
+            f"/abort-transaction/{self.terminal_id}",
+            {},
+            timeout=MARKETPAY_ABORT_TIMEOUT,
+        )
