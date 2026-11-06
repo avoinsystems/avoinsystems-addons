@@ -79,7 +79,7 @@ msgstr "<strong>Summa</strong>"
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
 msgid "<strong>Base</strong>"
-msgstr "<strong>Perusta</strong>"
+msgstr "<strong>Veroton summa</strong>"
 
 #. module: l10n_fi_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_fi_invoice.report_invoice_finnish_document
