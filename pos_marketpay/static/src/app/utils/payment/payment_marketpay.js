@@ -1,9 +1,16 @@
 /** @odoo-module */
 
+import { browser } from "@web/core/browser/browser";
 import { _t } from "@web/core/l10n/translation";
 import { PaymentInterface } from "@point_of_sale/app/payment/payment_interface";
 import { AlertDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { register_payment_method } from "@point_of_sale/app/store/pos_store";
+
+// Must stay in sync with MARKETPAY_ABORT_TIMEOUT in client/marketpay.py (30s)
+// plus a short buffer. One deadline for the whole Back spinner: the abort
+// request and the pending payment resolution share it, so they cannot stack.
+// Exported so the QUnit suite can advance this same deadline.
+export const MARKETPAY_ABORT_WAIT_MS = 35000;
 
 export class PaymentMarketpay extends PaymentInterface {
     setup() {
@@ -11,6 +18,9 @@ export class PaymentMarketpay extends PaymentInterface {
 
         this.supports_reversals = true;
         this.marketpayPaymentLineResolvers = {};
+        // The same pending payment send_payment_request is waiting on, keyed by
+        // the line cid that the payment screen passes to send_payment_cancel.
+        this.marketpayPaymentLinePromises = {};
     }
 
     send_payment_request(uid) {
@@ -23,9 +33,9 @@ export class PaymentMarketpay extends PaymentInterface {
         return this._marketpayPaymentRequest("marketpay_request_cancel_transaction");
     }
 
-    send_payment_cancel(order, uid) {
-        super.send_payment_cancel(order, uid);
-        return this._marketpayAbort(uid);
+    send_payment_cancel(order, cid) {
+        super.send_payment_cancel(order, cid);
+        return this._marketpayAbort(cid);
     }
 
     pendingMarketpayLine() {
@@ -104,7 +114,7 @@ export class PaymentMarketpay extends PaymentInterface {
                 this.saveResponseValues(line, response);
 
                 line.set_payment_status("retry");
-                this.resolvePaymentFalse(line.uid);
+                this.resolvePaymentFalse(line.cid);
 
                 if (response.message) {
                     this._showError(response.message);
@@ -125,35 +135,98 @@ export class PaymentMarketpay extends PaymentInterface {
         return promise;
     }
 
-    _marketpayAbort(uid) {
-        this.resolvePaymentFalse(uid);
+    // Asks the terminal to cancel the running transaction.
+    //
+    // Market Pay only acknowledges the abort (HTTP 204); it does NOT report
+    // whether the card was already approved. The authoritative result is the
+    // pending process-transaction response / completion notification. The abort
+    // request and that pending resolution share one MARKETPAY_ABORT_WAIT_MS
+    // deadline, so a hung abort (up to MARKETPAY_ABORT_TIMEOUT) plus a missing
+    // notification cannot stack into a longer spinner.
+    //
+    // Returns:
+    //   true  — transaction was cancelled
+    //   false — it completed anyway
+    //   null  — wait timed out; the pending promise is still live
+    async _marketpayAbort(cid) {
+        let timeoutId;
+        const timedOut = {};
+        // Started before the abort request. The same promise is raced again
+        // below, so time spent on the abort call counts against the pending wait.
+        // `browser.setTimeout` so the QUnit clock mock can fire this deadline.
+        const deadline = new Promise((resolve) => {
+            timeoutId = browser.setTimeout(() => resolve(timedOut), MARKETPAY_ABORT_WAIT_MS);
+        });
 
-        return this._callMarketpay({}, "marketpay_request_abort_transaction").then((data) => {
-            if (data.status !== "OK") {
-                this._showError(
-                    _t("Payment cancellation failed. If the transaction is still active, please cancel it manually on the payment terminal.")
-                );
+        const reportTimeout = () => {
+            // Do NOT resolvePaymentFalse: a late OK would then be treated as a
+            // cancelled payment and can clobber a successful charge.
+            this._showError(
+                _t(
+                    "Payment cancellation failed. If the transaction is still active, please cancel it manually on the payment terminal."
+                )
+            );
+            return null;
+        };
+
+        // Let a genuine ORM/connection failure propagate (it is handled by
+        // _handleOdooConnectionFailure) so the caller keeps the line and stays put.
+        // The catch is only for a rejection that arrives after this race has
+        // already timed out; otherwise it would be an unhandled rejection.
+        const abortCall = this._callMarketpay({}, "marketpay_request_abort_transaction").then(
+            () => true
+        );
+        abortCall.catch(() => {});
+
+        try {
+            const abortSettled = await Promise.race([abortCall, deadline]);
+            if (abortSettled === timedOut) {
+                return reportTimeout();
             }
 
-            return Promise.resolve(true);
-        });
+            const pending = this.marketpayPaymentLinePromises
+                ? this.marketpayPaymentLinePromises[cid]
+                : null;
+
+            if (!pending) {
+                // The payment already resolved (e.g. while the confirmation dialog was
+                // open); there is nothing left to wait for.
+                return true;
+            }
+
+            const result = await Promise.race([
+                pending.then((succeeded) => ({ succeeded })),
+                deadline,
+            ]);
+
+            if (result === timedOut) {
+                return reportTimeout();
+            }
+
+            return !result.succeeded;
+        } finally {
+            browser.clearTimeout(timeoutId);
+        }
     }
 
     waitForPaymentConfirmation() {
         const line = this.pendingMarketpayLine();
 
-        return new Promise((resolve) => {
-            this.marketpayPaymentLineResolvers[line.uid] = resolve;
+        const promise = new Promise((resolve) => {
+            this.marketpayPaymentLineResolvers[line.cid] = resolve;
         });
+        this.marketpayPaymentLinePromises[line.cid] = promise;
+        return promise;
     }
 
-    resolvePaymentFalse(uid) {
-        const resolver = this.marketpayPaymentLineResolvers ? this.marketpayPaymentLineResolvers[uid] : false;
+    resolvePaymentFalse(cid) {
+        const resolver = this.marketpayPaymentLineResolvers ? this.marketpayPaymentLineResolvers[cid] : false;
         if (resolver) {
             resolver(false);
         }
 
-        delete this.marketpayPaymentLineResolvers[uid];
+        delete this.marketpayPaymentLineResolvers[cid];
+        delete this.marketpayPaymentLinePromises[cid];
     }
 
     resolvePaymentTrue() {
@@ -163,12 +236,13 @@ export class PaymentMarketpay extends PaymentInterface {
             return;
         }
 
-        const resolver = this.marketpayPaymentLineResolvers ? this.marketpayPaymentLineResolvers[line.uid] : false;
+        const resolver = this.marketpayPaymentLineResolvers ? this.marketpayPaymentLineResolvers[line.cid] : false;
         if (resolver) {
             resolver(true);
         }
 
-        delete this.marketpayPaymentLineResolvers[line.uid];
+        delete this.marketpayPaymentLineResolvers[line.cid];
+        delete this.marketpayPaymentLinePromises[line.cid];
     }
 
     async handleMarketpayStatusResponse() {
@@ -220,7 +294,7 @@ export class PaymentMarketpay extends PaymentInterface {
                     this.handleSuccessResponse(line, notification.message);
                 } else {
                     line.set_payment_status("retry");
-                    this.resolvePaymentFalse(line.uid);
+                    this.resolvePaymentFalse(line.cid);
                 }
                 break;
         }
