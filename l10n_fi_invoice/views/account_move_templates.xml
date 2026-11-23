@@ -58,6 +58,12 @@
             <t t-call="l10n_fi_invoice.report_layout_finnish">
                 <t t-set="o" t-value="o.with_context(lang=lang)"/>
                 <div class="page">
+                    <!-- wkhtmltopdf turns this heading into a PDF outline entry,
+                         which lets Odoo split a batch print into its invoices
+                         when an invoice takes more than one page. A hidden or
+                         clipped heading gets no entry, so it is moved off the
+                         page instead. -->
+                    <h2 t-out="o.display_name" style="position: absolute; left: -9999px; margin: 0;"/>
                     <!-- Custom CSS for reports is not trivial, see here:
                         https://github.com/odoo/odoo/issues/4359
                         Easier to just insert inline, since we aren't changing multiple reports -->
