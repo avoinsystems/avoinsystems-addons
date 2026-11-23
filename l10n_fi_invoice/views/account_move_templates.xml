@@ -63,129 +63,129 @@
                         Easier to just insert inline, since we aren't changing multiple reports -->
                     <style type="text/css">
                         .padding-correction {
-                        padding-right: 15px;
-                        padding-left: 15px;
+                          padding-right: 15px;
+                          padding-left: 15px;
                         }
 
                         hr {
-                        border-top: 2px solid #eee;
-                        margin-left: -15px;
-                        margin-right: -15px;
-                        margin-top: 10px;
-                        margin-bottom: 10px;
+                          border-top: 2px solid #eee;
+                          margin-left: -15px;
+                          margin-right: -15px;
+                          margin-top: 10px;
+                          margin-bottom: 10px;
                         }
 
                         .bank-transfer-wrap .row .row &gt; div {
-                        padding-top: 5px;
-                        padding-bottom: 5px;
+                          padding-top: 5px;
+                          padding-bottom: 5px;
                         }
 
                         .bank-transfer-label {
-                        font-size: 9px;
-                        text-align: right;
-                        line-height: 10px;
-                        padding: 3px 6px 3px 3px;
+                          font-size: 9px;
+                          text-align: right;
+                          line-height: 10px;
+                          padding: 3px 6px 3px 3px;
                         }
 
                         /* Keep transfer form values clear of the cell borders */
                         .bank-transfer-wrap .border-left,
                         .bank-transfer-wrap #payer-info,
                         .bank-transfer-wrap #invoice-number {
-                        padding-left: 10px;
+                          padding-left: 10px;
                         }
 
                         .bank-transfer-value {
-                        line-height: 1.7em;
+                          line-height: 1.7em;
                         }
 
                         .text-left {
-                        text-align: left;
+                          text-align: left;
                         }
 
                         .border-right {
-                        border-right: 2px solid black;
+                          border-right: 2px solid black;
                         }
 
                         .border-left {
-                        border-left: 2px solid black;
+                          border-left: 2px solid black;
                         }
 
                         .border-bottom {
-                        border-bottom: 2px solid black;
+                          border-bottom: 2px solid black;
                         }
 
                         /* Transfer form cells grow with their content so long
                            addresses and references stay inside their borders */
                         .medium-row &gt; div {
-                        min-height: 4.9em;
+                          min-height: 4.9em;
                         }
 
                         .small-row &gt; div {
-                        min-height: 2.5em;
+                          min-height: 2.5em;
                         }
 
                         /* Fixed column widths reserve room for a 50 character
                            customer reference, and break-word keeps a long value
                            inside the table instead of over the invoice lines */
                         .invoice-info {
-                        width: 100%;
-                        table-layout: fixed;
+                          width: 100%;
+                          table-layout: fixed;
                         }
 
                         .invoice-info tr td {
-                        padding-left: 1em;
-                        padding-right: 1em;
-                        word-wrap: break-word;
-                        overflow-wrap: break-word;
+                          padding-left: 1em;
+                          padding-right: 1em;
+                          word-wrap: break-word;
+                          overflow-wrap: break-word;
                         }
 
                         .invoice-info tr td:first-child {
-                        width: 40%;
+                          width: 40%;
                         }
 
                         address span[itemprop=name] {
-                        font-weight: bold;
+                          font-weight: bold;
                         }
 
                         .table-condensed &gt; thead &gt; tr &gt; th {
-                        border-bottom: none;
+                          border-bottom: none;
                         }
 
                         .table &gt; tbody &gt; tr &gt; td {
-                        border-top: none;
+                          border-top: none;
                         }
 
                         table.products-table {
-                        border-bottom: 1px solid #eee;
+                          border-bottom: 1px solid #eee;
                         }
 
                         table.products-table-totals td {
-                        text-align: right;
-                        line-height: .9em !important;
+                          text-align: right;
+                          line-height: .9em !important;
                         }
 
                         .totals-col {
-                        width: 8em;
-                        font-weight: bold;
+                          width: 8em;
+                          font-weight: bold;
                         }
 
                         .line_number {
-                        color: gray;
-                        position: absolute;
+                          color: gray;
+                          position: absolute;
                         }
 
                         .payment-terms {
-                        font-size: .7em;
-                        margin-top: .5em;
-                        line-height: 1em;
+                          font-size: .7em;
+                          margin-top: .5em;
+                          line-height: 1em;
                         }
 
                         .payment-terms p {
-                        margin-bottom: 0;
+                          margin-bottom: 0;
                         }
 
                         .invoice_tbody tr td:last-child, .products-table-totals tr td:last-child, .table-condensed tr td:last-child {
-                        width: 160px;
+                          width: 160px;
                         }
                     </style>
                     <div style="height: 2.62cm; position: relative;">
