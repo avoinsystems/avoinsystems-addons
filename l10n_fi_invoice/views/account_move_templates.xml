@@ -188,6 +188,27 @@
                           width: 160px;
                         }
                     </style>
+                    <!-- IrActionsReport renders the bank transfer form on its own
+                         and overlays it on the bottom of the last page. The invoice
+                         keeps an invisible form with the bottom margin below it,
+                         so wkhtmltopdf starts a new page when the form doesn't fit
+                         after the invoice content. -->
+                    <style t-if="render_bank_transfer_form_placeholder" type="text/css">
+                        .bank-transfer-wrap {
+                          visibility: hidden;
+                          /* Must match BANK_TRANSFER_FORM_BOTTOM_MARGIN in models/ir_actions_report.py */
+                          padding-bottom: 5mm;
+                        }
+                    </style>
+                    <style t-if="render_bank_transfer_form_only" type="text/css">
+                        div.page &gt; :not(.bank-transfer-wrap) {
+                          display: none;
+                        }
+
+                        .bank-transfer-wrap {
+                          position: relative;
+                        }
+                    </style>
                     <div style="height: 2.62cm; position: relative;">
                         <div class="padding-correction" style="position: absolute; width: 100%; bottom: 0;">
                             <div>
@@ -288,7 +309,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="padding-correction" style="min-height: 13.70cm;">
+                    <div class="padding-correction">
                         <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
                         <t t-set="display_taxes" t-value="any(l.tax_ids for l in o.invoice_line_ids)"/>
                         <table class="table table-condensed products-table">
@@ -450,8 +471,8 @@
                     <div style="margin-bottom: 1em;">
                         <span t-field="o.narration"/>
                     </div>
-                    <hr/>
                     <div class="bank-transfer-wrap last-page" style="page-break-inside: avoid;">
+                        <hr/>
                         <div class="row padding-correction" style="margin-bottom: 1em; font-size: .8em;">
                             <div class="col-4">
                                 <div t-field="o.company_id.partner_id"
@@ -612,6 +633,12 @@
                                 </p>
                             </div>
                         </div>
+                        <!-- wkhtmltopdf turns this link into a link annotation,
+                             which tells IrActionsReport where the bottom edge of
+                             the form is on the page -->
+                        <a t-if="render_bank_transfer_form_only"
+                           href="https://bank-transfer-form-anchor.invalid/"
+                           style="position: absolute; left: 0; bottom: 0; display: block; width: 1px; height: 1px;"/>
                     </div>
                 </div>
             </t>
@@ -624,6 +651,7 @@
                 <!-- Mirror account.report_invoice_with_payments so the Finnish layout
                      can render payments + Amount Due like the standard invoice PDF. -->
                 <t t-set="print_with_payments" t-value="True"/>
+                <t t-set="render_bank_transfer_form_placeholder" t-value="report_type == 'pdf' and not render_bank_transfer_form_only"/>
                 <t t-call="l10n_fi_invoice.report_invoice_finnish_document" t-lang="lang"/>
             </t>
         </t>
