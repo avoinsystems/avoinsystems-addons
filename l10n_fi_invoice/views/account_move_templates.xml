@@ -58,134 +58,161 @@
             <t t-call="l10n_fi_invoice.report_layout_finnish">
                 <t t-set="o" t-value="o.with_context(lang=lang)"/>
                 <div class="page">
+                    <!-- wkhtmltopdf turns this heading into a PDF outline entry,
+                         which lets Odoo split a batch print into its invoices
+                         when an invoice takes more than one page. A hidden or
+                         clipped heading gets no entry, so it is moved off the
+                         page instead. -->
+                    <h2 t-out="o.display_name" style="position: absolute; left: -9999px; margin: 0;"/>
                     <!-- Custom CSS for reports is not trivial, see here:
                         https://github.com/odoo/odoo/issues/4359
                         Easier to just insert inline, since we aren't changing multiple reports -->
                     <style type="text/css">
                         .padding-correction {
-                        padding-right: 15px;
-                        padding-left: 15px;
+                          padding-right: 15px;
+                          padding-left: 15px;
                         }
 
                         hr {
-                        border-top: 2px solid #eee;
-                        margin-left: -15px;
-                        margin-right: -15px;
-                        margin-top: 10px;
-                        margin-bottom: 10px;
+                          border-top: 2px solid #eee;
+                          margin-left: -15px;
+                          margin-right: -15px;
+                          margin-top: 10px;
+                          margin-bottom: 10px;
                         }
 
                         .bank-transfer-wrap .row .row &gt; div {
-                        padding-top: 5px;
-                        padding-bottom: 5px;
+                          padding-top: 5px;
+                          padding-bottom: 5px;
                         }
 
                         .bank-transfer-label {
-                        font-size: 9px;
-                        text-align: right;
-                        line-height: 10px;
-                        padding: 3px 6px 3px 3px;
+                          font-size: 9px;
+                          text-align: right;
+                          line-height: 10px;
+                          padding: 3px 6px 3px 3px;
                         }
 
                         /* Keep transfer form values clear of the cell borders */
                         .bank-transfer-wrap .border-left,
                         .bank-transfer-wrap #payer-info,
                         .bank-transfer-wrap #invoice-number {
-                        padding-left: 10px;
+                          padding-left: 10px;
                         }
 
                         .bank-transfer-value {
-                        line-height: 1.7em;
+                          line-height: 1.7em;
                         }
 
                         .text-left {
-                        text-align: left;
+                          text-align: left;
                         }
 
                         .border-right {
-                        border-right: 2px solid black;
+                          border-right: 2px solid black;
                         }
 
                         .border-left {
-                        border-left: 2px solid black;
+                          border-left: 2px solid black;
                         }
 
                         .border-bottom {
-                        border-bottom: 2px solid black;
+                          border-bottom: 2px solid black;
                         }
 
                         /* Transfer form cells grow with their content so long
                            addresses and references stay inside their borders */
                         .medium-row &gt; div {
-                        min-height: 4.9em;
+                          min-height: 4.9em;
                         }
 
                         .small-row &gt; div {
-                        min-height: 2.5em;
+                          min-height: 2.5em;
                         }
 
                         /* Fixed column widths reserve room for a 50 character
                            customer reference, and break-word keeps a long value
                            inside the table instead of over the invoice lines */
                         .invoice-info {
-                        width: 100%;
-                        table-layout: fixed;
+                          width: 100%;
+                          table-layout: fixed;
                         }
 
                         .invoice-info tr td {
-                        padding-left: 1em;
-                        padding-right: 1em;
-                        word-wrap: break-word;
-                        overflow-wrap: break-word;
+                          padding-left: 1em;
+                          padding-right: 1em;
+                          word-wrap: break-word;
+                          overflow-wrap: break-word;
                         }
 
                         .invoice-info tr td:first-child {
-                        width: 40%;
+                          width: 40%;
                         }
 
                         address span[itemprop=name] {
-                        font-weight: bold;
+                          font-weight: bold;
                         }
 
                         .table-condensed &gt; thead &gt; tr &gt; th {
-                        border-bottom: none;
+                          border-bottom: none;
                         }
 
                         .table &gt; tbody &gt; tr &gt; td {
-                        border-top: none;
+                          border-top: none;
                         }
 
                         table.products-table {
-                        border-bottom: 1px solid #eee;
+                          border-bottom: 1px solid #eee;
                         }
 
                         table.products-table-totals td {
-                        text-align: right;
-                        line-height: .9em !important;
+                          text-align: right;
+                          line-height: .9em !important;
                         }
 
                         .totals-col {
-                        width: 8em;
-                        font-weight: bold;
+                          width: 8em;
+                          font-weight: bold;
                         }
 
                         .line_number {
-                        color: gray;
-                        position: absolute;
+                          color: gray;
+                          position: absolute;
                         }
 
                         .payment-terms {
-                        font-size: .7em;
-                        margin-top: .5em;
-                        line-height: 1em;
+                          font-size: .7em;
+                          margin-top: .5em;
+                          line-height: 1em;
                         }
 
                         .payment-terms p {
-                        margin-bottom: 0;
+                          margin-bottom: 0;
                         }
 
                         .invoice_tbody tr td:last-child, .products-table-totals tr td:last-child, .table-condensed tr td:last-child {
-                        width: 160px;
+                          width: 160px;
+                        }
+                    </style>
+                    <!-- IrActionsReport renders the bank transfer form on its own
+                         and overlays it on the bottom of the last page. The invoice
+                         keeps an invisible form with the bottom margin below it,
+                         so wkhtmltopdf starts a new page when the form doesn't fit
+                         after the invoice content. -->
+                    <style t-if="render_bank_transfer_form_placeholder" type="text/css">
+                        .bank-transfer-wrap {
+                          visibility: hidden;
+                          /* Must match BANK_TRANSFER_FORM_BOTTOM_MARGIN in models/ir_actions_report.py */
+                          padding-bottom: 5mm;
+                        }
+                    </style>
+                    <style t-if="render_bank_transfer_form_only" type="text/css">
+                        div.page &gt; :not(.bank-transfer-wrap) {
+                          display: none;
+                        }
+
+                        .bank-transfer-wrap {
+                          position: relative;
                         }
                     </style>
                     <div style="height: 2.62cm; position: relative;">
@@ -288,7 +315,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="padding-correction" style="min-height: 13.70cm;">
+                    <div class="padding-correction">
                         <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
                         <t t-set="display_taxes" t-value="any(l.tax_ids for l in o.invoice_line_ids)"/>
                         <table class="table table-condensed products-table">
@@ -450,8 +477,8 @@
                     <div style="margin-bottom: 1em;">
                         <span t-field="o.narration"/>
                     </div>
-                    <hr/>
                     <div class="bank-transfer-wrap last-page" style="page-break-inside: avoid;">
+                        <hr/>
                         <div class="row padding-correction" style="margin-bottom: 1em; font-size: .8em;">
                             <div class="col-4">
                                 <div t-field="o.company_id.partner_id"
@@ -612,6 +639,12 @@
                                 </p>
                             </div>
                         </div>
+                        <!-- wkhtmltopdf turns this link into a link annotation,
+                             which tells IrActionsReport where the bottom edge of
+                             the form is on the page -->
+                        <a t-if="render_bank_transfer_form_only"
+                           href="https://bank-transfer-form-anchor.invalid/"
+                           style="position: absolute; left: 0; bottom: 0; display: block; width: 1px; height: 1px;"/>
                     </div>
                 </div>
             </t>
@@ -624,6 +657,7 @@
                 <!-- Mirror account.report_invoice_with_payments so the Finnish layout
                      can render payments + Amount Due like the standard invoice PDF. -->
                 <t t-set="print_with_payments" t-value="True"/>
+                <t t-set="render_bank_transfer_form_placeholder" t-value="report_type == 'pdf' and not render_bank_transfer_form_only"/>
                 <t t-call="l10n_fi_invoice.report_invoice_finnish_document" t-lang="lang"/>
             </t>
         </t>
